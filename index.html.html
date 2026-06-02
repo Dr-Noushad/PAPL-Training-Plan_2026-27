@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAPL Farmer Training Calendar</title>
+<style>
+body{margin:0;padding:0;font-family:Arial,sans-serif;background:#0d2b0d;color:#222;}
+*{box-sizing:border-box;}
+
+/* HEADER */
+#header{background:#1b4332;padding:14px 12px;text-align:center;border-bottom:4px solid #52b788;}
+#header h1{color:#7dc142;font-size:18px;margin:0 0 2px 0;}
+#header p{color:#95d5b2;font-size:11px;margin:2px 0;letter-spacing:2px;}
+#header h2{color:#fff;font-size:14px;margin:6px 0 2px 0;}
+#header small{color:#95d5b2;font-size:11px;}
+
+/* MONTH BUTTONS */
+#monthBar{background:#0a1a0a;padding:8px;overflow-x:scroll;white-space:nowrap;-webkit-overflow-scrolling:touch;}
+.mBtn{display:inline-block;padding:8px 12px;margin:0 3px;border-radius:8px;border:2px solid transparent;background:rgba(255,255,255,0.1);color:#95d5b2;font-size:12px;cursor:pointer;font-family:Arial,sans-serif;}
+.mBtn.on{color:#fff;font-weight:bold;}
+
+/* CONTENT */
+#main{padding:10px;max-width:680px;margin:0 auto;}
+
+/* HERO */
+#heroBox{border-radius:10px;overflow:hidden;margin-bottom:10px;position:relative;background:#1a3a1a;}
+#heroBox img{width:100%;height:160px;object-fit:cover;display:block;}
+#heroBox .ov{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;}
+#heroBox .ov h3{color:#fff;font-size:20px;margin:0;}
+#heroBox .ov span{color:rgba(255,255,255,.8);font-size:12px;}
+#heroBadge{float:right;background:rgba(255,255,255,.2);color:#fff;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:bold;border:1px solid rgba(255,255,255,.4);}
+
+/* CARDS */
+.card{background:#fff;border-radius:8px;margin-bottom:8px;overflow:hidden;}
+.cardHead{width:100%;padding:12px;border:none;background:#f5f5f5;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:Arial,sans-serif;}
+.cardHead:active{background:#e0e0e0;}
+.tag{display:inline-block;padding:3px 7px;border-radius:5px;color:#fff;font-size:10px;font-weight:bold;white-space:nowrap;}
+.cardTitle{font-size:13px;font-weight:bold;color:#111;flex:1;line-height:1.3;}
+.arrow{font-size:14px;color:#555;margin-left:4px;}
+.cardBody{display:none;padding:8px 12px 12px;}
+.cardBody.show{display:block;}
+.item{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed #e0e0e0;align-items:flex-start;}
+.item:last-child{border-bottom:none;}
+.bullet{width:7px;height:7px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.item p{margin:0;font-size:13px;color:#333;line-height:1.5;}
+
+/* NAV */
+#navRow{display:flex;gap:8px;margin-top:10px;align-items:center;}
+.navBtn{flex:1;padding:13px 6px;background:#1b5e20;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;}
+.navBtn:disabled{background:#444;color:#888;}
+.navBtn:active{background:#2e7d32;}
+#pg{text-align:center;font-size:12px;color:#95d5b2;white-space:nowrap;}
+
+/* FOOTER */
+#foot{text-align:center;padding:14px;color:#52b788;font-size:10px;letter-spacing:2px;}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <h1>Ploughman Agro Pvt. Limited</h1>
+  <p>PAPL &nbsp;&bull;&nbsp; SUSTAINABLE BY DESIGN</p>
+  <h2>&#127807; Farmer Training Calendar</h2>
+  <small>10 Modules &bull; Organic Cotton &bull; Rabi Crops &bull; Farm Diary</small>
+</div>
+
+<div id="monthBar"></div>
+
+<div id="main">
+  <div id="heroBox">
+    <img id="hImg" src="" alt="">
+    <div class="ov">
+      <span id="heroBadge"></span>
+      <h3 id="hMonth"></h3>
+      <span id="hSeason"></span>
+    </div>
+  </div>
+  <div id="cards"></div>
+  <div id="navRow">
+    <button class="navBtn" id="pBtn" onclick="go(cur-1)">&#8592; Prev</button>
+    <div id="pg"></div>
+    <button class="navBtn" id="nBtn" onclick="go(cur+1)">Next &#8594;</button>
+  </div>
+</div>
+
+<div id="foot">PAPL &copy; 2025 &nbsp;&bull;&nbsp; ORGANIC FARMING PROGRAM</div>
+
+<script>
+var months=[
+ {m:"June",s:"Kharif Prep",a:"#2e7d32",bg:"#e8f5e9",b:"Pre-Sowing",e:"🌱",
+  img:"https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&q=70",
+  t:[
+   {h:"Module 1 – Intro to Organic Farming",tg:"M1",c:"#2e7d32",i:["What is organic farming & difference from chemical farming","History and principles of organic farming","Benefits of organic farming","Harmful effects of chemical farming","Sustainable agriculture concept","Importance of organic cotton – value and market demand","Role of farmers in organic farming","Basic concept of organic certification"]},
+   {h:"Module 3 – Soil Health & Land Preparation",tg:"M3",c:"#4e342e",i:["Importance of soil health, microorganisms & earthworms","Soil organic matter","Land preparation: conventional vs minimum tillage","Minimum tillage benefits","Biochar introduction and use","Crop residue management"]},
+   {h:"Module 3 – Soil & Water Conservation",tg:"M3",c:"#4e342e",i:["Farm bunding & drainage management","Mulching & cover crops for soil moisture conservation","Rainwater conservation techniques"]},
+   {h:"Module 10A – Certification Compliance Intro",tg:"M10A",c:"#6a1b9a",i:["Organic standards basics","Internal Control System (ICS) overview","Conversion period & buffer zone concept","Parallel production rules","Farm map and land history documentation"]},
+  ]},
+ {m:"July",s:"Kharif Sowing",a:"#1565c0",bg:"#e3f2fd",b:"Sowing",e:"🌧️",
+  img:"https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=70",
+  t:[
+   {h:"Module 2 – Seed Selection & Treatment",tg:"M2",c:"#1565c0",i:["Selection of non-BT cotton seed","Seed quality and germination testing","Local seed preservation","Organic seed treatment: Trichoderma, Neem & cow urine","Timely sowing & suitable sowing window","Moisture condition during sowing","Proper spacing, seed rate & gap filling","Line sowing methods"]},
+   {h:"Module 4 – Nutrient Management Basics",tg:"M4",c:"#558b2f",i:["Essential plant nutrients","Farm Yard Manure (FYM)","Compost preparation","Vermicompost preparation","NADEP compost method","Jeevamrut & Ghan Jeevamrut preparation","Nutrient recycling basics","Practical preparation of organic inputs"]},
+   {h:"Module 10A – Farm Diary: Sowing Records",tg:"M10A",c:"#6a1b9a",i:["Farmer field diary – purpose and structure","Recording sowing date, variety, seed source","Input purchase entry: source, quantity, cost","Field map & plot details","Traceability system setup","Trainer verification process"]},
+  ]},
+ {m:"August",s:"Kharif Vegetative",a:"#6a1b9a",bg:"#f3e5f5",b:"Vegetative",e:"🌿",
+  img:"https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=70",
+  t:[
+   {h:"Module 5 – Intercropping & Biodiversity",tg:"M5",c:"#006064",i:["Importance of intercropping","Cotton-based intercrop systems","Crop diversification & rotation planning","Nitrogen-fixing intercrops","Cover crops & border crops","Trap crops & integrated flower strips","Pollinator & beneficial insect conservation","Agroforestry basics & ecological balance"]},
+   {h:"Module 6 – Weed Management",tg:"M6",c:"#ad1457",i:["Weed identification and management","Manual and mechanical weeding","Mulching for weed control","Critical weed competition period","Intercultivation timing"]},
+   {h:"Module 6 – IPM & Pest Monitoring",tg:"M6",c:"#ad1457",i:["IPM principles","Major cotton pests & life cycles","Pest monitoring – scouting 10 plants/acre","Economic Threshold Level (ETL)","Cultural pest management","Bird perches, sticky traps, pheromone traps"]},
+   {h:"Module 10A – Crop Monitoring Records",tg:"M10A",c:"#6a1b9a",i:["Recording pest/disease observations","Input application log: spray details, dose, date","Labour entries – family & hired","Input and harvest records"]},
+  ]},
+ {m:"September",s:"Kharif Flowering",a:"#e65100",bg:"#fff3e0",b:"Flowering",e:"🌸",
+  img:"https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=70",
+  t:[
+   {h:"Module 4 – Advanced Nutrient & Foliar Mgmt",tg:"M4",c:"#558b2f",i:["Panchagavya: preparation & spray timing","Green manuring & nitrogen-fixing crops","Biofertilizers: PSB, Azotobacter, Rhizobium","Nutrient deficiency symptoms identification","Boron/micronutrient deficiency & organic remedy","Organic nutrient schedule: flowering to boll setting"]},
+   {h:"Module 6 – Biological & Botanical Pest Control",tg:"M6",c:"#ad1457",i:["Biological pest management: beneficial insects","Neem-based pesticides: neem oil, neem leaf extract","Botanical extracts preparation & use","Cow urine formulations preparation & spray","HNPV spray: preparation, timing, dosage","Safe spray practices"]},
+   {h:"Module 6 – Disease Management",tg:"M6",c:"#ad1457",i:["Major cotton diseases: grey mildew, bacterial blight","Disease prevention and management","Trichoderma-based biocontrol agents","Field hygiene to prevent disease spread"]},
+   {h:"Module 10A – Certification Compliance Check",tg:"M10A",c:"#6a1b9a",i:["Organic standards compliance review","Prohibited inputs list","Residue contamination risks","Internal inspection process","Farmer responsibilities under ICS"]},
+  ]},
+ {m:"October",s:"Kharif Boll Stage",a:"#ad1457",bg:"#fce4ec",b:"Boll Stage",e:"🪴",
+  img:"https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=70",
+  t:[
+   {h:"Module 6 – Boll Stage Pest Management",tg:"M6",c:"#ad1457",i:["Pink bollworm & American bollworm management","Spray scheduling & cut-off before harvest","Bird perches monitoring","Beneficial insects identification"]},
+   {h:"Module 7 – Water & Climate Smart Farming",tg:"M7",c:"#0277bd",i:["Critical irrigation stages for cotton","Water-saving techniques: furrow, drip, sprinkler","Drought management practices","Climate change awareness","Climate-resilient farming practices","Carbon sequestration basics"]},
+   {h:"Module 10A – Farm Diary Mid-Season Review",tg:"M10A",c:"#6a1b9a",i:["Cross-verification of diary entries","Correction of incomplete entries","Calculating input cost so far","Yield forecasting based on boll count","Non-compliance and corrective action"]},
+  ]},
+ {m:"November",s:"Harvest & Rabi Prep",a:"#283593",bg:"#e8eaf6",b:"Harvest",e:"🧺",
+  img:"https://images.unsplash.com/photo-1602170284347-c7e2e4ce6e0c?w=600&q=70",
+  t:[
+   {h:"Module 8 – Harvest & Post-Harvest",tg:"M8",c:"#283593",i:["Proper harvesting stage indicators","Clean cotton picking – no contamination","Separate storage for organic cotton","Storage management & packaging","Transportation precautions","Traceability after harvest","Quality maintenance"]},
+   {h:"Module 8 – Marketing & Farm Economics",tg:"M8",c:"#283593",i:["Organic cotton value chain","Premium pricing concept","Collective marketing","Basic farm economics & cost-benefit"]},
+   {h:"Module 7 – Livestock Integration",tg:"M7",c:"#0277bd",i:["Livestock integration in organic farming","Nutrient recycling through livestock","Controlled grazing","Post-harvest grazing management"]},
+   {h:"Rabi Crop Planning",tg:"Rabi",c:"#795548",i:["Suitable Rabi crops: Wheat, Chickpea, Mustard, Lentil","Crop selection by soil type & water availability","Organic transition plan for Rabi","Input planning: FYM, compost, biofertilizers"]},
+  ]},
+ {m:"December",s:"Rabi Sowing",a:"#006064",bg:"#e0f7fa",b:"Rabi Sowing",e:"🌾",
+  img:"https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=600&q=70",
+  t:[
+   {h:"Rabi Seed & Sowing",tg:"Rabi",c:"#795548",i:["Open-pollinated variety selection","Seed treatment: Trichoderma, Rhizobium for legumes","Line sowing, seed rate per crop","Intercropping: Wheat+Mustard, Chickpea+Linseed"]},
+   {h:"Organic Inputs for Rabi",tg:"Rabi",c:"#795548",i:["Compost & FYM application timing and dose","Biofertilizer: PSB, Azotobacter","Jeevamrut schedule for Rabi crops","Mulching for moisture conservation"]},
+   {h:"Module 9 – Farmer Group Development",tg:"M9",c:"#f57f17",i:["Organic Producer Group (OPG) formation","Lead farmer concept & responsibilities","Farmer meetings & farmer-to-farmer learning","Community monitoring","Village-level planning"]},
+   {h:"Module 10A – Farm Diary: Rabi Start",tg:"M10A",c:"#6a1b9a",i:["Opening new Rabi section in Farm Diary","Sowing records & input entries","Water/irrigation log initiation","Carryover balance from Kharif"]},
+  ]},
+ {m:"January",s:"Rabi Vegetative",a:"#4527a0",bg:"#ede7f6",b:"Vegetative",e:"❄️",
+  img:"https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600&q=70",
+  t:[
+   {h:"Rabi Irrigation & Water Management",tg:"Rabi",c:"#795548",i:["Critical irrigation stages for wheat, chickpea, mustard","Drip irrigation basics","Frost protection measures","Recording irrigation in Farm Diary"]},
+   {h:"Rabi Pest & Disease Management",tg:"Rabi",c:"#795548",i:["Aphid, pod borer, mustard aphid management","Rust and powdery mildew – organic control","Yellow sticky trap for aphid monitoring","Neem oil and garlic-chilli extract spray"]},
+   {h:"Module 10B/C – Child Labour & Women Safety",tg:"M10BC",c:"#c62828",i:["What is child labour & hazardous work for children","School education importance & child protection","Equal participation of women in farming","Respectful workplace behavior & no discrimination","Safety of women workers","Women participation in decision making"]},
+  ]},
+ {m:"February",s:"Rabi Flowering",a:"#558b2f",bg:"#f1f8e9",b:"Flowering",e:"🌼",
+  img:"https://images.unsplash.com/photo-1421789665209-c9b2a435e3dc?w=600&q=70",
+  t:[
+   {h:"Rabi Nutrient Boost – Flowering Stage",tg:"Rabi",c:"#795548",i:["Top dressing: compost tea / Jeevamrut drench","Panchagavya spray for flowering & grain filling","Micronutrient management: Zinc, Sulfur deficiency","Do's and don'ts during flowering stage"]},
+   {h:"Module 10D/E – Labour Rights & Protection",tg:"M10DE",c:"#e65100",i:["Avoid heavy work for pregnant & lactating women","Safe work conditions & rest/healthcare","Timely & equal wages","No bonded labour / no forced labour","Transparent labour payment system"]},
+   {h:"Module 10F – Health & Safety at Farm",tg:"M10F",c:"#2e7d32",i:["Safe use of farm tools","Drinking water availability at work site","First aid awareness","Personal hygiene practices","Shade, rest & heat stress prevention","Safe storage of farm inputs"]},
+   {h:"Module 10A – Farm Diary Compliance Verify",tg:"M10A",c:"#6a1b9a",i:["Verification of all Rabi entries","Internal audit simulation checklist","Total organic inputs calculation","Farmer self-assessment questionnaire"]},
+  ]},
+ {m:"March",s:"Rabi Harvest",a:"#4e342e",bg:"#efebe9",b:"Harvest",e:"🚜",
+  img:"https://images.unsplash.com/photo-1536657464919-892534f60d6e?w=600&q=70",
+  t:[
+   {h:"Rabi Harvesting & Post-Harvest",tg:"Rabi",c:"#795548",i:["Harvest maturity indicators for wheat, chickpea, mustard","Threshing, cleaning & organic storage standards","Seed saving: selection, drying & storage","Avoiding contamination in storage & transport"]},
+   {h:"Module 8 – Yield Recording & Cost-Benefit",tg:"M8",c:"#283593",i:["Yield estimation and actual weighment","Closing Farm Diary: production & sale entries","Cost of cultivation vs. income","Organic premium documentation for certification"]},
+   {h:"Module 10G/H – Inclusion & Grievance",tg:"M10GH",c:"#4527a0",i:["No caste/gender discrimination","Respectful behavior among farmers & workers","Inclusion of small and marginal farmers","Farmer & worker grievance/complaint process","Safe reporting system & conflict resolution"]},
+  ]},
+ {m:"April",s:"Annual Review",a:"#f57f17",bg:"#fff8e1",b:"Review",e:"📋",
+  img:"https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=70",
+  t:[
+   {h:"Module 10A – Annual Audit & Diary Closure",tg:"M10A",c:"#6a1b9a",i:["Complete Farm Diary review","Submission to certification agency","External audit process & findings","Non-compliance and corrective actions","Recognition for good diary-keeping farmers"]},
+   {h:"Module 9 – Trainer Skills & Session Planning",tg:"M9",c:"#f57f17",i:["Communication skills & local language use","Adult learning & demonstration techniques","Visual training methods","Session planning, attendance & reporting","Farmer follow-up & adoption monitoring","Problem-solving support"]},
+   {h:"Season Debrief & Farmer Feedback",tg:"Review",c:"#546e7a",i:["What worked, what didn't – group discussion","Best practices from lead farmers","Training gap analysis for next season","Soil health card review & recommendations"]},
+  ]},
+ {m:"May",s:"Summer Planning",a:"#bf360c",bg:"#fbe9e7",b:"Off-Season",e:"☀️",
+  img:"https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&q=70",
+  t:[
+   {h:"Module 4 – Input Preparation & Stockpiling",tg:"M4",c:"#558b2f",i:["Vermicompost bed setup and management","Compost: windrow / pit method","NADEP compost pit setup","Jeevamrut & Ghan Jeevamrut bulk preparation","On-farm input audit: stock vs. requirement"]},
+   {h:"Module 3 & 7 – Advanced Organic Concepts",tg:"M3/M7",c:"#0277bd",i:["Soil food web: microbes, fungi, earthworms","Regenerative agriculture: cover crops, no-till","Water harvesting: farm pond, bunding","Carbon sequestration basics","Climate-resilient farming practices review"]},
+   {h:"Next Season Planning & Onboarding",tg:"Plan",c:"#37474f",i:["Crop rotation plan for upcoming Kharif","Demo plot planning: location, crop, practices","New farmer onboarding & ICS documentation","Training calendar review and feedback"]},
+  ]},
+];
+
+var cur=0;
+var openState={};
+
+function go(i){
+  if(i<0||i>=months.length)return;
+  cur=i;
+  draw();
+  window.scrollTo(0,0);
+}
+
+function toggleCard(idx){
+  var key=cur+"-"+idx;
+  openState[key]=openState[key]?false:true;
+  var bd=document.getElementById("bd"+idx);
+  var ar=document.getElementById("ar"+idx);
+  if(openState[key]){bd.style.display="block";ar.innerHTML="&#9650;";}
+  else{bd.style.display="none";ar.innerHTML="&#9660;";}
+}
+
+function draw(){
+  var mn=months[cur];
+
+  // Month bar
+  var bar="";
+  for(var i=0;i<months.length;i++){
+    var active=i===cur;
+    var st=active?"background:"+months[i].a+";border-color:"+months[i].a+";color:#fff;font-weight:bold;":"";
+    bar+='<span class="mBtn" style="'+st+'" onclick="go('+i+')">'+months[i].e+" "+months[i].m+'</span>';
+  }
+  document.getElementById("monthBar").innerHTML=bar;
+
+  // Scroll active tab into view
+  setTimeout(function(){
+    var btns=document.querySelectorAll(".mBtn");
+    if(btns[cur])btns[cur].scrollIntoView({inline:"center"});
+  },80);
+
+  // Hero image
+  var img=document.getElementById("hImg");
+  img.style.display="block";
+  img.style.opacity="0";
+  img.src=mn.img;
+  img.onload=function(){img.style.transition="opacity 0.5s";img.style.opacity="1";};
+  img.onerror=function(){img.style.display="none";};
+
+  // Hero overlay color
+  document.getElementById("heroBox").style.background=mn.a;
+
+  // Hero text
+  document.getElementById("hMonth").innerHTML=mn.e+" "+mn.m;
+  document.getElementById("hSeason").innerHTML=mn.s;
+  document.getElementById("heroBadge").innerHTML=mn.b;
+
+  // Cards
+  var html="";
+  for(var i=0;i<mn.t.length;i++){
+    var t=mn.t[i];
+    var key=cur+"-"+i;
+    var isOpen=openState[key]?true:false;
+    var items="";
+    for(var j=0;j<t.i.length;j++){
+      items+='<div class="item"><div class="bullet" style="background:'+t.c+'"></div><p>'+t.i[j]+'</p></div>';
+    }
+    html+='<div class="card">';
+    html+='<button class="cardHead" style="background:'+mn.bg+'" onclick="toggleCard('+i+')">';
+    html+='<span class="tag" style="background:'+t.c+'">'+t.tg+'</span>';
+    html+='<span class="cardTitle">'+t.h+'</span>';
+    html+='<span class="arrow" id="ar'+i+'">'+(isOpen?"&#9650;":"&#9660;")+'</span>';
+    html+='</button>';
+    html+='<div class="cardBody" id="bd'+i+'" style="display:'+(isOpen?"block":"none")+'">'+items+'</div>';
+    html+='</div>';
+  }
+  document.getElementById("cards").innerHTML=html;
+
+  // Nav
+  var pb=document.getElementById("pBtn");
+  var nb=document.getElementById("nBtn");
+  pb.disabled=cur===0;
+  pb.innerHTML=cur>0?"&#8592; "+months[cur-1].e+" "+months[cur-1].m:"&#8592; Prev";
+  nb.disabled=cur===months.length-1;
+  nb.innerHTML=cur<months.length-1?months[cur+1].e+" "+months[cur+1].m+" &#8594;":"Next &#8594;";
+  document.getElementById("pg").innerHTML=(cur+1)+" / "+months.length;
+}
+
+draw();
+</script>
+</body>
+</html>
