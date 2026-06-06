@@ -64,10 +64,21 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 .monthTitle{font-size:22px;font-weight:900;color:#fff;line-height:1.1;text-shadow:1px 2px 8px rgba(0,0,0,.7);}
 .monthSub{font-size:12px;color:rgba(255,255,255,.82);margin-top:3px;display:block;}
 
+/* KEY ACTIVITY BANNER */
+#keyBanner{border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.keyTop{padding:10px 14px 8px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;}
+.keyBlock{flex:1;min-width:140px;}
+.keyLabel{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;opacity:.85;}
+.keyTags{display:flex;flex-wrap:wrap;gap:5px;}
+.keyTag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;white-space:nowrap;animation:blink 2s ease-in-out infinite;}
+.keyTag.method{animation:none;opacity:.9;}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.65;transform:scale(.97)}}
+.keyDivider{width:1px;background:rgba(255,255,255,.2);margin:4px 0;}
+
 /* ACTIVITY HIGHLIGHT */
-.activityBar{display:flex;gap:6px;padding:10px 14px;overflow-x:auto;scrollbar-width:none;background:rgba(0,0,0,.25);}
+.activityBar{display:flex;gap:6px;padding:8px 14px 10px;overflow-x:auto;scrollbar-width:none;background:rgba(0,0,0,.2);}
 .activityBar::-webkit-scrollbar{display:none;}
-.actTag{display:inline-flex;align-items:center;gap:5px;padding:6px 11px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;white-space:nowrap;flex-shrink:0;}
+.actTag{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;white-space:nowrap;flex-shrink:0;}
 
 /* CARDS */
 .card{background:#fff;border-radius:10px;margin-bottom:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.2);}
@@ -100,6 +111,7 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 .navBtn:active{transform:scale(.97);}
 .navBtn:disabled{background:#1a2a1a;color:#3a5a3a;}
 #pg{text-align:center;font-size:12px;color:#7dc142;white-space:nowrap;font-weight:bold;}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 2px 8px rgba(0,0,0,.3)}50%{opacity:.7;box-shadow:0 2px 14px rgba(255,255,255,.4)}}
 #foot{text-align:center;padding:14px;color:#52b788;font-size:10px;letter-spacing:2px;}
 </style>
 </head>
@@ -141,6 +153,7 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
       </div>
       <div class="activityBar" id="actBar"></div>
     </div>
+    <div id="keyBanner"></div>
     <div id="cards"></div>
     <div id="navRow">
       <button class="navBtn" id="pBtn" onclick="go(cur-1)">&#8592; <span id="pLbl">Prev</span></button>
@@ -541,7 +554,64 @@ function badge(s,x,y,label,bg){
   text(s,x+tw/2,y+12,label,8,'middle','#fff');
 }
 
-// ── GRADIENTS per month ──────────────────────────────────────────
+// ── KEY ACTIVITIES & METHODOLOGIES ──────────────────────────────
+var KEY_EN=[
+  // 0-May
+  {activities:["👨‍🌾 Farmers Engagement","📋 ICS Registration","🌱 Season Planning"],methods:["FFS","Input Demo","Village Meeting"]},
+  // 1-June
+  {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["FFS","Village Meeting","Input Demo"]},
+  // 2-July
+  {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["Group Discussion","Demo Plot","Input Demo"]},
+  // 3-August
+  {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["Group Discussion","Demo Plot","Input Demo"]},
+  // 4-September
+  {activities:["📚 FFS","🌿 INM","🌱 Weeding","🐛 Insect Pest Control","🔍 Internal Inspection"],methods:["Campaigning","Village Meeting"]},
+  // 5-October
+  {activities:["🏭 CFC","📦 Procurement Plan"],methods:["Campaigning","Village Meeting"]},
+  // 6-November
+  {activities:["🏭 CFC","📦 Procurement"],methods:["Campaigning","Village Meeting"]},
+  // 7-December
+  {activities:["🏭 CFC","📦 Procurement"],methods:["Campaigning","Village Meeting"]},
+  // 8-January
+  {activities:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],methods:["Mobilization","Survey"]},
+  // 9-February
+  {activities:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],methods:["Mobilization","Survey"]},
+  // 10-March
+  {activities:["🌾 Rabi Crop Support","⚖️ Decent Work"],methods:["FFS","Household Meeting"]},
+  // 11-April
+  {activities:["🧪 Soil Testing","📅 Season Plan"],methods:["Exposure Visit","Farmer Survey","Data Collection"]},
+];
+
+var KEY_HI=[
+  // 0-May
+  {activities:["👨‍🌾 किसान जुड़ाव","📋 ICS पंजीकरण","🌱 सीजन योजना"],methods:["FFS","इनपुट डेमो","ग्राम बैठक"]},
+  // 1-June
+  {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["FFS","ग्राम बैठक","इनपुट डेमो"]},
+  // 2-July
+  {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["समूह चर्चा","डेमो प्लॉट","इनपुट डेमो"]},
+  // 3-August
+  {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["समूह चर्चा","डेमो प्लॉट","इनपुट डेमो"]},
+  // 4-September
+  {activities:["📚 FFS","🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","🔍 आंतरिक निरीक्षण"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
+  // 5-October
+  {activities:["🏭 CFC","📦 खरीद योजना"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
+  // 6-November
+  {activities:["🏭 CFC","📦 खरीद"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
+  // 7-December
+  {activities:["🏭 CFC","📦 खरीद"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
+  // 8-January
+  {activities:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],methods:["मोबिलाइजेशन","सर्वेक्षण"]},
+  // 9-February
+  {activities:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],methods:["मोबिलाइजेशन","सर्वेक्षण"]},
+  // 10-March
+  {activities:["🌾 रबी फसल सहायता","⚖️ सभ्य कार्य"],methods:["FFS","घरेलू बैठक"]},
+  // 11-April
+  {activities:["🧪 मिट्टी परीक्षण","📅 सीजन योजना"],methods:["एक्सपोजर विजिट","किसान सर्वेक्षण","डेटा संग्रह"]},
+];
+
+// Activity colors for key tags
+var ACT_COLORS=["#c62828","#1565c0","#2e7d32","#6a1b9a","#e65100","#283593","#006064","#4527a0","#795548","#37474f","#0277bd","#558b2f"];
+var METH_COLOR="rgba(255,255,255,0.18)";
 var GRADS=[
   "linear-gradient(135deg,#bf360c,#e64a19)",  // May
   "linear-gradient(135deg,#1b5e20,#2e7d32)",  // June
@@ -751,8 +821,15 @@ hi:{
     {h:"M10D/E/F – श्रम अधिकार, महिला संरक्षण और खेत सुरक्षा",tg:"M10DE",c:"#e65100",i:["प्रशिक्षण में शामिल: गर्भवती और स्तनपान कराने वाली महिलाओं के लिए भारी काम से बचाव, सुरक्षित कार्य स्थिति और आराम, सभी श्रमिकों के लिए समान मजदूरी, कोई बंधुआ या जबरन मजदूरी नहीं, प्राथमिक चिकित्सा जागरूकता, गर्मी तनाव रोकथाम, और कृषि इनपुट का सुरक्षित भंडारण — ताकि खेत पर हर कामगार पूरे सीजन सुरक्षित, निष्पक्ष और सम्मान के साथ काम करे।"]},
     {h:"M10A – फार्म डायरी अनुपालन सत्यापन और ऑडिट सिमुलेशन",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: सभी डायरी प्रविष्टियों का सत्यापन, चेकलिस्ट के साथ आंतरिक ऑडिट सिमुलेशन, कुल जैविक इनपुट की गणना, और किसान स्व-मूल्यांकन प्रश्नावली — ताकि किसान सीजन के अंत में पूर्ण और सटीक रिकॉर्ड के साथ आत्मविश्वास से ऑडिट-रेडी हों।"]},
   ]},
-  {m:"मार्च",s:"फसल अवशेष प्रबंधन और कम्पोस्ट",b:"कटाई उपरांत",e:"♻️",acts:[{l:"♻️ अवशेष प्रबंधन",c:"#4E342E"},{l:"🪣 कम्पोस्ट गड्ढा",c:"#558B2F"},{l:"🌾 रबी कटाई",c:"#795548"},{l:"💰 लागत-लाभ",c:"#283593"}],t:[{h:"रबी कटाई और कटाई उपरांत",tg:"रबी",c:"#795548",i:["गेहूं, चना, सरसों के लिए कटाई परिपक्वता संकेतक","मड़ाई, सफाई और जैविक भंडारण","बीज बचत: चयन, सुखाना और उचित भंडारण","भंडारण और परिवहन में संदूषण से बचाव"]},{h:"मॉड्यूल 8 – उपज रिकॉर्डिंग और लागत-लाभ",tg:"M8",c:"#283593",i:["उपज अनुमान और वास्तविक तुलाई","फार्म डायरी बंद करना: उत्पादन और बिक्री","खेती की लागत बनाम आय गणना","प्रमाणन के लिए जैविक प्रीमियम"]},{h:"मॉड्यूल 10G/H – समावेश और शिकायत",tg:"M10GH",c:"#4527a0",i:["खेत पर कोई जाति/लिंग भेदभाव नहीं","छोटे और सीमांत किसानों का समावेश","किसान और श्रमिक शिकायत प्रक्रिया","सुरक्षित रिपोर्टिंग प्रणाली"]}]},
-  {m:"अप्रैल",s:"समीक्षा बैठक और अगले सीजन की योजना",b:"वार्षिक समीक्षा",e:"📋",acts:[{l:"📋 वार्षिक समीक्षा",c:"#F57F17"},{l:"📊 प्रस्तुति",c:"#6A1B9A"},{l:"🌱 अगली योजना",c:"#2E7D32"},{l:"🏆 पुरस्कार",c:"#E65100"},{l:"📝 किसान पंजीकरण",c:"#C62828"}],t:[{h:"मॉड्यूल 10A – वार्षिक ऑडिट और डायरी समापन",tg:"M10A",c:"#6a1b9a",i:["पूर्ण फार्म डायरी समीक्षा","प्रमाणन एजेंसी को प्रस्तुत करना","बाहरी ऑडिट प्रक्रिया","गैर-अनुपालन और सुधारात्मक कार्रवाई","सर्वश्रेष्ठ डायरी रखने वाले किसानों की सराहना"]},{h:"मॉड्यूल 9 – प्रशिक्षक कौशल",tg:"M9",c:"#f57f17",i:["संचार कौशल और स्थानीय भाषा का उपयोग","वयस्क शिक्षण विधियाँ","सत्र योजना और उपस्थिति","किसान अनुवर्ती और अपनाने की निगरानी"]},{h:"सीजन डीब्रीफ और अगले वर्ष की योजना",tg:"समीक्षा",c:"#546e7a",i:["क्या काम किया, क्या नहीं – समूह चर्चा","अग्रणी किसानों से सर्वोत्तम प्रथाओं का दस्तावेजीकरण","अगले सीजन के लिए प्रशिक्षण अंतराल विश्लेषण","मिट्टी स्वास्थ्य कार्ड समीक्षा"]}]},
+  {m:"मार्च",s:"फसल अवशेष प्रबंधन और कम्पोस्ट",b:"कटाई उपरांत",e:"♻️",acts:[{l:"♻️ अवशेष प्रबंधन",c:"#4E342E"},{l:"🪣 कम्पोस्ट गड्ढा",c:"#558B2F"},{l:"🌾 रबी कटाई",c:"#795548"},{l:"💰 लागत-लाभ",c:"#283593"}],t:[
+    {h:"रबी और M8 – रबी कटाई, उपज रिकॉर्डिंग और लागत-लाभ विश्लेषण",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: गेहूं, चना और सरसों के लिए कटाई परिपक्वता संकेतक, मड़ाई, सफाई और जैविक भंडारण, बीज बचत (चयन, सुखाना और भंडारण), भंडारण और परिवहन में संदूषण से बचाव, उपज अनुमान और तुलाई, उत्पादन और बिक्री प्रविष्टियों के साथ फार्म डायरी बंद करना, खेती की लागत बनाम आय गणना, और प्रमाणन के लिए जैविक प्रीमियम दस्तावेजीकरण — ताकि किसान रबी कार्यों को पेशेवर तरीके से पूरा करें और पूरे सीजन की लाभप्रदता समझें।"]},
+    {h:"M10G/H – गैर-भेदभाव, समावेश और शिकायत प्रणाली",tg:"M10GH",c:"#4527a0",i:["प्रशिक्षण में शामिल: खेत पर कोई जाति या लिंग भेदभाव नहीं, सभी किसानों और कामगारों के बीच सम्मानजनक व्यवहार, छोटे और सीमांत किसानों का समावेश, किसानों और कामगारों के लिए शिकायत और민원 प्रक्रिया, और सुरक्षित रिपोर्टिंग प्रणाली के साथ संघर्ष समाधान — ताकि खेत पर हर व्यक्ति के साथ निष्पक्ष व्यवहार हो और वे सुरक्षित रूप से चिंताएं उठा सकें।"]},
+  ]},
+  {m:"अप्रैल",s:"समीक्षा बैठक और अगले सीजन की योजना",b:"वार्षिक समीक्षा",e:"📋",acts:[{l:"📋 वार्षिक समीक्षा",c:"#F57F17"},{l:"📊 प्रस्तुति",c:"#6A1B9A"},{l:"🌱 अगली योजना",c:"#2E7D32"},{l:"🏆 पुरस्कार",c:"#E65100"},{l:"📝 किसान पंजीकरण",c:"#C62828"}],t:[
+    {h:"M10A – वार्षिक ऑडिट, डायरी समापन और किसान सराहना",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: शुद्धता और पूर्णता के लिए पूर्ण फार्म डायरी समीक्षा, बाहरी ऑडिट प्रक्रिया और सामान्य निष्कर्ष, गैर-अनुपालन सुधारात्मक कार्रवाई, और सर्वश्रेष्ठ डायरी रखने वाले किसानों की सराहना — ताकि सीजन पूर्ण दस्तावेजीकरण और अगले चक्र के लिए दर्ज सीखों के साथ बंद हो।"]},
+    {h:"M9 – VRP और अग्रणी किसानों के लिए प्रशिक्षक कौशल और सत्र योजना",tg:"M9",c:"#f57f17",i:["प्रशिक्षण में शामिल: स्थानीय भाषा का उपयोग करते हुए संचार कौशल, वयस्क शिक्षण विधियाँ, प्रदर्शन तकनीकें, क्षेत्र उपयोग के लिए दृश्य प्रशिक्षण उपकरण, उपस्थिति और रिपोर्टिंग के साथ सत्र योजना, और किसान अनुवर्ती तथा अपनाने की निगरानी — ताकि VRP और अग्रणी किसान स्वतंत्र रूप से प्रभावी और आकर्षक प्रशिक्षण सत्र देने में सक्षम हों।"]},
+    {h:"सीजन डीब्रीफ, अगले वर्ष की योजना और किसान पंजीकरण",tg:"समीक्षा",c:"#546e7a",i:["प्रशिक्षण में शामिल: क्या काम किया और क्या नहीं इस पर समूह चर्चा, अग्रणी किसानों से सर्वोत्तम प्रथाओं का दस्तावेजीकरण, अगले सीजन के लिए प्रशिक्षण अंतराल विश्लेषण, मिट्टी स्वास्थ्य कार्ड समीक्षा और सिफारिशें, अगले सीजन के लिए किसान पंजीकरण, और मई बीज चयन प्रशिक्षण के लिए पूर्व-योजना — ताकि अगला सीजन वर्तमान से बेहतर और मजबूत शुरू हो।"]},
+  ]},
  ],
  modules:[
   {num:"01",title:"जैविक खेती और जैविक कपास का परिचय",color:"#2e7d32",subs:["जैविक खेती क्या है","जैविक और रासायनिक खेती में अंतर","जैविक खेती का इतिहास और सिद्धांत","जैविक खेती के फायदे","रासायनिक खेती के हानिकारक प्रभाव","टिकाऊ कृषि की अवधारणा","जैविक कपास का महत्व","जैविक कपास का मूल्य और बाजार मांग","जैविक खेती में किसान की भूमिका","जैविक प्रमाणन की बुनियादी अवधारणा"]},
@@ -882,7 +959,37 @@ function renderCalendar(){
   for(var a=0;a<mn.acts.length;a++) acts+='<span class="actTag" style="background:'+mn.acts[a].c+'">'+mn.acts[a].l+'</span>';
   document.getElementById("actBar").innerHTML=acts;
 
-  // Cards
+  // Key Activity Banner
+  var kd=lang==="hi"?KEY_HI[cur]:KEY_EN[cur];
+  var kc=GRADS[cur];
+  var klabel1=lang==="hi"?"🎯 मुख्य गतिविधियाँ / प्रशिक्षण विषय":"🎯 Key Training Activities";
+  var klabel2=lang==="hi"?"⚙️ कार्यप्रणाली":"⚙️ Methodology";
+  var khtml='<div id="keyBanner" style="background:linear-gradient(135deg,'+mn.a+'ee,'+mn.a+'aa);border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(0,0,0,.3);">';
+  khtml+='<div style="padding:4px 14px 2px;background:rgba(0,0,0,.25);border-radius:10px 10px 0 0;">';
+  khtml+='<span style="font-size:10px;font-weight:900;letter-spacing:2px;color:#fff;text-transform:uppercase;opacity:.9;">📌 '+(lang==="hi"?"मासिक प्रशिक्षण फोकस — TRAINER REFERENCE":"Monthly Training Focus — TRAINER REFERENCE")+'</span>';
+  khtml+='</div>';
+  khtml+='<div style="padding:10px 14px 12px;display:flex;gap:10px;flex-wrap:wrap;">';
+  // Activities block
+  khtml+='<div style="flex:1;min-width:150px;">';
+  khtml+='<div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:rgba(255,255,255,.8);margin-bottom:6px;">'+klabel1+'</div>';
+  khtml+='<div style="display:flex;flex-wrap:wrap;gap:5px;">';
+  for(var k=0;k<kd.activities.length;k++){
+    var ac=ACT_COLORS[k%ACT_COLORS.length];
+    khtml+='<span style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;background:'+ac+';white-space:nowrap;animation:blink 2s ease-in-out infinite;animation-delay:'+(k*0.3)+'s;box-shadow:0 2px 6px rgba(0,0,0,.3);">'+kd.activities[k]+'</span>';
+  }
+  khtml+='</div></div>';
+  // Divider
+  khtml+='<div style="width:1px;background:rgba(255,255,255,.25);margin:2px 0;"></div>';
+  // Methods block
+  khtml+='<div style="min-width:120px;">';
+  khtml+='<div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:rgba(255,255,255,.8);margin-bottom:6px;">'+klabel2+'</div>';
+  khtml+='<div style="display:flex;flex-wrap:wrap;gap:5px;">';
+  for(var k=0;k<kd.methods.length;k++){
+    khtml+='<span style="display:inline-flex;align-items:center;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.5);white-space:nowrap;backdrop-filter:blur(4px);">⚙️ '+kd.methods[k]+'</span>';
+  }
+  khtml+='</div></div>';
+  khtml+='</div></div>';
+  document.getElementById("keyBanner").outerHTML=khtml;
   var html="";
   for(var i=0;i<mn.t.length;i++){
     var t=mn.t[i], op=openState[cur+"-"+i]||false, items="";
