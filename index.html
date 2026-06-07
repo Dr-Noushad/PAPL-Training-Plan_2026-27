@@ -7,16 +7,13 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidden;}
-
-/* HEADER */
 #hdr{background:linear-gradient(135deg,#1b4332 0%,#2d6a4f 50%,#1b4332 100%);padding:14px 12px 12px;text-align:center;border-bottom:3px solid #52b788;position:relative;}
 #hdr::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:3px;background:linear-gradient(90deg,#7dc142,#52b788,#2d6a4f,#7dc142);background-size:200%;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
-#hdr h1{color:#7dc142;font-size:18px;font-weight:900;letter-spacing:.5px;}
+#hdr h1{color:#7dc142;font-size:18px;font-weight:900;}
 #hdr p{color:#b7e4c7;font-size:10px;letter-spacing:2px;margin-top:2px;}
 #hdr h2{color:#fff;font-size:14px;margin:6px 0 2px;font-weight:700;}
 #hdr small{color:#95d5b2;font-size:10px;}
-
 /* TOP BAR */
 #topBar{background:#040f04;display:flex;align-items:center;justify-content:space-between;padding:7px 10px;gap:6px;flex-wrap:wrap;border-bottom:1px solid #1a3a1a;}
 .lBtn{padding:6px 14px;border-radius:20px;border:2px solid #52b788;background:transparent;color:#95d5b2;font-size:12px;font-weight:bold;cursor:pointer;transition:all .2s;}
@@ -24,70 +21,53 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 .vTabs{display:flex;gap:5px;}
 .vTab{padding:6px 12px;border-radius:7px;border:2px solid transparent;background:rgba(255,255,255,.07);color:#95d5b2;font-size:12px;font-weight:bold;cursor:pointer;transition:all .2s;}
 .vTab.on{background:#2e7d32;color:#fff;border-color:#52b788;}
-
-/* CROP JOURNEY TIMELINE */
+/* QUICK BAR */
+#quickBar{background:#071407;padding:8px 10px;border-bottom:2px solid #1a3a1a;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}
+#quickBar::-webkit-scrollbar{display:none;}
+.qTab{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;margin:0 3px;border-radius:8px;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:none;color:#fff;transition:all .2s;white-space:nowrap;vertical-align:middle;border:none;}
+.qTab:hover{opacity:.85;transform:translateY(-1px);}
+.qSplit{display:inline-flex;align-items:stretch;margin:0 3px;border-radius:8px;overflow:hidden;vertical-align:middle;}
+.qSplitLabel{display:inline-flex;align-items:center;padding:6px 10px;font-size:11px;font-weight:bold;color:#fff;white-space:nowrap;}
+.qSplitDiv{width:1px;background:rgba(255,255,255,.35);}
+.qSplitLink{display:inline-flex;align-items:center;padding:6px 10px;font-size:11px;font-weight:bold;color:#fff;text-decoration:none;white-space:nowrap;}
+.qSplitLink:hover{background:rgba(255,255,255,.15);}
+/* TIMELINE */
 #timeline{background:#040f04;padding:10px 10px 6px;border-bottom:2px solid #1a3a1a;overflow-x:auto;scrollbar-width:none;}
 #timeline::-webkit-scrollbar{display:none;}
 .tlWrap{display:flex;align-items:center;min-width:600px;padding:2px 4px;}
 .tlStep{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;cursor:pointer;}
 .tlStep:not(:last-child)::after{content:'';position:absolute;top:14px;left:50%;right:-50%;height:2px;background:#1a3a1a;z-index:0;}
-.tlStep.done:not(:last-child)::after{background:linear-gradient(90deg,#7dc142,#52b788);animation:growLine .5s ease forwards;}
-@keyframes growLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.tlDot{width:28px;height:28px;border-radius:50%;background:#1a3a1a;border:2px solid #2a4a2a;display:flex;align-items:center;justify-content:center;font-size:13px;z-index:1;transition:all .4s;position:relative;}
+.tlStep.done:not(:last-child)::after{background:linear-gradient(90deg,#7dc142,#52b788);}
+.tlDot{width:28px;height:28px;border-radius:50%;background:#1a3a1a;border:2px solid #2a4a2a;display:flex;align-items:center;justify-content:center;font-size:13px;z-index:1;transition:all .4s;}
 .tlStep.done .tlDot{background:linear-gradient(135deg,#2e7d32,#7dc142);border-color:#7dc142;box-shadow:0 0 8px rgba(125,193,66,.6);transform:scale(1.15);}
 .tlStep.active .tlDot{background:linear-gradient(135deg,#7dc142,#a5d63f);border-color:#fff;box-shadow:0 0 12px rgba(125,193,66,.9);transform:scale(1.25);animation:pulse .8s ease infinite alternate;}
 @keyframes pulse{from{box-shadow:0 0 8px rgba(125,193,66,.6)}to{box-shadow:0 0 18px rgba(125,193,66,1)}}
 .tlLabel{font-size:8px;color:#556655;margin-top:3px;text-align:center;line-height:1.2;max-width:44px;transition:color .4s;}
 .tlStep.done .tlLabel,.tlStep.active .tlLabel{color:#95d5b2;}
-
 /* MONTH BAR */
 #mBar{background:#040f04;padding:8px 6px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;border-bottom:2px solid #1a3a1a;}
 #mBar::-webkit-scrollbar{display:none;}
 .mBtn{display:inline-block;padding:7px 10px;margin:0 2px;border-radius:8px;border:2px solid transparent;background:rgba(255,255,255,.07);color:#95d5b2;font-size:11px;cursor:pointer;transition:all .25s;white-space:nowrap;}
-
 /* MAIN */
 #main{padding:10px;max-width:700px;margin:0 auto;}
-
-/* HERO CARD */
-#heroCard{border-radius:14px;overflow:hidden;margin-bottom:12px;position:relative;background:#1a3a1a;box-shadow:0 4px 20px rgba(0,0,0,.5);}
+/* HERO */
+#heroCard{border-radius:14px;overflow:hidden;margin-bottom:10px;position:relative;background:#1a3a1a;box-shadow:0 4px 20px rgba(0,0,0,.5);}
 #heroCard.out{animation:slideOutL .32s cubic-bezier(.4,0,.2,1) forwards;}
 #heroCard.in{animation:slideInR .35s cubic-bezier(.4,0,.2,1) forwards;}
 @keyframes slideOutL{from{opacity:1;transform:translateX(0) scale(1)}to{opacity:0;transform:translateX(-50px) scale(.96)}}
 @keyframes slideInR{from{opacity:0;transform:translateX(50px) scale(.96)}to{opacity:1;transform:translateX(0) scale(1)}}
-
-/* SVG COTTON ILLUSTRATION */
 #cottonSVG{width:100%;height:200px;display:block;}
-
-/* HERO INFO OVERLAY */
-.heroInfo{padding:12px 14px 10px;background:linear-gradient(135deg,rgba(0,0,0,.0),rgba(0,0,0,.0));}
-.monthBadge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;margin-bottom:6px;letter-spacing:.5px;}
+.heroInfo{padding:12px 14px 8px;}
+.monthBadge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;margin-bottom:6px;}
 .monthTitle{font-size:22px;font-weight:900;color:#fff;line-height:1.1;text-shadow:1px 2px 8px rgba(0,0,0,.7);}
 .monthSub{font-size:12px;color:rgba(255,255,255,.82);margin-top:3px;display:block;}
-
-/* QUICK ACCESS TABS */
-#quickBar{background:#040f04;padding:8px 10px;border-bottom:2px solid #1a3a1a;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}
-#quickBar::-webkit-scrollbar{display:none;}
-.qTab{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;margin:0 3px;border-radius:8px;border:1.5px solid;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:none;color:#fff;transition:all .2s;white-space:nowrap;vertical-align:middle;}
-.qTab:hover{opacity:.85;transform:translateY(-1px);}
-.qTabMulti{display:inline-flex;align-items:center;gap:0;margin:0 3px;border-radius:8px;overflow:hidden;vertical-align:middle;}
-.qTabMulti a{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;font-size:12px;font-weight:bold;text-decoration:none;color:#fff;transition:all .2s;white-space:nowrap;}
-.qTabMulti a:hover{opacity:.82;}
-.qTabMulti .qdiv{width:1px;background:rgba(255,255,255,.3);}
-#keyBanner{border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.3);}
-.keyTop{padding:10px 14px 8px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;}
-.keyBlock{flex:1;min-width:140px;}
-.keyLabel{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;opacity:.85;}
-.keyTags{display:flex;flex-wrap:wrap;gap:5px;}
-.keyTag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;white-space:nowrap;animation:blink 2s ease-in-out infinite;}
-.keyTag.method{animation:none;opacity:.9;}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.65;transform:scale(.97)}}
-.keyDivider{width:1px;background:rgba(255,255,255,.2);margin:4px 0;}
-
-/* ACTIVITY HIGHLIGHT */
-.activityBar{display:flex;gap:6px;padding:8px 14px 10px;overflow-x:auto;scrollbar-width:none;background:rgba(0,0,0,.2);}
-.activityBar::-webkit-scrollbar{display:none;}
+/* ACTIVITY TAGS */
+.actBar{display:flex;gap:6px;padding:8px 14px 10px;overflow-x:auto;scrollbar-width:none;background:rgba(0,0,0,.2);}
+.actBar::-webkit-scrollbar{display:none;}
 .actTag{display:inline-flex;align-items:center;gap:5px;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;white-space:nowrap;flex-shrink:0;}
-
+/* KEY BANNER */
+#keyBanner{border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.3);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
 /* CARDS */
 .card{background:#fff;border-radius:10px;margin-bottom:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.2);}
 .cardHead{width:100%;padding:12px;border:none;text-align:left;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:Arial,sans-serif;transition:filter .15s;}
@@ -100,8 +80,6 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 .item:last-child{border-bottom:none;}
 .dot{width:7px;height:7px;border-radius:50%;margin-top:6px;flex-shrink:0;}
 .item p{margin:0;font-size:13px;color:#333;line-height:1.55;}
-.resBtn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:9px 16px;background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border-radius:8px;font-size:12px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px rgba(46,125,50,.4);}
-
 /* MODULE VIEW */
 #modView{display:none;}
 .modCard{background:#fff;border-radius:10px;margin-bottom:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.2);}
@@ -112,14 +90,13 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 .subList{list-style:none;}
 .subList li{display:flex;gap:8px;padding:5px 0;border-bottom:1px dashed #eee;font-size:13px;color:#333;line-height:1.5;align-items:flex-start;}
 .subList li:last-child{border-bottom:none;}
-
+.resBtn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;padding:9px 16px;background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;border-radius:8px;font-size:12px;font-weight:bold;text-decoration:none;box-shadow:0 2px 8px rgba(46,125,50,.4);}
 /* NAV */
 #navRow{display:flex;gap:8px;margin-top:10px;align-items:center;}
 .navBtn{flex:1;padding:13px 6px;color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;transition:all .2s;background:linear-gradient(135deg,#1b5e20,#2e7d32);}
 .navBtn:active{transform:scale(.97);}
 .navBtn:disabled{background:#1a2a1a;color:#3a5a3a;}
 #pg{text-align:center;font-size:12px;color:#7dc142;white-space:nowrap;font-weight:bold;}
-@keyframes blink{0%,100%{opacity:1;box-shadow:0 2px 8px rgba(0,0,0,.3)}50%{opacity:.7;box-shadow:0 2px 14px rgba(255,255,255,.4)}}
 #foot{text-align:center;padding:14px;color:#52b788;font-size:10px;letter-spacing:2px;}
 </style>
 </head>
@@ -143,14 +120,8 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
   </div>
 </div>
 
-<!-- QUICK ACCESS TABS -->
 <div id="quickBar"></div>
-
-<!-- CROP JOURNEY TIMELINE -->
-<div id="timeline">
-  <div class="tlWrap" id="tlWrap"></div>
-</div>
-
+<div id="timeline"><div class="tlWrap" id="tlWrap"></div></div>
 <div id="mBar"></div>
 
 <div id="main">
@@ -162,7 +133,7 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
         <div class="monthTitle" id="mTitle"></div>
         <span class="monthSub" id="mSub"></span>
       </div>
-      <div class="activityBar" id="actBar"></div>
+      <div class="actBar" id="actBar"></div>
     </div>
     <div id="keyBanner"></div>
     <div id="cards"></div>
@@ -177,9 +148,9 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 <div id="foot">PAPL &copy; 2026 &bull; <span id="fTxt">ORGANIC FARMING PROGRAM</span></div>
 
 <script>
-var lang="en", view="cal", cur=0, openState={}, modOpen={};
+var lang="en",view="cal",cur=0,openState={},modOpen={};
 
-// ── TIMELINE STAGES ──────────────────────────────────────────────
+// ── TIMELINE ─────────────────────────────────────────────────────
 var TL=[
   {icon:"🌾",label:"Land\nPrep",months:[0]},
   {icon:"🌱",label:"Seed\nTreat",months:[0,1]},
@@ -192,466 +163,63 @@ var TL=[
   {icon:"♻️",label:"Post\nHarvest",months:[9,10,11]},
 ];
 
-// ── SVG ILLUSTRATIONS (cotton-crop-stage) ────────────────────────
-function drawSVG(monthIdx, svgEl){
-  var W=400, H=200;
-  var scenes=[
-    // 0-May: Land prep + compost training
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg0','#8B4513','#D2691E');
-      rect(s,0,0,W,H,'url(#bg0)');
-      // soil texture rows
-      for(var i=0;i<6;i++) line(s,0,80+i*20,W,80+i*20,'rgba(0,0,0,.15)',1.5);
-      // compost heap
-      ellipse(s,300,130,50,25,'#5D4037');
-      ellipse(s,300,120,45,20,'#795548');
-      text(s,300,118,'♻️',14,'middle');
-      // farmers silhouettes
-      farmer(s,80,155,'#4a2c00',true);
-      farmer(s,130,155,'#3a2000',false);
-      farmer(s,200,155,'#4a2c00',true);
-      // sun
-      sun(s,350,35,28);
-      // label
-      badge(s,10,10,'🌾 LAND PREPARATION & COMPOST','#E65100');
-    },
-    // 1-June: Cotton sowing in rain
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg1','#1a3a2a','#2d5a3a');
-      rect(s,0,0,W,H,'url(#bg1)');
-      // rain
-      for(var i=0;i<20;i++){
-        var rx=20+i*18+Math.sin(i)*8, ry=(i%3)*30+10;
-        line(s,rx,ry,rx-3,ry+18,'rgba(100,180,255,.5)',1);
-      }
-      // soil rows
-      for(var i=0;i<4;i++){rect(s,0,115+i*16,W,8,i%2?'#3e2723':'#4e342e');}
-      // seeds in ground
-      for(var i=0;i<7;i++){
-        ellipse(s,30+i*55,122,6,4,'#d4b896');
-        // tiny sprout
-        if(i%2===0){
-          line(s,30+i*55,118,30+i*55,108,'#4caf50',1.5);
-          leaf(s,30+i*55,108,8,true,'#66bb6a');
-        }
-      }
-      // farmers sowing
-      farmer(s,60,148,'#2e1a00',true);
-      farmer(s,200,148,'#1a2e00',false);
-      farmer(s,340,148,'#2e1a00',true);
-      badge(s,10,10,'🌧️ COTTON SOWING','#2E7D32');
-    },
-    // 2-July: Seedlings + intercultural
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg2','#0d2b0d','#1a4a1a');
-      rect(s,0,0,W,H,'url(#bg2)');
-      // ground
-      rect(s,0,145,W,55,'#3e2723');
-      // seedlings row
-      for(var i=0;i<8;i++){
-        var px=25+i*50;
-        stem(s,px,145,35);
-        leaf(s,px,120,12,true,'#66bb6a');
-        leaf(s,px,120,12,false,'#81c784');
-      }
-      // farmers doing intercultural
-      farmer(s,100,148,'#2e1a00',true);
-      farmer(s,270,148,'#1a2e00',false);
-      // hoe tool
-      line(s,115,130,130,155,'#5d4037',2);
-      badge(s,10,10,'🌿 SEEDLING STAGE & GAP FILLING','#1565C0');
-    },
-    // 3-August: Vigorous growth + weeding + jeevamrut
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg3','#071a07','#0d2b0d');
-      rect(s,0,0,W,H,'url(#bg3)');
-      rect(s,0,148,W,52,'#2e1a0a');
-      // tall cotton plants
-      for(var i=0;i<6;i++){
-        var px=30+i*65;
-        stem(s,px,148,80);
-        for(var l=0;l<4;l++){
-          leaf(s,px,130-l*18,15+l*2,l%2===0,'#4caf50');
-          leaf(s,px,130-l*18,15+l*2,l%2!==0,'#66bb6a');
-        }
-      }
-      farmer(s,80,150,'#2e1a00',true);
-      farmer(s,320,150,'#1a2e00',false);
-      // jeevamrut pot
-      ellipse(s,200,158,18,12,'#795548');
-      text(s,200,156,'🪣',12,'middle');
-      badge(s,10,10,'🍃 VEGETATIVE GROWTH & ORGANIC INPUTS','#558B2F');
-    },
-    // 4-September: Flowering + pest scouting + pheromone traps
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg4','#1a0f00','#2d1a00');
-      rect(s,0,0,W,H,'url(#bg4)');
-      rect(s,0,148,W,52,'#3e2723');
-      // cotton plants with flowers
-      for(var i=0;i<5;i++){
-        var px=35+i*80;
-        stem(s,px,148,85);
-        for(var l=0;l<3;l++){
-          leaf(s,px,128-l*22,14,l%2===0,'#388e3c');
-          leaf(s,px,128-l*22,14,l%2!==0,'#4caf50');
-        }
-        // flower
-        flower(s,px,55+Math.sin(i)*5);
-      }
-      // pheromone trap
-      trapPole(s,280,148);
-      // farmers scouting
-      farmer(s,70,150,'#2e1a00',true);
-      farmer(s,350,150,'#1a2e00',false);
-      badge(s,10,10,'🌸 FLOWERING & PEST SCOUTING','#E65100');
-    },
-    // 5-October: Green bolls
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg5','#0a0518','#1a0a28');
-      rect(s,0,0,W,H,'url(#bg5)');
-      rect(s,0,148,W,52,'#2e1a0a');
-      for(var i=0;i<5;i++){
-        var px=35+i*80;
-        stem(s,px,148,88);
-        for(var l=0;l<3;l++){
-          leaf(s,px,125-l*22,14,l%2===0,'#2e7d32');
-          leaf(s,px,125-l*22,14,l%2!==0,'#388e3c');
-        }
-        // green boll
-        ellipse(s,px,45,14,14,'#4caf50');
-        ellipse(s,px,45,10,10,'#66bb6a');
-        // boll segments
-        for(var seg=0;seg<4;seg++){
-          var a=seg/4*Math.PI*2;
-          line(s,px,45,px+Math.cos(a)*10,45+Math.sin(a)*10,'#388e3c',0.8);
-        }
-      }
-      farmer(s,80,150,'#2e1a00',true);
-      farmer(s,330,150,'#1a2e00',false);
-      badge(s,10,10,'🪴 GREEN BOLL DEVELOPMENT','#AD1457');
-    },
-    // 6-November: Mature bolls – field inspection
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg6','#0a0f1a','#1a1a0a');
-      rect(s,0,0,W,H,'url(#bg6)');
-      rect(s,0,148,W,52,'#2e1a0a');
-      for(var i=0;i<5;i++){
-        var px=35+i*80;
-        stem(s,px,148,88);
-        for(var l=0;l<3;l++){
-          leaf(s,px,125-l*22,13,l%2===0,'#2e7d32');
-          leaf(s,px,125-l*22,13,l%2!==0,'#388e3c');
-        }
-        // mature white boll opening
-        ellipse(s,px,45,16,16,'#fff9c4');
-        for(var p=0;p<4;p++){
-          var a2=p/4*Math.PI*2;
-          ellipse(s,px+Math.cos(a2)*8,45+Math.sin(a2)*8,7,7,'#fff');
-        }
-      }
-      farmer(s,70,150,'#2e1a00',true);
-      farmer(s,350,150,'#1a2e00',false);
-      badge(s,10,10,'⚪ MATURE BOLLS – FIELD INSPECTION','#283593');
-    },
-    // 7-December: First picking
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg7','#040f04','#0a1f0a');
-      rect(s,0,0,W,H,'url(#bg7)');
-      rect(s,0,148,W,52,'#2e1a0a');
-      for(var i=0;i<5;i++){
-        var px=35+i*80;
-        stem(s,px,148,88);
-        for(var l=0;l<3;l++){
-          leaf(s,px,125-l*22,12,l%2===0,'#1b5e20');
-          leaf(s,px,125-l*22,12,l%2!==0,'#2e7d32');
-        }
-        // cotton fluff opening wide
-        for(var p=0;p<5;p++){
-          var a3=p/5*Math.PI*2-Math.PI/2;
-          ellipse(s,px+Math.cos(a3)*10,45+Math.sin(a3)*10,8,8,'#fff');
-        }
-        ellipse(s,px,45,6,6,'#fff9c4');
-      }
-      // farmers picking with bags
-      farmerPick(s,110,148);
-      farmerPick(s,250,148);
-      badge(s,10,10,'🌟 FIRST COTTON PICKING','#006064');
-    },
-    // 8-January: Harvesting & bagging
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg8','#040f04','#071407');
-      rect(s,0,0,W,H,'url(#bg8)');
-      rect(s,0,148,W,52,'#2e1a0a');
-      for(var i=0;i<4;i++){
-        var px=30+i*90;
-        stem(s,px,148,70);
-        leaf(s,px,120,12,true,'#1b5e20');
-        leaf(s,px,120,12,false,'#2e7d32');
-        // sparse remaining bolls
-        if(i%2===0){
-          ellipse(s,px,55,8,8,'#fff9c4');
-          for(var p=0;p<4;p++){var a4=p/4*Math.PI*2;ellipse(s,px+Math.cos(a4)*6,55+Math.sin(a4)*6,5,5,'#fff');}
-        }
-      }
-      // cotton bags/baskets
-      bag(s,190,145);
-      bag(s,290,145);
-      farmerPick(s,80,148);
-      farmerPick(s,340,148);
-      badge(s,10,10,'🧺 COTTON HARVESTING & BAGGING','#4527A0');
-    },
-    // 9-February: Final picking + cleaning
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg9','#0f1a00','#1a2e00');
-      rect(s,0,0,W,H,'url(#bg9)');
-      rect(s,0,148,W,52,'#2e1a0a');
-      // mostly bare stalks
-      for(var i=0;i<6;i++){
-        var px=30+i*65;
-        stem(s,px,148,60);
-        leaf(s,px,118,10,i%2===0,'#1b5e20');
-      }
-      // group of women sorting cotton
-      farmer(s,80,150,'#4a2000',false);
-      farmer(s,130,150,'#3a1800',true);
-      farmer(s,180,150,'#4a2000',false);
-      farmer(s,230,150,'#3a1800',true);
-      // cotton pile
-      for(var k=0;k<5;k++) ellipse(s,330+k%3*14,155-k*4,10,8,'#fff');
-      badge(s,10,10,'👥 FINAL PICKING & SORTING','#558B2F');
-    },
-    // 10-March: Crop residue + compost
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg10','#1a0f00','#2e1a00');
-      rect(s,0,0,W,H,'url(#bg10)');
-      rect(s,0,148,W,52,'#3e2723');
-      // stubble / residue
-      for(var i=0;i<12;i++){
-        var px=15+i*32, ph=20+Math.sin(i)*8;
-        line(s,px,148,px,148-ph,'#795548',2);
-      }
-      // compost pit
-      rect(s,240,130,80,30,'#5d4037');
-      rect(s,245,132,70,26,'#4e342e');
-      text(s,280,147,'♻️ COMPOST',9,'middle','#ffcc80');
-      // farmers managing residue
-      farmer(s,70,150,'#2e1a00',true);
-      farmer(s,160,150,'#1a2e00',false);
-      badge(s,10,10,'♻️ RESIDUE MGMT & COMPOST PIT','#4E342E');
-    },
-    // 11-April: Review meeting
-    function(s){
-      s.innerHTML='';
-      grad(s,'bg11','#1a1000','#2e2000');
-      rect(s,0,0,W,H,'url(#bg11)');
-      // meeting room feel - table
-      rect(s,80,130,240,20,'#6d4c41');
-      rect(s,75,125,250,8,'#795548');
-      // charts/boards
-      rect(s,20,60,80,70,'#fff9c4');
-      line(s,25,65,25,125,'#a5d63f',1.5);
-      line(s,25,125,95,125,'#a5d63f',1.5);
-      // bar chart
-      for(var b=0;b<4;b++){
-        var bh=15+b*10;
-        rect(s,30+b*16,125-bh,12,bh,b===3?'#7dc142':'#a5d63f');
-      }
-      // people around table
-      for(var p=0;p<5;p++){
-        var px2=100+p*45;
-        farmer(s,px2,135,'#2e1a00',p%2===0);
-      }
-      text(s,60,55,'📊 ANNUAL REVIEW',8,'middle','#ffd54f');
-      badge(s,10,10,'📋 REVIEW MEETING & NEXT SEASON PLAN','#F57F17');
-    },
-  ];
-  var fn=scenes[monthIdx];
-  if(fn) fn(svgEl);
-}
-
-// ── SVG HELPERS ───────────────────────────────────────────────────
-function svgEl(tag,attrs){
-  var el=document.createElementNS("http://www.w3.org/2000/svg",tag);
-  for(var k in attrs) el.setAttribute(k,attrs[k]);
-  return el;
-}
-function grad(s,id,c1,c2){
-  var defs=s.querySelector('defs')||s.insertBefore(svgEl('defs',{}),s.firstChild);
-  var lg=svgEl('linearGradient',{id:id,x1:'0%',y1:'0%',x2:'0%',y2:'100%'});
-  var st1=svgEl('stop',{'offset':'0%','stop-color':c1});
-  var st2=svgEl('stop',{'offset':'100%','stop-color':c2});
-  lg.appendChild(st1);lg.appendChild(st2);defs.appendChild(lg);
-}
-function rect(s,x,y,w,h,fill){s.appendChild(svgEl('rect',{x:x,y:y,width:w,height:h,fill:fill}));}
-function ellipse(s,cx,cy,rx,ry,fill){s.appendChild(svgEl('ellipse',{cx:cx,cy:cy,rx:rx,ry:ry,fill:fill}));}
-function line(s,x1,y1,x2,y2,stroke,sw){s.appendChild(svgEl('line',{x1:x1,y1:y1,x2:x2,y2:y2,stroke:stroke,'stroke-width':sw||1}));}
-function text(s,x,y,str,size,anchor,fill){
-  var t=svgEl('text',{x:x,y:y,'font-size':size,'text-anchor':anchor||'start',fill:fill||'#fff','font-family':'Arial','font-weight':'bold'});
-  t.textContent=str; s.appendChild(t);
-}
-function stem(s,x,baseY,h){
-  s.appendChild(svgEl('line',{x1:x,y1:baseY,x2:x,y2:baseY-h,stroke:'#33691e','stroke-width':2.5,'stroke-linecap':'round'}));
-}
-function leaf(s,x,y,size,left,fill){
-  var dx=left?-size:size;
-  var p=svgEl('path',{d:'M'+x+','+y+' Q'+(x+dx)+','+(y-size/2)+' '+(x+dx*1.5)+','+(y-size/3),fill:'none',stroke:fill,'stroke-width':2,'stroke-linecap':'round'});
-  s.appendChild(p);
-}
-function flower(s,x,y){
-  var petals=['#ffeb3b','#ff9800','#fff9c4','#ffe082','#ffd54f'];
-  for(var p=0;p<5;p++){
-    var a=p/5*Math.PI*2;
-    var el=svgEl('ellipse',{cx:x+Math.cos(a)*9,cy:y+Math.sin(a)*9,rx:5,ry:8,fill:petals[p],transform:'rotate('+(p/5*360)+','+x+','+y+')'});
-    s.appendChild(el);
-  }
-  ellipse(s,x,y,6,6,'#ff6f00');
-  ellipse(s,x,y,3,3,'#ffcc02');
-}
-function farmer(s,x,y,skin,facing){
-  // body
-  ellipse(s,x,y-28,7,7,skin); // head
-  s.appendChild(svgEl('rect',{x:x-5,y:y-21,width:10,height:18,fill:skin,rx:2}));
-  // hat
-  s.appendChild(svgEl('rect',{x:x-9,y:y-36,width:18,height:4,fill:'#f9a825',rx:1}));
-  s.appendChild(svgEl('rect',{x:x-5,y:y-42,width:10,height:8,fill:'#f9a825',rx:2}));
-  // legs
-  line(s,x-3,y-3,x-4,y+10,skin,2);
-  line(s,x+3,y-3,x+4,y+10,skin,2);
-}
-function farmerPick(s,x,y){
-  var skin='#3e2000';
-  ellipse(s,x,y-28,7,7,skin);
-  s.appendChild(svgEl('rect',{x:x-5,y:y-21,width:10,height:18,fill:'#1565c0',rx:2}));
-  s.appendChild(svgEl('rect',{x:x-9,y:y-36,width:18,height:4,fill:'#f9a825',rx:1}));
-  // arm reaching up
-  line(s,x+5,y-15,x+20,y-28,skin,2);
-  // cotton fluff in hand
-  ellipse(s,x+22,y-30,6,6,'#fff');
-  // bag beside
-  s.appendChild(svgEl('rect',{x:x-18,y:y-15,width:14,height:18,fill:'#8d6e63',rx:3}));
-  ellipse(s,x-11,y-16,5,3,'#6d4c41');
-}
-function bag(s,x,y){
-  s.appendChild(svgEl('rect',{x:x-20,y:y-25,width:40,height:28,fill:'#8d6e63',rx:4}));
-  ellipse(s,x,y-26,12,5,'#795548');
-  for(var i=0;i<3;i++) ellipse(s,x-8+i*8,y-12,4,4,'#fff');
-}
-function trapPole(s,x,y){
-  line(s,x,y,x,y-50,'#795548',2);
-  s.appendChild(svgEl('rect',{x:x-12,y:y-52,width:24,height:14,fill:'#ffd600',rx:3}));
-  text(s,x,y-57,'🦋',9,'middle');
-}
-function sun(s,x,y,r){
-  ellipse(s,x,y,r,r,'#FDD835');
-  for(var i=0;i<8;i++){
-    var a=i/8*Math.PI*2;
-    line(s,x+Math.cos(a)*(r+3),y+Math.sin(a)*(r+3),x+Math.cos(a)*(r+10),y+Math.sin(a)*(r+10),'#FDD835',2);
-  }
-}
-function badge(s,x,y,label,bg){
-  var tw=label.length*5.5+16;
-  s.appendChild(svgEl('rect',{x:x,y:y,width:tw,height:18,fill:bg,rx:9,opacity:.9}));
-  text(s,x+tw/2,y+12,label,8,'middle','#fff');
-}
-
-// ── KEY ACTIVITIES & METHODOLOGIES ──────────────────────────────
+// ── KEY ACTIVITIES ────────────────────────────────────────────────
 var KEY_EN=[
-  {activities:["👨‍🌾 Farmers Engagement","📋 ICS Registration","🌱 Season Planning"],methods:["FFS","Input Demo","Village Meeting"]},
-  {activities:["🌿 Organic & RCI","📓 FFB"],methods:["Village Meeting","Input Preparation Demo"]},
-  {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["Group Discussion","Demo Plot","Input Demo"]},
-  {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["Group Discussion","Demo Plot","Input Demo"]},
-  {activities:["📚 FFS","🌿 INM","🌱 Weeding","🐛 Pest Control","🔍 Internal Inspection"],methods:["Campaigning","Village Meeting"]},
-  {activities:["🏭 CFC","📦 Procurement Plan"],methods:["Campaigning","Village Meeting"]},
-  {activities:["🏭 CFC","📦 Procurement"],methods:["Campaigning","Village Meeting"]},
-  {activities:["🏭 CFC","📦 Procurement"],methods:["Campaigning","Village Meeting"]},
-  {activities:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],methods:["Mobilization","Survey"]},
-  {activities:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],methods:["Mobilization","Survey"]},
-  {activities:["🌾 Rabi Crop Support","⚖️ Decent Work"],methods:["FFS","Household Meeting"]},
-  {activities:["🧪 Soil Testing","📅 Season Plan"],methods:["Exposure Visit","Farmer Survey","Data Collection"]},
+  {a:["📝 Farmer Registration","📅 Season Plan","🧪 Input Training","🌾 Land Preparation","🌿 Green Manures"],m:["Input Demo","Village Meetings","Survey"]},
+  {a:["🌱 Organic/RCI Trainings","🌾 Seed Distribution","🧪 Seed Treatment & Sowing"],m:["Village Meeting","Demo on Input Prep & Seed Treatment"]},
+  {a:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","🔧 Gap Filling","🪴 Intercrop"],m:["FFS","Group Discussion","Demo Plot","Input Demo"]},
+  {a:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","🪴 Intercrop","📓 FFB"],m:["IPM Scouting","Group Discussion","Pheromone Traps","Input Demo"]},
+  {a:["🌿 INM","🐛 Insect Pest Control","📓 FFB","🔍 Internal Inspection","📋 Documentation"],m:["Audit Preparedness","Campaigning","Village Meetings"]},
+  {a:["🏭 CFC","📦 Procurement Plan"],m:["Campaigning","Village Meeting","Survey"]},
+  {a:["🏭 CFC","📦 Procurement"],m:["FFS","Village Meeting"]},
+  {a:["🏭 CFC","📦 Procurement","🔍 Internal Inspection","📓 FFB"],m:["Village Meeting"]},
+  {a:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],m:["Mobilization","Survey"]},
+  {a:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],m:["Mobilization","Survey"]},
+  {a:["🌾 Rabi Crop Support","⚖️ Decent Work"],m:["FFS","Household Meeting"]},
+  {a:["🧪 Soil Testing","📅 Season Plan"],m:["Exposure Visit","Farmer Survey","Data Collection"]},
 ];
-
 var KEY_HI=[
-  {activities:["👨‍🌾 किसान जुड़ाव","📋 ICS पंजीकरण","🌱 सीजन योजना"],methods:["FFS","इनपुट डेमो","ग्राम बैठक"]},
-  {activities:["🌿 जैविक और RCI","📓 FFB"],methods:["ग्राम बैठक","इनपुट तैयारी डेमो"]},
-  {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["समूह चर्चा","डेमो प्लॉट","इनपुट डेमो"]},
-  {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["समूह चर्चा","डेमो प्लॉट","इनपुट डेमो"]},
-  {activities:["📚 FFS","🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","🔍 आंतरिक निरीक्षण"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  {activities:["🏭 CFC","📦 खरीद योजना"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  {activities:["🏭 CFC","📦 खरीद"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  {activities:["🏭 CFC","📦 खरीद"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  {activities:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],methods:["मोबिलाइजेशन","सर्वेक्षण"]},
-  {activities:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],methods:["मोबिलाइजेशन","सर्वेक्षण"]},
-  {activities:["🌾 रबी फसल सहायता","⚖️ सभ्य कार्य"],methods:["FFS","घरेलू बैठक"]},
-  {activities:["🧪 मिट्टी परीक्षण","📅 सीजन योजना"],methods:["एक्सपोजर विजिट","किसान सर्वेक्षण","डेटा संग्रह"]},
+  {a:["📝 किसान पंजीकरण","📅 सीजन योजना","🧪 इनपुट प्रशिक्षण","🌾 भूमि तैयारी","🌿 हरी खाद"],m:["इनपुट डेमो","ग्राम बैठक","सर्वेक्षण"]},
+  {a:["🌱 जैविक/RCI प्रशिक्षण","🌾 बीज वितरण","🧪 बीज उपचार और बुवाई"],m:["ग्राम बैठक","इनपुट तैयारी और बीज उपचार डेमो"]},
+  {a:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","🔧 गैप भरना","🪴 अंतरफसल"],m:["FFS","समूह चर्चा","डेमो प्लॉट","इनपुट डेमो"]},
+  {a:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","🪴 अंतरफसल","📓 FFB"],m:["IPM सर्वेक्षण","समूह चर्चा","फेरोमोन ट्रैप","इनपुट डेमो"]},
+  {a:["🌿 INM","🐛 कीट नियंत्रण","📓 FFB","🔍 आंतरिक निरीक्षण","📋 दस्तावेजीकरण"],m:["ऑडिट तैयारी","जागरूकता अभियान","ग्राम बैठक"]},
+  {a:["🏭 CFC","📦 खरीद योजना"],m:["जागरूकता अभियान","ग्राम बैठक","सर्वेक्षण"]},
+  {a:["🏭 CFC","📦 खरीद"],m:["FFS","ग्राम बैठक"]},
+  {a:["🏭 CFC","📦 खरीद","🔍 आंतरिक निरीक्षण","📓 FFB"],m:["ग्राम बैठक"]},
+  {a:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],m:["मोबिलाइजेशन","सर्वेक्षण"]},
+  {a:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],m:["मोबिलाइजेशन","सर्वेक्षण"]},
+  {a:["🌾 रबी फसल सहायता","⚖️ सभ्य कार्य"],m:["FFS","घरेलू बैठक"]},
+  {a:["🧪 मिट्टी परीक्षण","📅 सीजन योजना"],m:["एक्सपोजर विजिट","किसान सर्वेक्षण","डेटा संग्रह"]},
 ];
 
-// Activity colors for key tags
-var ACT_COLORS=["#c62828","#1565c0","#2e7d32","#6a1b9a","#e65100","#283593","#006064","#4527a0","#795548","#37474f","#0277bd","#558b2f"];
-var METH_COLOR="rgba(255,255,255,0.18)";
-var GRADS=[
-  "linear-gradient(135deg,#bf360c,#e64a19)",  // May
-  "linear-gradient(135deg,#1b5e20,#2e7d32)",  // June
-  "linear-gradient(135deg,#0d47a1,#1565c0)",  // July
-  "linear-gradient(135deg,#1b5e20,#33691e)",  // August
-  "linear-gradient(135deg,#e65100,#f57c00)",  // September
-  "linear-gradient(135deg,#880e4f,#c2185b)",  // October
-  "linear-gradient(135deg,#1a237e,#283593)",  // November
-  "linear-gradient(135deg,#004d40,#00695c)",  // December
-  "linear-gradient(135deg,#311b92,#4527a0)",  // January
-  "linear-gradient(135deg,#33691e,#558b2f)",  // February
-  "linear-gradient(135deg,#3e2723,#5d4037)",  // March
-  "linear-gradient(135deg,#e65100,#f9a825)",  // April
+// ── QUICK TABS ────────────────────────────────────────────────────
+var QTABS=[
+  {icon:"🎓",label:"VRP Onboard Training",url:"https://dr-noushad.github.io/PAPL-Training-Plan_2026-27/1. Training_Module_VRP_Onboard",c:"#1565c0"},
+  {icon:"👤",label:"VRP's Role",multi:[{l:"Hindi",url:"https://drive.google.com/file/d/1Y-kBLzRVZmXFKs6n7ehGyOI2KtPaZehA/view?usp=sharing"},{l:"Odiya",url:"https://drive.google.com/file/d/1t1IBZuCMmWa9_b5nRWWR7V-PBy3Vh2XK/view?usp=sharing"}],c:"#2e7d32"},
+  {icon:"📓",label:"Farm Diary (FFB)",url:"https://drive.google.com/file/d/17iZsWsJLzDcEW7FgHQVr6sN0MU2RnTZ0/view?usp=sharing",c:"#6a1b9a"},
+  {icon:"✅",label:"Internal Checklist",url:"https://drive.google.com/file/d/1drM99Et8uIesDM-Us_kkbjUBuVOBWkuf/view?usp=sharing",c:"#ad1457"},
 ];
 
-var BG_COLORS=[
-  "#fbe9e7","#e8f5e9","#e3f2fd","#f1f8e9","#fff3e0",
-  "#fce4ec","#e8eaf6","#e0f7fa","#ede7f6","#f1f8e9","#efebe9","#fff8e1"
-];
+// ── GRADIENTS ─────────────────────────────────────────────────────
+var GRADS=["linear-gradient(135deg,#bf360c,#e64a19)","linear-gradient(135deg,#1b5e20,#2e7d32)","linear-gradient(135deg,#0d47a1,#1565c0)","linear-gradient(135deg,#1b5e20,#33691e)","linear-gradient(135deg,#e65100,#f57c00)","linear-gradient(135deg,#880e4f,#c2185b)","linear-gradient(135deg,#1a237e,#283593)","linear-gradient(135deg,#004d40,#00695c)","linear-gradient(135deg,#311b92,#4527a0)","linear-gradient(135deg,#33691e,#558b2f)","linear-gradient(135deg,#3e2723,#5d4037)","linear-gradient(135deg,#e65100,#f9a825)"];
+var BGS=["#fbe9e7","#e8f5e9","#e3f2fd","#f1f8e9","#fff3e0","#fce4ec","#e8eaf6","#e0f7fa","#ede7f6","#f1f8e9","#efebe9","#fff8e1"];
+var ACOLS=["#c62828","#1565c0","#2e7d32","#6a1b9a","#e65100","#283593","#006064","#4527a0","#795548","#37474f","#0277bd","#558b2f"];
 
-// ── DRIVE LINKS ──────────────────────────────────────────────────
-var DL={
- "01":"https://drive.google.com/drive/folders/1kE8NDg2SgajBjOT8GiAYgI0l9jRaPXXy?usp=drive_link",
- "02":"https://drive.google.com/drive/folders/1rNA7fkwBp5ru1PblRhc7MOxwXjcuDOWo?usp=sharing",
- "03":"https://drive.google.com/drive/folders/1dZ5S3yQlB0Yo81odo8llfYcedoKHLLvZ?usp=sharing",
- "04":"https://drive.google.com/drive/folders/1x4Hsj7oa4q3KfFmV-SbR6Zfq3se-fZ17?usp=sharing",
- "05":"https://drive.google.com/drive/folders/1D_TMI5KvGEoTg6_SeCm1fE5CAXTLPm0w?usp=sharing",
- "06":"https://drive.google.com/drive/folders/1TdvKn1RzpDKy-o1x-JYoofJOrgns7VRR?usp=sharing",
- "07":"https://drive.google.com/drive/folders/1Ohsdu7QGeRTsHmiTPKCWLgwbKe8zrKjz?usp=sharing",
- "08":"https://drive.google.com/drive/folders/1HmwA8jCjKYiqKZ-zAhyNufhhi7TshZNp?usp=sharing",
- "09":"https://drive.google.com/drive/folders/1muPVUJzIq_fXj4jPKMd0S4BNQbkf8Gcs?usp=sharing",
- "10A":"https://drive.google.com/drive/folders/1bKa0M8LEKZKWJ1wtRDdnPgVfkqvk-asi?usp=sharing",
- "10B":"https://drive.google.com/drive/folders/1XtnOKCNjm_d6GbPtLzFeBnJeQ7e3a2IX?usp=sharing",
- "10C":"https://drive.google.com/drive/folders/1ujYmAvcAt-ggWQvQ7uld1dXqPmpplheJ?usp=sharing",
- "10D":"https://drive.google.com/drive/folders/1SkAQO71D1xuPuIjQm0zQlVUK6GQwRDMa?usp=sharing",
- "10E":"https://drive.google.com/drive/folders/1rRtCbBj79v-7uqPn5wgcrc8QPzYHVna1?usp=sharing",
- "10F":"https://drive.google.com/drive/folders/1n0pa0p6KorOcTFmpbuL3dy3SeoW32kiN?usp=sharing",
- "10G":"https://drive.google.com/drive/folders/13zKF4MCMS2DHBVYYqwUXK7_8gMRAhL6z?usp=sharing",
- "10H":"https://drive.google.com/drive/folders/1tfMpVpMX2CZYzUvMBGcMNzDQacB8CZVM?usp=sharing"
-};
+// ── DRIVE LINKS ───────────────────────────────────────────────────
+var DL={"01":"https://drive.google.com/drive/folders/1kE8NDg2SgajBjOT8GiAYgI0l9jRaPXXy?usp=drive_link","02":"https://drive.google.com/drive/folders/1rNA7fkwBp5ru1PblRhc7MOxwXjcuDOWo?usp=sharing","03":"https://drive.google.com/drive/folders/1dZ5S3yQlB0Yo81odo8llfYcedoKHLLvZ?usp=sharing","04":"https://drive.google.com/drive/folders/1x4Hsj7oa4q3KfFmV-SbR6Zfq3se-fZ17?usp=sharing","05":"https://drive.google.com/drive/folders/1D_TMI5KvGEoTg6_SeCm1fE5CAXTLPm0w?usp=sharing","06":"https://drive.google.com/drive/folders/1TdvKn1RzpDKy-o1x-JYoofJOrgns7VRR?usp=sharing","07":"https://drive.google.com/drive/folders/1Ohsdu7QGeRTsHmiTPKCWLgwbKe8zrKjz?usp=sharing","08":"https://drive.google.com/drive/folders/1HmwA8jCjKYiqKZ-zAhyNufhhi7TshZNp?usp=sharing","09":"https://drive.google.com/drive/folders/1muPVUJzIq_fXj4jPKMd0S4BNQbkf8Gcs?usp=sharing","10A":"https://drive.google.com/drive/folders/1bKa0M8LEKZKWJ1wtRDdnPgVfkqvk-asi?usp=sharing","10B":"https://drive.google.com/drive/folders/1XtnOKCNjm_d6GbPtLzFeBnJeQ7e3a2IX?usp=sharing","10C":"https://drive.google.com/drive/folders/1ujYmAvcAt-ggWQvQ7uld1dXqPmpplheJ?usp=sharing","10D":"https://drive.google.com/drive/folders/1SkAQO71D1xuPuIjQm0zQlVUK6GQwRDMa?usp=sharing","10E":"https://drive.google.com/drive/folders/1rRtCbBj79v-7uqPn5wgcrc8QPzYHVna1?usp=sharing","10F":"https://drive.google.com/drive/folders/1n0pa0p6KorOcTFmpbuL3dy3SeoW32kiN?usp=sharing","10G":"https://drive.google.com/drive/folders/13zKF4MCMS2DHBVYYqwUXK7_8gMRAhL6z?usp=sharing","10H":"https://drive.google.com/drive/folders/1tfMpVpMX2CZYzUvMBGcMNzDQacB8CZVM?usp=sharing"};
 
 // ── DATA ──────────────────────────────────────────────────────────
 var DATA={
 en:{
  calTitle:"🌿 Farmer Training Calendar 2026-27",
  calSub:"10 Modules · Organic Cotton · Rabi Crops · Farm Diary",
- tabCal:"📅 Calendar",tabMod:"📚 Modules",
- prev:"Prev",next:"Next",foot:"ORGANIC FARMING PROGRAM",
+ tabCal:"📅 Calendar",tabMod:"📚 Modules",prev:"Prev",next:"Next",foot:"ORGANIC FARMING PROGRAM",
  months:[
   {m:"May",s:"Pre-Kharif / Summer Planning",b:"Pre-Season",e:"☀️",
    acts:[{l:"🌾 Land Prep",c:"#E65100"},{l:"🧪 Seed Treatment",c:"#1565C0"},{l:"♻️ Compost",c:"#558B2F"},{l:"👥 Village Meeting",c:"#6A1B9A"},{l:"📝 Farmer Registration",c:"#C62828"}],
    t:[
-    {h:"M2 – Seed Selection & Organic Seed Treatment",tg:"M2",c:"#1565c0",i:["Training covers: selection of non-BT cotton seed varieties, seed quality testing (germination % and purity), and local seed preservation — so farmers know which seed to choose and how to store it safely.","Farmers will learn to prepare and apply Beejamrutha, Trichoderma, neem extract and cow urine as seed treatments — adopting these practices ensures healthy germination and protection from soil-borne diseases."]},
+    {h:"M2 – Seed Selection & Organic Seed Treatment",tg:"M2",c:"#1565c0",i:["Training covers: selection of non-BT cotton seed varieties, seed quality testing (germination % and purity), local seed preservation — so farmers know which seed to choose and how to store it safely.","Farmers will learn to prepare and apply Beejamrutha, Trichoderma, neem extract and cow urine as seed treatments — adopting these practices ensures healthy germination and protection from soil-borne diseases."]},
     {h:"M3 – Summer Soil Preparation & Land Management",tg:"M3",c:"#4e342e",i:["Training covers: deep summer ploughing, green manure crop sowing (Dhaincha, Sunhemp), field bunding and drainage preparation, soil moisture conservation before monsoon, and biochar use — so farmers prepare a healthy seedbed before the season begins."]},
     {h:"M4 – Organic Input Preparation & Stocking",tg:"M4",c:"#558b2f",i:["Training covers: vermicompost bed setup, compost with decomposers (windrow/pit method), NADEP compost pit, castor cake and NSKE use, Jeevamrut, Ghan Jeevamrut, Panchagavya preparation — so farmers have all organic inputs ready before sowing season.","Farmers will conduct an on-farm input audit to match available stock against requirement, ensuring no gaps during the critical Kharif season."]},
     {h:"Season Planning & Farmer Registration",tg:"Plan",c:"#37474f",i:["Training covers: crop rotation plan for Kharif 2026, village meeting orientation, new farmer onboarding with ICS documentation, demo plot planning, and season farmer registration — so every farmer is enrolled, informed and ready before sowing begins."]},
@@ -659,24 +227,24 @@ en:{
   {m:"June",s:"Kharif Sowing Season",b:"Sowing",e:"🌱",
    acts:[{l:"🌧️ Monsoon Sowing",c:"#2E7D32"},{l:"🌱 Cotton Seeds",c:"#1565C0"},{l:"🌾 Row Sowing",c:"#558B2F"},{l:"🌿 Intercrop",c:"#006064"},{l:"🧪 Seed Process/Beejamrut",c:"#AD1457"},{l:"📋 FFB",c:"#F57F17"}],
    t:[
-    {h:"M1 – Introduction to Organic Farming & Cotton",tg:"M1",c:"#2e7d32",i:["Training covers: what organic farming is and how it differs from chemical farming, its history and principles, benefits of FYM use, harmful effects of chemicals, importance of organic cotton in value and market demand, and basic certification concepts — so farmers understand why organic farming is the right choice and their role in it."]},
+    {h:"M1 – Introduction to Organic Farming & Cotton",tg:"M1",c:"#2e7d32",i:["Training covers: what organic farming is and how it differs from chemical farming, its history and principles, FYM use and benefits, harmful effects of chemicals, importance of organic cotton in value and market demand, and basic certification concepts — so farmers understand why organic farming is the right choice and their role in it."]},
     {h:"M2 – Cotton & Intercrop Sowing with Beejamrutha",tg:"M2",c:"#1565c0",i:["Training covers: seed rate, spacing, line sowing vs dibbling, moisture condition during sowing, gap filling, intercrop sowing (cotton + redgram/moong) and timing, and Beejamrutha/seed process application — so farmers sow correctly, apply seed treatment in the field, and establish healthy cotton with intercrop from day one."]},
-    {h:"M3 – Soil Health & Land Preparation",tg:"M3",c:"#4e342e",i:["Training covers: soil health importance (microorganisms, earthworms, organic matter), land preparation methods (conventional vs minimum tillage), crop residue incorporation, farm bunding, drainage management, and rainwater conservation — so farmers prepare a productive, healthy soil environment before the crop is established."]},
-    {h:"M10A – Farm Diary, ICS & FFB Initiation",tg:"M10A",c:"#6a1b9a",i:["Training covers: organic standards basics, ICS overview, farm map and land history documentation, conversion period, buffer zone concept, and how to open and fill the Farmer Field Diary and FFB (Farmer Field Book) — recording sowing date, variety, seed source and input purchase details from day one of the season."]},
+    {h:"M3 – Soil Health & Land Preparation",tg:"M3",c:"#4e342e",i:["Training covers: soil health importance (microorganisms, earthworms, organic matter), land preparation methods (conventional vs minimum tillage), crop residue incorporation, farm bunding, drainage management, and rainwater conservation — so farmers prepare a productive, healthy soil environment."]},
+    {h:"M10A – Farm Diary, ICS & FFB Initiation",tg:"M10A",c:"#6a1b9a",i:["Training covers: organic standards basics, ICS overview, farm map and land history documentation, conversion period, buffer zone concept, and how to open and fill the Farmer Field Diary and FFB — recording sowing date, variety, seed source and input purchase details from day one of the season."]},
   ]},
   {m:"July",s:"Kharif Vegetative Stage",b:"Vegetative",e:"🌧️",
-   acts:[{l:"🌿 Seedlings",c:"#1565C0"},{l:"🔧 Gap Filling",c:"#558B2F"},{l:"💧 Jeevamrut",c:"#006064"},{l:"🪴 Intercrop Care",c:"#2E7D32"},{l:"🧪 Seed Treatment/Beejamrut",c:"#AD1457"},{l:"📋 FFB",c:"#F57F17"}],
+   acts:[{l:"🌿 Seedlings",c:"#1565C0"},{l:"🔧 Gap Filling",c:"#558B2F"},{l:"💧 Jeevamrut",c:"#006064"},{l:"🪴 Intercrop Care",c:"#2E7D32"},{l:"🧪 Beejamrut",c:"#AD1457"},{l:"📋 FFB",c:"#F57F17"}],
    t:[
     {h:"M4 – Nutrient Management & Organic Input Application",tg:"M4",c:"#558b2f",i:["Training covers: FYM quality and field application, vermicompost use, Jeevamrut soil drench with Kanda Pani (dosage and timing), NADEP compost application, and early nutrient deficiency symptom identification — so farmers apply the right organic inputs at the right time and keep crops healthy during the vegetative stage."]},
-    {h:"M5 – Intercropping, Biodiversity & Ecological Balance",tg:"M5",c:"#006064",i:["Training covers: cotton-based intercrop management (redgram, moong, cowpea), cover crops, border crops, trap crops setup and monitoring, flower strips for beneficial insects, pollinator conservation, and agroforestry basics — so farmers maintain ecological balance, reduce pest pressure and improve overall farm biodiversity."]},
+    {h:"M5 – Intercropping, Biodiversity & Ecological Balance",tg:"M5",c:"#006064",i:["Training covers: cotton-based intercrop management (redgram, moong, cowpea), cover crops, border crops, trap crops setup and monitoring, flower strips for beneficial insects, pollinator conservation, and agroforestry basics — so farmers maintain ecological balance and improve farm biodiversity."]},
     {h:"M6 – Weed Management & Intercultivation",tg:"M6",c:"#ad1457",i:["Training covers: weed identification, manual and mechanical weeding schedule, mulching for weed control, critical weed competition period in cotton, and intercultivation timing and tools — so farmers control weeds effectively without harming the crop or soil health."]},
-    {h:"M10A – Farm Diary & FFB: Crop Monitoring Records",tg:"M10A",c:"#6a1b9a",i:["Training covers: recording pest/disease observations, Panch Patti Kadha and other input application log entries (spray details, dose, date), labour entries (family & hired), irrigation and rain event records, Beejamrut application records, and FFB update — so every field activity is documented accurately for ICS compliance and certification audit."]},
+    {h:"M10A – Farm Diary & FFB: Crop Monitoring Records",tg:"M10A",c:"#6a1b9a",i:["Training covers: recording pest/disease observations, Panch Patti Kadha and other input application log entries (spray details, dose, date), labour entries, irrigation and rain event records, Beejamrut records, and FFB update — so every field activity is documented accurately for ICS compliance."]},
   ]},
   {m:"August",s:"Kharif IPM & Organic Inputs",b:"IPM Stage",e:"🌿",
    acts:[{l:"🐛 IPM Scouting",c:"#AD1457"},{l:"🌿 Jeevamrut",c:"#558B2F"},{l:"🪤 Pheromone Trap",c:"#E65100"},{l:"🌱 Weeding",c:"#2E7D32"},{l:"🔍 Internal Inspection",c:"#6A1B9A"},{l:"✅ Audit-Ready",c:"#283593"},{l:"📋 FFB",c:"#F57F17"}],
    t:[
-    {h:"M4 – Organic Foliar & Soil Input Application",tg:"M4",c:"#558b2f",i:["Training covers: Panchagavya preparation and spray, biofertilizers (PSB, Azotobacter, Rhizobium), neem oil and botanical extracts, and cow urine formulations — so farmers adopt and confidently apply organic inputs to boost crop growth and resist pest/disease pressure without chemicals."]},
-    {h:"M6 – Pest Monitoring, Biocontrol & IPM",tg:"M6",c:"#ad1457",i:["Training covers: major cotton pests and life cycles, pest scouting (10 plants/acre), ETL concept, cultural pest management, bird perches installation, sticky and pheromone trap setup, beneficial insect identification (Chrysoperla, Trichogramma, spiders), and conservation of natural enemies and biocontrol agent release — so farmers monitor, identify and manage pests through IPM without relying on chemicals."]},
+    {h:"M4 – Organic Foliar & Soil Input Application",tg:"M4",c:"#558b2f",i:["Training covers: Panchagavya preparation and spray, biofertilizers (PSB, Azotobacter, Rhizobium), neem oil and botanical extracts, and cow urine formulations — so farmers apply organic inputs confidently to boost crop growth and resist pest/disease pressure without chemicals."]},
+    {h:"M6 – Pest Monitoring, Biocontrol & IPM",tg:"M6",c:"#ad1457",i:["Training covers: major cotton pests and life cycles, pest scouting (10 plants/acre), ETL concept, cultural pest management, bird perches installation, sticky and pheromone trap setup, beneficial insect identification (Chrysoperla, Trichogramma, spiders), conservation of natural enemies, and biocontrol agent release — so farmers manage pests through IPM without chemicals."]},
     {h:"M10A – Internal Inspection, Compliance & FFB Verification",tg:"M10A",c:"#6a1b9a",i:["Training covers: input and harvest record maintenance, prohibited inputs list, residue contamination risk awareness, parallel production rules check, conducting internal inspection, preparing audit-ready documentation, and FFB verification — so the farm is fully compliant and ready for external certification audit at any time."]},
   ]},
   {m:"September",s:"Kharif Flowering Stage",b:"Flowering",e:"🌸",
@@ -689,8 +257,8 @@ en:{
   {m:"October",s:"Kharif Boll Development",b:"Boll Stage",e:"🪴",
    acts:[{l:"🟢 Green Bolls",c:"#2E7D32"},{l:"🔍 Monitoring",c:"#1565C0"},{l:"💧 Irrigation",c:"#0277BD"},{l:"📓 Diary Review",c:"#6A1B9A"}],
    t:[
-    {h:"M6 – Boll Stage Pest Management",tg:"M6",c:"#ad1457",i:["Training covers: pink and American bollworm organic management, spray scheduling with pre-harvest cut-off period, final bird perch monitoring, and boll damage assessment — so farmers protect the developing bolls and stop spraying at the right time to maintain organic integrity before harvest."]},
-    {h:"M7 – Water Management & Climate-Smart Farming",tg:"M7",c:"#0277bd",i:["Training covers: critical irrigation stages for boll filling, water-saving techniques (furrow, drip, sprinkler), drought management practices, climate change awareness, and carbon sequestration basics — so farmers ensure adequate water during boll development while building climate resilience on their farms."]},
+    {h:"M6 – Boll Stage Pest Management",tg:"M6",c:"#ad1457",i:["Training covers: pink and American bollworm organic management, spray scheduling with pre-harvest cut-off period, final bird perch monitoring, and boll damage assessment — so farmers protect developing bolls and stop spraying at the right time to maintain organic integrity before harvest."]},
+    {h:"M7 – Water Management & Climate-Smart Farming",tg:"M7",c:"#0277bd",i:["Training covers: critical irrigation stages for boll filling, water-saving techniques (furrow, drip, sprinkler), drought management practices, climate change awareness, and carbon sequestration basics — so farmers ensure adequate water during boll development while building climate resilience."]},
     {h:"M10A – Farm Diary Mid-Season Review by VRP/Agronomist",tg:"M10A",c:"#6a1b9a",i:["Training covers: cross-verification of all diary entries by VRP/Agronomist, correction of incomplete records, input cost calculation, and yield forecasting based on boll count — so every farmer's record is accurate, complete and ready for the approaching harvest and audit."]},
   ]},
   {m:"November",s:"Mature Bolls – Field Inspection",b:"Mature Bolls",e:"⚪",
@@ -721,15 +289,15 @@ en:{
   {m:"March",s:"Crop Residue Mgmt & Compost Prep",b:"Post-Harvest",e:"♻️",
    acts:[{l:"♻️ Residue Mgmt",c:"#4E342E"},{l:"🪣 Compost Pit",c:"#558B2F"},{l:"🌾 Rabi Harvest",c:"#795548"},{l:"💰 Cost-Benefit",c:"#283593"}],
    t:[
-    {h:"Rabi & M8 – Rabi Harvest, Yield Recording & Cost-Benefit Analysis",tg:"M8",c:"#283593",i:["Training covers: harvest maturity indicators for wheat, chickpea and mustard; threshing, cleaning and organic storage; seed saving (selection, drying and storage); avoiding contamination in transport; yield estimation and weighment; closing the Farm Diary with production and sale entries; cost of cultivation vs income calculation; and organic premium documentation for certification — so farmers complete Rabi operations professionally and understand full season profitability."]},
-    {h:"M10G/H – Non-Discrimination, Inclusion & Grievance System",tg:"M10GH",c:"#4527a0",i:["Training covers: no caste or gender discrimination on farm, respectful behaviour among all farmers and workers, inclusion of small and marginal farmers, grievance and complaint process for farmers and workers, and safe reporting system with conflict resolution — so every person on the farm is treated fairly and knows how to raise concerns safely."]},
+    {h:"Rabi & M8 – Rabi Harvest, Yield Recording & Cost-Benefit Analysis",tg:"M8",c:"#283593",i:["Training covers: harvest maturity indicators for wheat, chickpea and mustard; threshing, cleaning and organic storage; seed saving (selection, drying and storage); avoiding contamination in transport; yield estimation and weighment; closing the Farm Diary with production and sale entries; cost of cultivation vs income calculation; and organic premium documentation for certification."]},
+    {h:"M10G/H – Non-Discrimination, Inclusion & Grievance System",tg:"M10GH",c:"#4527a0",i:["Training covers: no caste or gender discrimination on farm, respectful behaviour among all farmers and workers, inclusion of small and marginal farmers, grievance and complaint process for farmers and workers, and safe reporting system with conflict resolution — so every person on the farm is treated fairly."]},
   ]},
   {m:"April",s:"Review Meeting & Next Season Plan",b:"Annual Review",e:"📋",
    acts:[{l:"📋 Annual Review",c:"#F57F17"},{l:"📊 Presentations",c:"#6A1B9A"},{l:"🌱 Next Plan",c:"#2E7D32"},{l:"🏆 Recognition",c:"#E65100"},{l:"📝 Farmer Registration",c:"#C62828"}],
    t:[
     {h:"M10A – Annual Audit, Diary Closure & Farmer Recognition",tg:"M10A",c:"#6a1b9a",i:["Training covers: complete Farm Diary review for correctness and completeness, external audit process and common findings, non-compliance corrective actions, and recognition of best diary-keeping farmers — so the season is closed with full documentation and learnings recorded for the next cycle."]},
-    {h:"M9 – Trainer Skills & Session Planning for VRP and Lead Farmers",tg:"M9",c:"#f57f17",i:["Training covers: communication skills using local language, adult learning methods, demonstration techniques, visual training tools for field use, session planning with attendance and reporting, and farmer follow-up with adoption monitoring — so VRPs and Lead Farmers are equipped to deliver effective, engaging training sessions independently."]},
-    {h:"Season Debrief, Next Year Planning & Farmer Registration",tg:"Review",c:"#546e7a",i:["Training covers: group discussion on what worked and what didn't, documentation of best practices from lead farmers, training gap analysis for next season, soil health card review and recommendations, farmer registration for next season, and pre-planning for May seed selection training — so the next season starts better and stronger than the current one."]},
+    {h:"M9 – Trainer Skills & Session Planning for VRP and Lead Farmers",tg:"M9",c:"#f57f17",i:["Training covers: communication skills using local language, adult learning methods, demonstration techniques, visual training tools for field use, session planning with attendance and reporting, and farmer follow-up with adoption monitoring — so VRPs and Lead Farmers are equipped to deliver effective training sessions independently."]},
+    {h:"Season Debrief, Next Year Planning & Farmer Registration",tg:"Review",c:"#546e7a",i:["Training covers: group discussion on what worked and what didn't, documentation of best practices from lead farmers, training gap analysis for next season, soil health card review and recommendations, farmer registration for next season, and pre-planning for May seed selection training — so the next season starts better and stronger."]},
   ]},
  ],
  modules:[
@@ -755,67 +323,90 @@ en:{
 hi:{
  calTitle:"🌿 किसान प्रशिक्षण कैलेंडर 2026-27",
  calSub:"10 मॉड्यूल · जैविक कपास · रबी फसलें · फार्म डायरी",
- tabCal:"📅 कैलेंडर",tabMod:"📚 मॉड्यूल",
- prev:"पिछला",next:"अगला",foot:"जैविक कृषि कार्यक्रम",
+ tabCal:"📅 कैलेंडर",tabMod:"📚 मॉड्यूल",prev:"पिछला",next:"अगला",foot:"जैविक कृषि कार्यक्रम",
  months:[
-  {m:"मई",s:"खरीफ-पूर्व / ग्रीष्मकाल योजना",b:"प्री-सीजन",e:"☀️",acts:[{l:"🌾 भूमि तैयारी",c:"#E65100"},{l:"🧪 बीज उपचार",c:"#1565C0"},{l:"♻️ कम्पोस्ट",c:"#558B2F"},{l:"👥 ग्राम बैठक",c:"#6A1B9A"},{l:"📝 किसान पंजीकरण",c:"#C62828"}],t:[
+  {m:"मई",s:"खरीफ-पूर्व / ग्रीष्मकाल योजना",b:"प्री-सीजन",e:"☀️",
+   acts:[{l:"🌾 भूमि तैयारी",c:"#E65100"},{l:"🧪 बीज उपचार",c:"#1565C0"},{l:"♻️ कम्पोस्ट",c:"#558B2F"},{l:"👥 ग्राम बैठक",c:"#6A1B9A"},{l:"📝 किसान पंजीकरण",c:"#C62828"}],
+   t:[
     {h:"M2 – बीज चयन और जैविक बीज उपचार",tg:"M2",c:"#1565c0",i:["प्रशिक्षण में शामिल: गैर-BT कपास बीज किस्मों का चयन, बीज गुणवत्ता परीक्षण (अंकुरण % और शुद्धता), और स्थानीय बीज संरक्षण — ताकि किसान सही बीज चुनना और सुरक्षित भंडारण करना सीखें।","किसान बीजामृत, ट्राइकोडर्मा, नीम अर्क और गोमूत्र से बीज उपचार करना सीखेंगे — इन प्रथाओं को अपनाने से स्वस्थ अंकुरण और मिट्टीजनित बीमारियों से सुरक्षा सुनिश्चित होती है।"]},
     {h:"M3 – गर्मियों में मिट्टी तैयारी और भूमि प्रबंधन",tg:"M3",c:"#4e342e",i:["प्रशिक्षण में शामिल: गहरी गर्मी जुताई, हरी खाद फसलें (ढैंचा, सनहेम्प), खेत बंधान और जल निकासी, मानसून से पहले मिट्टी नमी संरक्षण, और बायोचार का उपयोग — ताकि किसान सीजन शुरू होने से पहले स्वस्थ और उत्पादक मिट्टी तैयार करें।"]},
-    {h:"M4 – जैविक इनपुट तैयारी और भंडारण",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: वर्मीकम्पोस्ट बेड सेटअप, डी-कॉम्पोजर के साथ कम्पोस्ट (विंड्रो/गड्ढा विधि), नाडेप कम्पोस्ट गड्ढा, अरंडी की खली और NSKE उपयोग, जीवामृत, घन जीवामृत, पंचगव्य तैयारी — ताकि बुवाई से पहले सभी जैविक इनपुट तैयार हों।","किसान ऑन-फार्म इनपुट ऑडिट करेंगे — स्टॉक और आवश्यकता का मिलान कर खरीफ सीजन में कोई कमी न हो।"]},
-    {h:"सीजन योजना और किसान पंजीकरण",tg:"योजना",c:"#37474f",i:["प्रशिक्षण में शामिल: खरीफ 2026 के लिए फसल रोटेशन योजना, ग्राम बैठक और प्रशिक्षण ओरिएंटेशन, ICS दस्तावेजीकरण के साथ नए किसान ऑनबोर्डिंग, डेमो प्लॉट योजना, और सीजन के लिए किसान पंजीकरण — ताकि हर किसान बुवाई शुरू होने से पहले नामांकित, सूचित और तैयार हो।"]},
+    {h:"M4 – जैविक इनपुट तैयारी और भंडारण",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: वर्मीकम्पोस्ट बेड सेटअप, डी-कॉम्पोजर के साथ कम्पोस्ट, नाडेप कम्पोस्ट गड्ढा, अरंडी की खली और NSKE उपयोग, जीवामृत, घन जीवामृत, पंचगव्य तैयारी — ताकि बुवाई से पहले सभी जैविक इनपुट तैयार हों।","किसान ऑन-फार्म इनपुट ऑडिट करेंगे — स्टॉक और आवश्यकता का मिलान कर खरीफ सीजन में कोई कमी न हो।"]},
+    {h:"सीजन योजना और किसान पंजीकरण",tg:"योजना",c:"#37474f",i:["प्रशिक्षण में शामिल: खरीफ 2026 के लिए फसल रोटेशन योजना, ग्राम बैठक और प्रशिक्षण ओरिएंटेशन, ICS दस्तावेजीकरण के साथ नए किसान ऑनबोर्डिंग, डेमो प्लॉट योजना, और सीजन के लिए किसान पंजीकरण।"]},
   ]},
-  {m:"जून",s:"खरीफ बुवाई सीजन",b:"बुवाई",e:"🌱",acts:[{l:"🌧️ मानसून बुवाई",c:"#2E7D32"},{l:"🌱 कपास बीज",c:"#1565C0"},{l:"🌾 पंक्ति बुवाई",c:"#558B2F"},{l:"🌿 अंतरफसल",c:"#006064"},{l:"🧪 बीज प्रक्रिया/बीजामृत",c:"#AD1457"},{l:"📋 FFB",c:"#F57F17"}],t:[
-    {h:"M1 – जैविक खेती और कपास का परिचय",tg:"M1",c:"#2e7d32",i:["प्रशिक्षण में शामिल: जैविक खेती क्या है और रासायनिक खेती से अंतर, इतिहास और सिद्धांत, गोबर खाद (FYM) उपयोग और जैविक खेती के फायदे, रासायनिक खेती के हानिकारक प्रभाव, जैविक कपास का महत्व (मूल्य और बाजार मांग), और प्रमाणन की बुनियादी अवधारणा — ताकि किसान समझें कि जैविक खेती सही क्यों है और उसमें उनकी क्या भूमिका है।"]},
-    {h:"M2 – कपास और अंतरफसल बुवाई तथा बीजामृत अनुप्रयोग",tg:"M2",c:"#1565c0",i:["प्रशिक्षण में शामिल: बीज दर, दूरी, पंक्ति बुवाई बनाम दिब्बलिंग विधि, बुवाई के दौरान नमी, गैप भरना, अंतरफसल बुवाई (कपास + अरहर/मूंग) का समय, और बीजामृत/बीज प्रक्रिया अनुप्रयोग — ताकि किसान सही तरीके से बुवाई करें, बीज उपचार लागू करें, और पहले दिन से स्वस्थ कपास और अंतरफसल स्थापित करें।"]},
-    {h:"M3 – मिट्टी स्वास्थ्य और भूमि तैयारी",tg:"M3",c:"#4e342e",i:["प्रशिक्षण में शामिल: मिट्टी स्वास्थ्य का महत्व (सूक्ष्मजीव, केंचुए, जैव पदार्थ), भूमि तैयारी विधियाँ (परंपरागत बनाम न्यूनतम जुताई), फसल अवशेष मिलाना, खेत बंधान, जल निकासी प्रबंधन, और वर्षा जल संरक्षण — ताकि किसान फसल स्थापना से पहले उत्पादक और स्वस्थ मिट्टी तैयार करें।"]},
-    {h:"M10A – फार्म डायरी, ICS और FFB की शुरुआत",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: जैविक मानकों की मूल बातें, ICS अवलोकन, खेत का नक्शा और भूमि इतिहास, रूपांतरण अवधि, बफर जोन अवधारणा, और किसान फील्ड डायरी तथा FFB (किसान फील्ड बुक) कैसे खोलें और भरें — सीजन के पहले दिन से बुवाई तारीख, किस्म, बीज स्रोत और इनपुट खरीद विवरण दर्ज करना।"]},
+  {m:"जून",s:"खरीफ बुवाई सीजन",b:"बुवाई",e:"🌱",
+   acts:[{l:"🌧️ मानसून बुवाई",c:"#2E7D32"},{l:"🌱 कपास बीज",c:"#1565C0"},{l:"🌾 पंक्ति बुवाई",c:"#558B2F"},{l:"🌿 अंतरफसल",c:"#006064"},{l:"🧪 बीज प्रक्रिया/बीजामृत",c:"#AD1457"},{l:"📋 FFB",c:"#F57F17"}],
+   t:[
+    {h:"M1 – जैविक खेती और कपास का परिचय",tg:"M1",c:"#2e7d32",i:["प्रशिक्षण में शामिल: जैविक खेती क्या है और रासायनिक खेती से अंतर, इतिहास और सिद्धांत, गोबर खाद (FYM) उपयोग और जैविक खेती के फायदे, रासायनिक खेती के हानिकारक प्रभाव, जैविक कपास का महत्व, और प्रमाणन की बुनियादी अवधारणा।"]},
+    {h:"M2 – कपास और अंतरफसल बुवाई तथा बीजामृत अनुप्रयोग",tg:"M2",c:"#1565c0",i:["प्रशिक्षण में शामिल: बीज दर, दूरी, पंक्ति बुवाई बनाम दिब्बलिंग विधि, बुवाई के दौरान नमी, गैप भरना, अंतरफसल बुवाई (कपास + अरहर/मूंग) का समय, और बीजामृत/बीज प्रक्रिया अनुप्रयोग।"]},
+    {h:"M3 – मिट्टी स्वास्थ्य और भूमि तैयारी",tg:"M3",c:"#4e342e",i:["प्रशिक्षण में शामिल: मिट्टी स्वास्थ्य का महत्व (सूक्ष्मजीव, केंचुए, जैव पदार्थ), भूमि तैयारी विधियाँ (परंपरागत बनाम न्यूनतम जुताई), फसल अवशेष मिलाना, खेत बंधान, जल निकासी प्रबंधन, और वर्षा जल संरक्षण।"]},
+    {h:"M10A – फार्म डायरी, ICS और FFB की शुरुआत",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: जैविक मानकों की मूल बातें, ICS अवलोकन, खेत का नक्शा और भूमि इतिहास, रूपांतरण अवधि, बफर जोन अवधारणा, और किसान फील्ड डायरी तथा FFB कैसे खोलें और भरें।"]},
   ]},
-  {m:"जुलाई",s:"खरीफ वानस्पतिक अवस्था",b:"वानस्पतिक",e:"🌧️",acts:[{l:"🌿 अंकुर",c:"#1565C0"},{l:"🔧 गैप भरना",c:"#558B2F"},{l:"💧 जीवामृत",c:"#006064"},{l:"🪴 अंतरफसल देखभाल",c:"#2E7D32"},{l:"🧪 बीज उपचार/बीजामृत",c:"#AD1457"},{l:"📋 FFB",c:"#F57F17"}],t:[
-    {h:"M4 – पोषण प्रबंधन और जैविक इनपुट अनुप्रयोग",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: FYM गुणवत्ता और खेत अनुप्रयोग, वर्मीकम्पोस्ट उपयोग, जीवामृत मिट्टी ड्रेंच और कण्डा पानी (खुराक और समय), नाडेप कम्पोस्ट अनुप्रयोग, और पोषक तत्व कमी के प्रारंभिक लक्षण — ताकि किसान वानस्पतिक अवस्था में सही समय पर सही जैविक इनपुट लगाएं और फसल को स्वस्थ रखें।"]},
-    {h:"M5 – अंतरफसल, जैव विविधता और पारिस्थितिक संतुलन",tg:"M5",c:"#006064",i:["प्रशिक्षण में शामिल: कपास आधारित अंतरफसल प्रबंधन (अरहर, मूंग, लोबिया), आवरण फसलें, सीमा फसलें, ट्रैप फसलें सेटअप और निगरानी, लाभकारी कीटों के लिए पुष्प पट्टियाँ, परागणकर्ता संरक्षण, और कृषि वानिकी की मूल बातें — ताकि किसान पारिस्थितिक संतुलन बनाए रखें, कीट दबाव कम करें और खेत की जैव विविधता बढ़ाएं।"]},
-    {h:"M6 – खरपतवार प्रबंधन और अंतरकर्षण",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: खरपतवार पहचान, हाथ से और यंत्र से निराई अनुसूची, पलवार से खरपतवार नियंत्रण, कपास में खरपतवार प्रतिस्पर्धा की महत्वपूर्ण अवधि, और अंतरकर्षण के समय और उपकरण — ताकि किसान फसल और मिट्टी को नुकसान पहुँचाए बिना खरपतवार को प्रभावी ढंग से नियंत्रित करें।"]},
-    {h:"M10A – फार्म डायरी और FFB: फसल निगरानी रिकॉर्ड",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: कीट/रोग अवलोकन दर्ज करना, पंच पत्ती काढ़ा और अन्य इनपुट अनुप्रयोग लॉग (स्प्रे विवरण, खुराक, तारीख), श्रम प्रविष्टियाँ (पारिवारिक और भाड़े के), सिंचाई और वर्षा घटना रिकॉर्ड, बीजामृत अनुप्रयोग रिकॉर्ड, और FFB अपडेट — ताकि ICS अनुपालन और प्रमाणन ऑडिट के लिए हर खेत गतिविधि सटीक रूप से दस्तावेजीकृत हो।"]},
+  {m:"जुलाई",s:"खरीफ वानस्पतिक अवस्था",b:"वानस्पतिक",e:"🌧️",
+   acts:[{l:"🌿 अंकुर",c:"#1565C0"},{l:"🔧 गैप भरना",c:"#558B2F"},{l:"💧 जीवामृत",c:"#006064"},{l:"🪴 अंतरफसल देखभाल",c:"#2E7D32"},{l:"🧪 बीज उपचार/बीजामृत",c:"#AD1457"},{l:"📋 FFB",c:"#F57F17"}],
+   t:[
+    {h:"M4 – पोषण प्रबंधन और जैविक इनपुट अनुप्रयोग",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: FYM गुणवत्ता और खेत अनुप्रयोग, वर्मीकम्पोस्ट उपयोग, जीवामृत मिट्टी ड्रेंच और कण्डा पानी (खुराक और समय), नाडेप कम्पोस्ट अनुप्रयोग, और पोषक तत्व कमी के प्रारंभिक लक्षण।"]},
+    {h:"M5 – अंतरफसल, जैव विविधता और पारिस्थितिक संतुलन",tg:"M5",c:"#006064",i:["प्रशिक्षण में शामिल: कपास आधारित अंतरफसल प्रबंधन (अरहर, मूंग, लोबिया), आवरण फसलें, सीमा फसलें, ट्रैप फसलें सेटअप और निगरानी, लाभकारी कीटों के लिए पुष्प पट्टियाँ, परागणकर्ता संरक्षण, और कृषि वानिकी की मूल बातें।"]},
+    {h:"M6 – खरपतवार प्रबंधन और अंतरकर्षण",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: खरपतवार पहचान, हाथ से और यंत्र से निराई अनुसूची, पलवार से खरपतवार नियंत्रण, कपास में खरपतवार प्रतिस्पर्धा की महत्वपूर्ण अवधि, और अंतरकर्षण के समय और उपकरण।"]},
+    {h:"M10A – फार्म डायरी और FFB: फसल निगरानी रिकॉर्ड",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: कीट/रोग अवलोकन दर्ज करना, पंच पत्ती काढ़ा और अन्य इनपुट अनुप्रयोग लॉग, श्रम प्रविष्टियाँ, सिंचाई और वर्षा घटना रिकॉर्ड, बीजामृत अनुप्रयोग रिकॉर्ड, और FFB अपडेट।"]},
   ]},
-  {m:"अगस्त",s:"खरीफ IPM और जैविक इनपुट",b:"IPM अवस्था",e:"🌿",acts:[{l:"🐛 IPM सर्वेक्षण",c:"#AD1457"},{l:"🌿 जीवामृत",c:"#558B2F"},{l:"🪤 फेरोमोन ट्रैप",c:"#E65100"},{l:"🌱 निराई",c:"#2E7D32"},{l:"🔍 आंतरिक निरीक्षण",c:"#6A1B9A"},{l:"✅ ऑडिट-रेडी",c:"#283593"},{l:"📋 FFB",c:"#F57F17"}],t:[
-    {h:"M4 – जैविक पर्णीय और मिट्टी इनपुट अनुप्रयोग",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: पंचगव्य तैयारी और स्प्रे, जैव उर्वरक (PSB, एज़ोटोबैक्टर, राइज़ोबियम), नीम तेल और वानस्पतिक अर्क, और गोमूत्र फॉर्मूलेशन — ताकि किसान बिना रसायनों के फसल की वृद्धि बढ़ाएं और कीट/रोग दबाव का सामना करें।"]},
-    {h:"M6 – कीट निगरानी, जैव नियंत्रण और IPM",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: प्रमुख कपास कीट और जीवन चक्र, कीट निगरानी (10 पौधे/एकड़), ETL अवधारणा, सांस्कृतिक कीट प्रबंधन, पक्षी बैठक स्थापना, चिपचिपे और फेरोमोन ट्रैप सेटअप, लाभकारी कीट पहचान (क्राइसोपर्ला, ट्राइकोग्रामा, मकड़ियाँ), प्राकृतिक शत्रुओं का संरक्षण और जैव नियंत्रण एजेंट छोड़ना — ताकि किसान रसायनों पर निर्भर हुए बिना IPM के माध्यम से कीटों की पहचान करें और प्रबंधन करें।"]},
-    {h:"M10A – आंतरिक निरीक्षण, अनुपालन और FFB सत्यापन",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: इनपुट और फसल रिकॉर्ड रखरखाव, निषिद्ध इनपुट सूची, अवशेष संदूषण जोखिम जागरूकता, समानांतर उत्पादन नियम जांच, आंतरिक निरीक्षण आयोजित करना, ऑडिट-रेडी दस्तावेजीकरण तैयार करना, और FFB सत्यापन — ताकि खेत किसी भी समय बाहरी प्रमाणन ऑडिट के लिए पूरी तरह से अनुपालन योग्य और तैयार हो।"]},
+  {m:"अगस्त",s:"खरीफ IPM और जैविक इनपुट",b:"IPM अवस्था",e:"🌿",
+   acts:[{l:"🐛 IPM सर्वेक्षण",c:"#AD1457"},{l:"🌿 जीवामृत",c:"#558B2F"},{l:"🪤 फेरोमोन ट्रैप",c:"#E65100"},{l:"🌱 निराई",c:"#2E7D32"},{l:"🔍 आंतरिक निरीक्षण",c:"#6A1B9A"},{l:"✅ ऑडिट-रेडी",c:"#283593"},{l:"📋 FFB",c:"#F57F17"}],
+   t:[
+    {h:"M4 – जैविक पर्णीय और मिट्टी इनपुट अनुप्रयोग",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: पंचगव्य तैयारी और स्प्रे, जैव उर्वरक (PSB, एज़ोटोबैक्टर, राइज़ोबियम), नीम तेल और वानस्पतिक अर्क, और गोमूत्र फॉर्मूलेशन — ताकि किसान बिना रसायनों के फसल की वृद्धि बढ़ाएं।"]},
+    {h:"M6 – कीट निगरानी, जैव नियंत्रण और IPM",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: प्रमुख कपास कीट और जीवन चक्र, कीट निगरानी (10 पौधे/एकड़), ETL अवधारणा, सांस्कृतिक कीट प्रबंधन, पक्षी बैठक स्थापना, चिपचिपे और फेरोमोन ट्रैप सेटअप, लाभकारी कीट पहचान, प्राकृतिक शत्रुओं का संरक्षण और जैव नियंत्रण एजेंट छोड़ना।"]},
+    {h:"M10A – आंतरिक निरीक्षण, अनुपालन और FFB सत्यापन",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: इनपुट और फसल रिकॉर्ड रखरखाव, निषिद्ध इनपुट सूची, अवशेष संदूषण जोखिम जागरूकता, समानांतर उत्पादन नियम जांच, आंतरिक निरीक्षण आयोजित करना, ऑडिट-रेडी दस्तावेजीकरण तैयार करना, और FFB सत्यापन।"]},
   ]},
-  {m:"सितंबर",s:"खरीफ फूल अवस्था",b:"फूल अवस्था",e:"🌸",acts:[{l:"🌸 फूल अवस्था",c:"#E65100"},{l:"🦋 कीट सर्वेक्षण",c:"#AD1457"},{l:"🌿 पर्णीय स्प्रे",c:"#558B2F"},{l:"📋 ICS जांच",c:"#6A1B9A"},{l:"📋 FFB",c:"#F57F17"}],t:[
-    {h:"M4 – फूल अवस्था में पोषण और पर्णीय प्रबंधन",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: फूल आने पर पंचगव्य स्प्रे का समय, जैव उर्वरक अनुप्रयोग (PSB, एज़ोटोबैक्टर, राइज़ोबियम), पोषक तत्व और सूक्ष्म पोषक तत्व (बोरॉन, जिंक) कमी पहचान और जैविक उपाय, और वर्मीवॉश पर्णीय स्प्रे — ताकि किसान फूल से बॉल सेटिंग तक केवल जैविक इनपुट से इष्टतम पोषण बनाए रखें।"]},
-    {h:"M6 – वानस्पतिक कीट नियंत्रण, रोग प्रबंधन और सुरक्षित स्प्रे",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: नीम तेल और नीम पत्ती अर्क स्प्रे, वानस्पतिक अर्क तैयारी और उपयोग, गोमूत्र फॉर्मूलेशन, HNPV स्प्रे (तैयारी, खुराक और समय), रोग प्रबंधन (ग्रे मिल्ड्यू, बैक्टीरियल ब्लाइट), ट्राइकोडर्मा जैव नियंत्रण एजेंट, खेत स्वच्छता प्रथाएं, स्प्रे शेड्यूलिंग, कट-ऑफ अवधि, और व्यक्तिगत सुरक्षा — ताकि किसान जैविक और सुरक्षित स्प्रे प्रथाओं से कीट और रोग प्रभावी ढंग से प्रबंधित करें।"]},
-    {h:"M10A – ICS अनुपालन जांच और FFB समीक्षा",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: मध्य-सीजन जैविक मानक समीक्षा, आंतरिक निरीक्षण प्रक्रिया, ICS के तहत किसान जिम्मेदारियां, गैर-अनुपालन पहचान और सुधारात्मक कार्रवाई, और FFB जांच — ताकि कटाई से पहले सभी प्रमाणन रिकॉर्ड अद्यतित और अनुपालन योग्य हों।"]},
+  {m:"सितंबर",s:"खरीफ फूल अवस्था",b:"फूल अवस्था",e:"🌸",
+   acts:[{l:"🌸 फूल अवस्था",c:"#E65100"},{l:"🦋 कीट सर्वेक्षण",c:"#AD1457"},{l:"🌿 पर्णीय स्प्रे",c:"#558B2F"},{l:"📋 ICS जांच",c:"#6A1B9A"},{l:"📋 FFB",c:"#F57F17"}],
+   t:[
+    {h:"M4 – फूल अवस्था में पोषण और पर्णीय प्रबंधन",tg:"M4",c:"#558b2f",i:["प्रशिक्षण में शामिल: फूल आने पर पंचगव्य स्प्रे का समय, जैव उर्वरक अनुप्रयोग (PSB, एज़ोटोबैक्टर, राइज़ोबियम), पोषक तत्व और सूक्ष्म पोषक तत्व (बोरॉन, जिंक) कमी पहचान और जैविक उपाय, और वर्मीवॉश पर्णीय स्प्रे।"]},
+    {h:"M6 – वानस्पतिक कीट नियंत्रण, रोग प्रबंधन और सुरक्षित स्प्रे",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: नीम तेल और नीम पत्ती अर्क स्प्रे, वानस्पतिक अर्क तैयारी और उपयोग, गोमूत्र फॉर्मूलेशन, HNPV स्प्रे (तैयारी, खुराक और समय), रोग प्रबंधन (ग्रे मिल्ड्यू, बैक्टीरियल ब्लाइट), ट्राइकोडर्मा जैव नियंत्रण एजेंट, खेत स्वच्छता प्रथाएं, स्प्रे शेड्यूलिंग, कट-ऑफ अवधि, और व्यक्तिगत सुरक्षा।"]},
+    {h:"M10A – ICS अनुपालन जांच और FFB समीक्षा",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: मध्य-सीजन जैविक मानक समीक्षा, आंतरिक निरीक्षण प्रक्रिया, ICS के तहत किसान जिम्मेदारियां, गैर-अनुपालन पहचान और सुधारात्मक कार्रवाई, और FFB जांच।"]},
   ]},
-  {m:"अक्टूबर",s:"खरीफ बॉल विकास",b:"बॉल अवस्था",e:"🪴",acts:[{l:"🟢 हरे बॉल",c:"#2E7D32"},{l:"🔍 निगरानी",c:"#1565C0"},{l:"💧 सिंचाई",c:"#0277BD"},{l:"📓 डायरी समीक्षा",c:"#6A1B9A"}],t:[
-    {h:"M6 – बॉल अवस्था कीट प्रबंधन",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: गुलाबी और अमेरिकन बॉलवर्म जैविक प्रबंधन, पूर्व-कटाई कट-ऑफ अवधि के साथ स्प्रे शेड्यूलिंग, पक्षी बैठक अंतिम निगरानी, और बॉल क्षति आकलन विधि — ताकि किसान विकासशील बॉल की सुरक्षा करें और सही समय पर स्प्रे बंद करें जिससे कटाई से पहले जैविक अखंडता बनी रहे।"]},
-    {h:"M7 – जल प्रबंधन और जलवायु स्मार्ट खेती",tg:"M7",c:"#0277bd",i:["प्रशिक्षण में शामिल: बॉल भरने के लिए महत्वपूर्ण सिंचाई अवस्थाएं, जल बचत तकनीकें (नाली, ड्रिप, स्प्रिंकलर), सूखा प्रबंधन प्रथाएं, जलवायु परिवर्तन जागरूकता, और कार्बन संग्रहण की मूल बातें — ताकि किसान बॉल विकास के दौरान पर्याप्त जल सुनिश्चित करते हुए अपने खेत पर जलवायु लचीलापन बनाएं।"]},
-    {h:"M10A – VRP/कृषिविद द्वारा फार्म डायरी मध्य-सीजन समीक्षा",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: VRP/कृषिविद द्वारा सभी डायरी प्रविष्टियों का क्रॉस-वेरिफिकेशन, अधूरे रिकॉर्ड का सुधार, इनपुट लागत की गणना, और बॉल गिनती के आधार पर उपज पूर्वानुमान — ताकि आगामी कटाई और ऑडिट के लिए हर किसान का रिकॉर्ड सटीक और पूर्ण हो।"]},
+  {m:"अक्टूबर",s:"खरीफ बॉल विकास",b:"बॉल अवस्था",e:"🪴",
+   acts:[{l:"🟢 हरे बॉल",c:"#2E7D32"},{l:"🔍 निगरानी",c:"#1565C0"},{l:"💧 सिंचाई",c:"#0277BD"},{l:"📓 डायरी समीक्षा",c:"#6A1B9A"}],
+   t:[
+    {h:"M6 – बॉल अवस्था कीट प्रबंधन",tg:"M6",c:"#ad1457",i:["प्रशिक्षण में शामिल: गुलाबी और अमेरिकन बॉलवर्म जैविक प्रबंधन, पूर्व-कटाई कट-ऑफ अवधि के साथ स्प्रे शेड्यूलिंग, पक्षी बैठक अंतिम निगरानी, और बॉल क्षति आकलन विधि।"]},
+    {h:"M7 – जल प्रबंधन और जलवायु स्मार्ट खेती",tg:"M7",c:"#0277bd",i:["प्रशिक्षण में शामिल: बॉल भरने के लिए महत्वपूर्ण सिंचाई अवस्थाएं, जल बचत तकनीकें (नाली, ड्रिप, स्प्रिंकलर), सूखा प्रबंधन प्रथाएं, जलवायु परिवर्तन जागरूकता, और कार्बन संग्रहण की मूल बातें।"]},
+    {h:"M10A – VRP/कृषिविद द्वारा फार्म डायरी मध्य-सीजन समीक्षा",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: VRP/कृषिविद द्वारा सभी डायरी प्रविष्टियों का क्रॉस-वेरिफिकेशन, अधूरे रिकॉर्ड का सुधार, इनपुट लागत की गणना, और बॉल गिनती के आधार पर उपज पूर्वानुमान।"]},
   ]},
-  {m:"नवंबर",s:"परिपक्व बॉल – फील्ड निरीक्षण",b:"परिपक्व बॉल",e:"⚪",acts:[{l:"⚪ परिपक्व बॉल",c:"#283593"},{l:"🌟 पहली चुनाई",c:"#006064"},{l:"🏭 CFC",c:"#E65100"},{l:"🔍 फील्ड जांच",c:"#1565C0"},{l:"📦 प्री-हार्वेस्ट",c:"#558B2F"},{l:"📋 रिकॉर्ड",c:"#6A1B9A"}],t:[
-    {h:"M7 और M8 – पूर्व-कटाई तैयारी, पशुधन और ट्रेसेबिलिटी",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: बॉल परिपक्वता संकेतक, खेत में गुणवत्ता मूल्यांकन, जैविक कपास के लिए भंडारण क्षेत्र तैयारी, अलग टैगिंग प्रणाली, परिवहन और ट्रेसेबिलिटी योजना, पहली चुनाई तैयारी और CFC समन्वय, पशुधन पोषक तत्व पुनर्चक्रण के लिए कपास डंठल योजना, और पूर्व-कटाई खेत स्वच्छता — ताकि किसान एक स्वच्छ, ट्रेसेबल और गुणवत्तापूर्ण जैविक कटाई के लिए पूरी तरह संगठित हों।"]},
-    {h:"M10A – पूर्व-कटाई अनुपालन और लॉट ID सेटअप",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: पूर्व-कटाई डायरी पूर्णता, लॉट पहचान प्रणाली सेटअप, और गैर-अनुपालन सुधारात्मक कार्रवाई — ताकि पहली चुनाई से पहले जैविक कपास का हर लॉट ठीक से पहचाना, दस्तावेजीकृत और प्रमाणन आवश्यकताओं के अनुपालन में हो।"]},
+  {m:"नवंबर",s:"परिपक्व बॉल – फील्ड निरीक्षण",b:"परिपक्व बॉल",e:"⚪",
+   acts:[{l:"⚪ परिपक्व बॉल",c:"#283593"},{l:"🌟 पहली चुनाई",c:"#006064"},{l:"🏭 CFC",c:"#E65100"},{l:"🔍 फील्ड जांच",c:"#1565C0"},{l:"📦 प्री-हार्वेस्ट",c:"#558B2F"},{l:"📋 रिकॉर्ड",c:"#6A1B9A"}],
+   t:[
+    {h:"M7 और M8 – पूर्व-कटाई तैयारी, पशुधन और ट्रेसेबिलिटी",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: बॉल परिपक्वता संकेतक, खेत में गुणवत्ता मूल्यांकन, जैविक कपास के लिए भंडारण क्षेत्र तैयारी, अलग टैगिंग प्रणाली, परिवहन और ट्रेसेबिलिटी योजना, पहली चुनाई तैयारी और CFC समन्वय, पशुधन पोषक तत्व पुनर्चक्रण के लिए कपास डंठल योजना, और पूर्व-कटाई खेत स्वच्छता।"]},
+    {h:"M10A – पूर्व-कटाई अनुपालन और लॉट ID सेटअप",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: पूर्व-कटाई डायरी पूर्णता, लॉट पहचान प्रणाली सेटअप, और गैर-अनुपालन सुधारात्मक कार्रवाई।"]},
   ]},
-  {m:"दिसंबर",s:"पहली कपास चुनाई",b:"पहली चुनाई",e:"🌟",acts:[{l:"🌟 पहली चुनाई",c:"#006064"},{l:"🧺 जैविक थैले",c:"#795548"},{l:"✅ गुणवत्ता जांच",c:"#558B2F"},{l:"📦 लॉट ID",c:"#283593"}],t:[
-    {h:"M8 और M9 – कपास चुनाई, गुणवत्ता और समूह समन्वय",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: चुनाई के परिपक्वता संकेतक, बिना संदूषण स्वच्छ चुनाई, जैविक कपास के लिए अलग थैले, तुलाई और टैगिंग, पहला लॉट पहचान और रिकॉर्ड, सामूहिक कटाई के लिए OPG समन्वय, अग्रणी किसान गुणवत्ता निगरानी, सामुदायिक स्तर की गुणवत्ता जांच, और सामूहिक तुलाई रिकॉर्ड — ताकि पहली चुनाई स्वच्छ, ट्रेसेबल और सामूहिक रूप से प्रबंधित हो।"]},
-    {h:"M10A – कटाई डायरी और ट्रेसेबिलिटी रिकॉर्ड",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: कटाई डायरी प्रविष्टियाँ, लॉट-वार गुणवत्ता रिकॉर्ड, और ट्रेसेबिलिटी दस्तावेजीकरण — ताकि जैविक कपास की हर चुनाई का खेत से CFC तक एक स्पष्ट, दस्तावेजीकृत पहचान हो।"]},
+  {m:"दिसंबर",s:"पहली कपास चुनाई",b:"पहली चुनाई",e:"🌟",
+   acts:[{l:"🌟 पहली चुनाई",c:"#006064"},{l:"🧺 जैविक थैले",c:"#795548"},{l:"✅ गुणवत्ता जांच",c:"#558B2F"},{l:"📦 लॉट ID",c:"#283593"}],
+   t:[
+    {h:"M8 और M9 – कपास चुनाई, गुणवत्ता और समूह समन्वय",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: चुनाई के परिपक्वता संकेतक, बिना संदूषण स्वच्छ चुनाई, जैविक कपास के लिए अलग थैले, तुलाई और टैगिंग, पहला लॉट पहचान और रिकॉर्ड, OPG समन्वय, अग्रणी किसान गुणवत्ता निगरानी, और सामूहिक तुलाई रिकॉर्ड।"]},
+    {h:"M10A – कटाई डायरी और ट्रेसेबिलिटी रिकॉर्ड",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: कटाई डायरी प्रविष्टियाँ, लॉट-वार गुणवत्ता रिकॉर्ड, और ट्रेसेबिलिटी दस्तावेजीकरण।"]},
   ]},
-  {m:"जनवरी",s:"कपास कटाई और बैगिंग",b:"कटाई",e:"🧺",acts:[{l:"🧺 कटाई",c:"#4527A0"},{l:"🏷️ लॉट टैगिंग",c:"#283593"},{l:"💰 प्रीमियम मूल्य",c:"#F57F17"},{l:"📊 उपज रिकॉर्ड",c:"#558B2F"}],t:[
-    {h:"M8 – कटाई जारी, गांठ तैयारी, विपणन और खेत अर्थशास्त्र",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: कपास कटाई जारी, कपास गांठ तैयारी, परिवहन सावधानियाँ, परिवहन के दौरान जैविक अखंडता बनाए रखना, गुणवत्ता ग्रेडिंग, जैविक कपास मूल्य श्रृंखला, प्रीमियम मूल्य निर्धारण दस्तावेजीकरण, और लागत-लाभ विश्लेषण के साथ सामूहिक विपणन दृष्टिकोण — ताकि किसान पेशेवर तरीके से कटाई पूरी करें और अपने जैविक कपास का आर्थिक मूल्य समझें।"]},
-    {h:"M10B/C – कटाई के दौरान बाल श्रम जागरूकता और महिला सुरक्षा",tg:"M10BC",c:"#c62828",i:["प्रशिक्षण में शामिल: कटाई कार्यों के दौरान बाल श्रम जागरूकता, खेत में महिलाओं की सुरक्षा, समान काम के लिए समान वेतन, और स्वास्थ्य एवं सुरक्षा प्रथाएं — ताकि खेत पर हर कामगार कटाई सीजन के दौरान सुरक्षित, सम्मानित और उचित मुआवजे के साथ काम करे।"]},
+  {m:"जनवरी",s:"कपास कटाई और बैगिंग",b:"कटाई",e:"🧺",
+   acts:[{l:"🧺 कटाई",c:"#4527A0"},{l:"🏷️ लॉट टैगिंग",c:"#283593"},{l:"💰 प्रीमियम मूल्य",c:"#F57F17"},{l:"📊 उपज रिकॉर्ड",c:"#558B2F"}],
+   t:[
+    {h:"M8 – कटाई जारी, गांठ तैयारी, विपणन और खेत अर्थशास्त्र",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: कपास कटाई जारी, कपास गांठ तैयारी, परिवहन सावधानियाँ, परिवहन के दौरान जैविक अखंडता, गुणवत्ता ग्रेडिंग, जैविक कपास मूल्य श्रृंखला, प्रीमियम मूल्य निर्धारण दस्तावेजीकरण, और लागत-लाभ विश्लेषण के साथ सामूहिक विपणन दृष्टिकोण।"]},
+    {h:"M10B/C – कटाई के दौरान बाल श्रम जागरूकता और महिला सुरक्षा",tg:"M10BC",c:"#c62828",i:["प्रशिक्षण में शामिल: कटाई कार्यों के दौरान बाल श्रम जागरूकता, खेत में महिलाओं की सुरक्षा, समान काम के लिए समान वेतन, और स्वास्थ्य एवं सुरक्षा प्रथाएं।"]},
   ]},
-  {m:"फरवरी",s:"अंतिम चुनाई और सफाई/छंटाई",b:"अंतिम चुनाई",e:"👥",acts:[{l:"👥 समूह छंटाई",c:"#558B2F"},{l:"🧹 सफाई",c:"#795548"},{l:"📊 उपज गणना",c:"#283593"},{l:"💊 स्वास्थ्य जांच",c:"#C62828"}],t:[
-    {h:"रबी – रबी पोषण बूस्ट",tg:"रबी",c:"#795548",i:["प्रशिक्षण में शामिल: रबी फसलों के लिए कम्पोस्ट चाय और जीवामृत ड्रेंच, दाने भरने के लिए पंचगव्य स्प्रे, और सूक्ष्म पोषक तत्व प्रबंधन (जिंक, सल्फर) — ताकि किसान रबी फसल की उपज और गुणवत्ता अधिकतम करने के लिए समय पर जैविक पोषण लागू करें।"]},
-    {h:"M10D/E/F – श्रम अधिकार, महिला संरक्षण और खेत सुरक्षा",tg:"M10DE",c:"#e65100",i:["प्रशिक्षण में शामिल: गर्भवती और स्तनपान कराने वाली महिलाओं के लिए भारी काम से बचाव, सुरक्षित कार्य स्थिति और आराम, सभी श्रमिकों के लिए समान मजदूरी, कोई बंधुआ या जबरन मजदूरी नहीं, प्राथमिक चिकित्सा जागरूकता, गर्मी तनाव रोकथाम, और कृषि इनपुट का सुरक्षित भंडारण — ताकि खेत पर हर कामगार पूरे सीजन सुरक्षित, निष्पक्ष और सम्मान के साथ काम करे।"]},
-    {h:"M10A – फार्म डायरी अनुपालन सत्यापन और ऑडिट सिमुलेशन",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: सभी डायरी प्रविष्टियों का सत्यापन, चेकलिस्ट के साथ आंतरिक ऑडिट सिमुलेशन, कुल जैविक इनपुट की गणना, और किसान स्व-मूल्यांकन प्रश्नावली — ताकि किसान सीजन के अंत में पूर्ण और सटीक रिकॉर्ड के साथ आत्मविश्वास से ऑडिट-रेडी हों।"]},
+  {m:"फरवरी",s:"अंतिम चुनाई और सफाई/छंटाई",b:"अंतिम चुनाई",e:"👥",
+   acts:[{l:"👥 समूह छंटाई",c:"#558B2F"},{l:"🧹 सफाई",c:"#795548"},{l:"📊 उपज गणना",c:"#283593"},{l:"💊 स्वास्थ्य जांच",c:"#C62828"}],
+   t:[
+    {h:"रबी – रबी पोषण बूस्ट",tg:"रबी",c:"#795548",i:["प्रशिक्षण में शामिल: रबी फसलों के लिए कम्पोस्ट चाय और जीवामृत ड्रेंच, दाने भरने के लिए पंचगव्य स्प्रे, और सूक्ष्म पोषक तत्व प्रबंधन (जिंक, सल्फर)।"]},
+    {h:"M10D/E/F – श्रम अधिकार, महिला संरक्षण और खेत सुरक्षा",tg:"M10DE",c:"#e65100",i:["प्रशिक्षण में शामिल: गर्भवती और स्तनपान कराने वाली महिलाओं के लिए भारी काम से बचाव, सुरक्षित कार्य स्थिति और आराम, सभी श्रमिकों के लिए समान मजदूरी, कोई बंधुआ या जबरन मजदूरी नहीं, प्राथमिक चिकित्सा जागरूकता, गर्मी तनाव रोकथाम, और कृषि इनपुट का सुरक्षित भंडारण।"]},
+    {h:"M10A – फार्म डायरी अनुपालन सत्यापन और ऑडिट सिमुलेशन",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: सभी डायरी प्रविष्टियों का सत्यापन, चेकलिस्ट के साथ आंतरिक ऑडिट सिमुलेशन, कुल जैविक इनपुट की गणना, और किसान स्व-मूल्यांकन प्रश्नावली।"]},
   ]},
-  {m:"मार्च",s:"फसल अवशेष प्रबंधन और कम्पोस्ट",b:"कटाई उपरांत",e:"♻️",acts:[{l:"♻️ अवशेष प्रबंधन",c:"#4E342E"},{l:"🪣 कम्पोस्ट गड्ढा",c:"#558B2F"},{l:"🌾 रबी कटाई",c:"#795548"},{l:"💰 लागत-लाभ",c:"#283593"}],t:[
-    {h:"रबी और M8 – रबी कटाई, उपज रिकॉर्डिंग और लागत-लाभ विश्लेषण",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: गेहूं, चना और सरसों के लिए कटाई परिपक्वता संकेतक, मड़ाई, सफाई और जैविक भंडारण, बीज बचत (चयन, सुखाना और भंडारण), भंडारण और परिवहन में संदूषण से बचाव, उपज अनुमान और तुलाई, उत्पादन और बिक्री प्रविष्टियों के साथ फार्म डायरी बंद करना, खेती की लागत बनाम आय गणना, और प्रमाणन के लिए जैविक प्रीमियम दस्तावेजीकरण — ताकि किसान रबी कार्यों को पेशेवर तरीके से पूरा करें और पूरे सीजन की लाभप्रदता समझें।"]},
-    {h:"M10G/H – गैर-भेदभाव, समावेश और शिकायत प्रणाली",tg:"M10GH",c:"#4527a0",i:["प्रशिक्षण में शामिल: खेत पर कोई जाति या लिंग भेदभाव नहीं, सभी किसानों और कामगारों के बीच सम्मानजनक व्यवहार, छोटे और सीमांत किसानों का समावेश, किसानों और कामगारों के लिए शिकायत और민원 प्रक्रिया, और सुरक्षित रिपोर्टिंग प्रणाली के साथ संघर्ष समाधान — ताकि खेत पर हर व्यक्ति के साथ निष्पक्ष व्यवहार हो और वे सुरक्षित रूप से चिंताएं उठा सकें।"]},
+  {m:"मार्च",s:"फसल अवशेष प्रबंधन और कम्पोस्ट",b:"कटाई उपरांत",e:"♻️",
+   acts:[{l:"♻️ अवशेष प्रबंधन",c:"#4E342E"},{l:"🪣 कम्पोस्ट गड्ढा",c:"#558B2F"},{l:"🌾 रबी कटाई",c:"#795548"},{l:"💰 लागत-लाभ",c:"#283593"}],
+   t:[
+    {h:"रबी और M8 – रबी कटाई, उपज रिकॉर्डिंग और लागत-लाभ विश्लेषण",tg:"M8",c:"#283593",i:["प्रशिक्षण में शामिल: गेहूं, चना और सरसों के लिए कटाई परिपक्वता संकेतक, मड़ाई, सफाई और जैविक भंडारण, बीज बचत (चयन, सुखाना और भंडारण), भंडारण और परिवहन में संदूषण से बचाव, उपज अनुमान और तुलाई, उत्पादन और बिक्री प्रविष्टियों के साथ फार्म डायरी बंद करना, खेती की लागत बनाम आय गणना, और प्रमाणन के लिए जैविक प्रीमियम दस्तावेजीकरण।"]},
+    {h:"M10G/H – गैर-भेदभाव, समावेश और शिकायत प्रणाली",tg:"M10GH",c:"#4527a0",i:["प्रशिक्षण में शामिल: खेत पर कोई जाति या लिंग भेदभाव नहीं, सभी किसानों और कामगारों के बीच सम्मानजनक व्यवहार, छोटे और सीमांत किसानों का समावेश, किसानों और कामगारों के लिए शिकायत प्रक्रिया, और सुरक्षित रिपोर्टिंग प्रणाली के साथ संघर्ष समाधान।"]},
   ]},
-  {m:"अप्रैल",s:"समीक्षा बैठक और अगले सीजन की योजना",b:"वार्षिक समीक्षा",e:"📋",acts:[{l:"📋 वार्षिक समीक्षा",c:"#F57F17"},{l:"📊 प्रस्तुति",c:"#6A1B9A"},{l:"🌱 अगली योजना",c:"#2E7D32"},{l:"🏆 पुरस्कार",c:"#E65100"},{l:"📝 किसान पंजीकरण",c:"#C62828"}],t:[
-    {h:"M10A – वार्षिक ऑडिट, डायरी समापन और किसान सराहना",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: शुद्धता और पूर्णता के लिए पूर्ण फार्म डायरी समीक्षा, बाहरी ऑडिट प्रक्रिया और सामान्य निष्कर्ष, गैर-अनुपालन सुधारात्मक कार्रवाई, और सर्वश्रेष्ठ डायरी रखने वाले किसानों की सराहना — ताकि सीजन पूर्ण दस्तावेजीकरण और अगले चक्र के लिए दर्ज सीखों के साथ बंद हो।"]},
-    {h:"M9 – VRP और अग्रणी किसानों के लिए प्रशिक्षक कौशल और सत्र योजना",tg:"M9",c:"#f57f17",i:["प्रशिक्षण में शामिल: स्थानीय भाषा का उपयोग करते हुए संचार कौशल, वयस्क शिक्षण विधियाँ, प्रदर्शन तकनीकें, क्षेत्र उपयोग के लिए दृश्य प्रशिक्षण उपकरण, उपस्थिति और रिपोर्टिंग के साथ सत्र योजना, और किसान अनुवर्ती तथा अपनाने की निगरानी — ताकि VRP और अग्रणी किसान स्वतंत्र रूप से प्रभावी और आकर्षक प्रशिक्षण सत्र देने में सक्षम हों।"]},
-    {h:"सीजन डीब्रीफ, अगले वर्ष की योजना और किसान पंजीकरण",tg:"समीक्षा",c:"#546e7a",i:["प्रशिक्षण में शामिल: क्या काम किया और क्या नहीं इस पर समूह चर्चा, अग्रणी किसानों से सर्वोत्तम प्रथाओं का दस्तावेजीकरण, अगले सीजन के लिए प्रशिक्षण अंतराल विश्लेषण, मिट्टी स्वास्थ्य कार्ड समीक्षा और सिफारिशें, अगले सीजन के लिए किसान पंजीकरण, और मई बीज चयन प्रशिक्षण के लिए पूर्व-योजना — ताकि अगला सीजन वर्तमान से बेहतर और मजबूत शुरू हो।"]},
+  {m:"अप्रैल",s:"समीक्षा बैठक और अगले सीजन की योजना",b:"वार्षिक समीक्षा",e:"📋",
+   acts:[{l:"📋 वार्षिक समीक्षा",c:"#F57F17"},{l:"📊 प्रस्तुति",c:"#6A1B9A"},{l:"🌱 अगली योजना",c:"#2E7D32"},{l:"🏆 पुरस्कार",c:"#E65100"},{l:"📝 किसान पंजीकरण",c:"#C62828"}],
+   t:[
+    {h:"M10A – वार्षिक ऑडिट, डायरी समापन और किसान सराहना",tg:"M10A",c:"#6a1b9a",i:["प्रशिक्षण में शामिल: शुद्धता और पूर्णता के लिए पूर्ण फार्म डायरी समीक्षा, बाहरी ऑडिट प्रक्रिया और सामान्य निष्कर्ष, गैर-अनुपालन सुधारात्मक कार्रवाई, और सर्वश्रेष्ठ डायरी रखने वाले किसानों की सराहना।"]},
+    {h:"M9 – VRP और अग्रणी किसानों के लिए प्रशिक्षक कौशल और सत्र योजना",tg:"M9",c:"#f57f17",i:["प्रशिक्षण में शामिल: स्थानीय भाषा का उपयोग करते हुए संचार कौशल, वयस्क शिक्षण विधियाँ, प्रदर्शन तकनीकें, क्षेत्र उपयोग के लिए दृश्य प्रशिक्षण उपकरण, उपस्थिति और रिपोर्टिंग के साथ सत्र योजना, और किसान अनुवर्ती तथा अपनाने की निगरानी।"]},
+    {h:"सीजन डीब्रीफ, अगले वर्ष की योजना और किसान पंजीकरण",tg:"समीक्षा",c:"#546e7a",i:["प्रशिक्षण में शामिल: क्या काम किया और क्या नहीं इस पर समूह चर्चा, अग्रणी किसानों से सर्वोत्तम प्रथाओं का दस्तावेजीकरण, अगले सीजन के लिए प्रशिक्षण अंतराल विश्लेषण, मिट्टी स्वास्थ्य कार्ड समीक्षा और सिफारिशें, अगले सीजन के लिए किसान पंजीकरण, और मई बीज चयन प्रशिक्षण के लिए पूर्व-योजना।"]},
   ]},
  ],
  modules:[
@@ -835,201 +426,14 @@ hi:{
   {num:"10E",title:"उचित मजदूरी और श्रम अधिकार",color:"#bf360c",subs:["समय पर मजदूरी भुगतान","समान काम के लिए समान मजदूरी","कोई बंधुआ मजदूरी नहीं","कोई जबरन मजदूरी नहीं","पारदर्शी श्रम भुगतान प्रणाली"]},
   {num:"10F",title:"खेत पर स्वास्थ्य और सुरक्षा",color:"#2e7d32",subs:["कृषि उपकरणों का सुरक्षित उपयोग","पेयजल उपलब्धता","प्राथमिक चिकित्सा जागरूकता","व्यक्तिगत स्वच्छता","काम के दौरान छाया और आराम","गर्मी तनाव रोकथाम","कृषि इनपुट का सुरक्षित भंडारण"]},
   {num:"10G",title:"गैर-भेदभाव और समावेश",color:"#4527a0",subs:["कोई जाति भेदभाव नहीं","कोई लिंग भेदभाव नहीं","सम्मानजनक व्यवहार","छोटे और सीमांत किसानों का समावेश"]},
-  {num:"10H",title:"शिकायत और민원 प्रणाली",color:"#37474f",subs:["किसान और श्रमिक민원 प्रक्रिया","शिकायत तंत्र का महत्व","सुरक्षित रिपोर्टिंग प्रणाली","संघर्ष समाधान की मूल बातें"]},
+  {num:"10H",title:"शिकायत और Grievance प्रणाली",color:"#37474f",subs:["किसान और श्रमिक शिकायत प्रक्रिया","शिकायत तंत्र का महत्व","सुरक्षित रिपोर्टिंग प्रणाली","संघर्ष समाधान की मूल बातें"]},
  ]
 }
 };
 
-// ── FUNCTIONS ────────────────────────────────────────────────────
-function renderQuickBar(){
-  var qLabel=lang==="hi"?"📌 त्वरित संसाधन:":"📌 Quick Resources:";
-  var html='<span style="font-size:10px;color:#95d5b2;font-weight:bold;letter-spacing:1px;vertical-align:middle;margin-right:6px;">'+qLabel+'</span>';
-  for(var i=0;i<QTABS.length;i++){
-    var q=QTABS[i];
-    if(q.urls){
-      // Multi-language tab
-      html+='<span class="qTabMulti">';
-      html+='<span style="background:'+q.color+';padding:7px 10px;font-size:12px;font-weight:bold;color:#fff;">'+q.icon+' '+q.label+':</span>';
-      html+='<span class="qdiv"></span>';
-      for(var j=0;j<q.urls.length;j++){
-        html+='<a href="'+q.urls[j].url+'" target="_blank" style="background:'+q.color+'cc;">'+q.urls[j].lang+'</a>';
-        if(j<q.urls.length-1) html+='<span class="qdiv"></span>';
-      }
-      html+='</span>';
-    } else {
-      html+='<a class="qTab" href="'+q.url+'" target="_blank" style="background:'+q.color+';border-color:'+q.color+';">'+q.icon+' '+q.label+'</a>';
-    }
-  }
-  document.getElementById("quickBar").innerHTML=html;
-}
-  lang=l; cur=0; openState={};
-  document.querySelectorAll(".lBtn").forEach(function(b){b.classList.remove("on");});
-  btn.classList.add("on");
-  renderQuickBar();
-renderAll();
-}
-
-function setView(v){
-  view=v;
-  document.getElementById("tCal").classList.toggle("on",v==="cal");
-  document.getElementById("tMod").classList.toggle("on",v==="mod");
-  document.getElementById("calView").style.display=v==="cal"?"block":"none";
-  document.getElementById("modView").style.display=v==="mod"?"block":"none";
-  document.getElementById("mBar").style.display=v==="cal"?"block":"none";
-  document.getElementById("timeline").style.display=v==="cal"?"block":"none";
-  var d=DATA[lang];
-  document.getElementById("tCal").textContent=d.tabCal;
-  document.getElementById("tMod").textContent=d.tabMod;
-  if(v==="mod") renderModules();
-}
-
-function go(i){
-  if(i<0||i>=DATA[lang].months.length) return;
-  var hc=document.getElementById("heroCard");
-  hc.className="out";
-  setTimeout(function(){
-    cur=i; openState={};
-    renderCalendar();
-    hc.className="in";
-    setTimeout(function(){hc.className="";},380);
-  },300);
-  window.scrollTo(0,0);
-}
-
-function toggleCard(idx){
-  var k=cur+"-"+idx;
-  openState[k]=!openState[k];
-  document.getElementById("bd"+idx).style.display=openState[k]?"block":"none";
-  document.getElementById("ar"+idx).innerHTML=openState[k]?"&#9650;":"&#9660;";
-}
-function toggleMod(idx){
-  modOpen[idx]=!modOpen[idx];
-  document.getElementById("mbd"+idx).style.display=modOpen[idx]?"block":"none";
-  document.getElementById("mar"+idx).innerHTML=modOpen[idx]?"&#9650;":"&#9660;";
-}
-
-function renderTimeline(){
-  var html="";
-  for(var i=0;i<TL.length;i++){
-    var tl=TL[i];
-    var isDone=false, isActive=false;
-    for(var m=0;m<tl.months.length;m++){
-      if(tl.months[m]<cur) isDone=true;
-      if(tl.months[m]===cur) isActive=true;
-    }
-    var cls=isActive?"active":isDone?"done":"";
-    html+='<div class="tlStep '+cls+'"><div class="tlDot">'+tl.icon+'</div><div class="tlLabel">'+tl.label+'</div></div>';
-  }
-  document.getElementById("tlWrap").innerHTML=html;
-}
-
-function renderAll(){
-  var d=DATA[lang];
-  document.getElementById("calTitle").textContent=d.calTitle;
-  document.getElementById("calSub").textContent=d.calSub;
-  document.getElementById("tCal").textContent=d.tabCal;
-  document.getElementById("tMod").textContent=d.tabMod;
-  document.getElementById("fTxt").textContent=d.foot;
-  if(view==="cal") renderCalendar();
-  else renderModules();
-}
-
-function renderCalendar(){
-  var d=DATA[lang], ms=d.months, mn=ms[cur];
-  var grad=GRADS[cur];
-  var bg=BG_COLORS[cur];
-
-  // Timeline
-  renderTimeline();
-
-  // Month bar
-  var bar="";
-  for(var i=0;i<ms.length;i++){
-    var ac=i===cur, g=GRADS[i];
-    var st=ac?"background:"+g+";border-color:transparent;color:#fff;font-weight:bold;":"";
-    bar+='<span class="mBtn" style="'+st+'" onclick="go('+i+')">'+ms[i].e+" "+ms[i].m+'</span>';
-  }
-  document.getElementById("mBar").innerHTML=bar;
-  setTimeout(function(){var b=document.querySelectorAll(".mBtn");if(b[cur])b[cur].scrollIntoView({inline:"center"});},60);
-
-  // SVG illustration
-  var svgEl2=document.getElementById("cottonSVG");
-  drawSVG(cur, svgEl2);
-
-  // Hero info
-  document.getElementById("mBadge").textContent=mn.b;
-  document.getElementById("mBadge").style.background=grad.split(",")[1]||"#2e7d32";
-  document.getElementById("mTitle").innerHTML=mn.e+" "+mn.m;
-  document.getElementById("mSub").textContent=mn.s;
-
-  // Activity tags
-  var acts="";
-  for(var a=0;a<mn.acts.length;a++) acts+='<span class="actTag" style="background:'+mn.acts[a].c+'">'+mn.acts[a].l+'</span>';
-  document.getElementById("actBar").innerHTML=acts;
-
-  // Key Activity Banner
-  var kd=lang==="hi"?KEY_HI[cur]:KEY_EN[cur];
-  var kc=GRADS[cur];
-  var klabel1=lang==="hi"?"🎯 मुख्य गतिविधियाँ / प्रशिक्षण विषय":"🎯 Key Training Activities";
-  var klabel2=lang==="hi"?"⚙️ कार्यप्रणाली":"⚙️ Methodology";
-  var khtml='<div id="keyBanner" style="background:linear-gradient(135deg,'+mn.a+'ee,'+mn.a+'aa);border-radius:10px;margin-bottom:10px;box-shadow:0 2px 12px rgba(0,0,0,.3);">';
-  khtml+='<div style="padding:4px 14px 2px;background:rgba(0,0,0,.25);border-radius:10px 10px 0 0;">';
-  khtml+='<span style="font-size:10px;font-weight:900;letter-spacing:2px;color:#fff;text-transform:uppercase;opacity:.9;">📌 '+(lang==="hi"?"मासिक प्रशिक्षण फोकस — TRAINER REFERENCE":"Monthly Training Focus — TRAINER REFERENCE")+'</span>';
-  khtml+='</div>';
-  khtml+='<div style="padding:10px 14px 12px;display:flex;gap:10px;flex-wrap:wrap;">';
-  // Activities block
-  khtml+='<div style="flex:1;min-width:150px;">';
-  khtml+='<div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:rgba(255,255,255,.8);margin-bottom:6px;">'+klabel1+'</div>';
-  khtml+='<div style="display:flex;flex-wrap:wrap;gap:5px;">';
-  for(var k=0;k<kd.activities.length;k++){
-    var ac=ACT_COLORS[k%ACT_COLORS.length];
-    khtml+='<span style="display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;background:'+ac+';white-space:nowrap;animation:blink 2s ease-in-out infinite;animation-delay:'+(k*0.3)+'s;box-shadow:0 2px 6px rgba(0,0,0,.3);">'+kd.activities[k]+'</span>';
-  }
-  khtml+='</div></div>';
-  // Divider
-  khtml+='<div style="width:1px;background:rgba(255,255,255,.25);margin:2px 0;"></div>';
-  // Methods block
-  khtml+='<div style="min-width:120px;">';
-  khtml+='<div style="font-size:10px;font-weight:900;letter-spacing:1.5px;color:rgba(255,255,255,.8);margin-bottom:6px;">'+klabel2+'</div>';
-  khtml+='<div style="display:flex;flex-wrap:wrap;gap:5px;">';
-  for(var k=0;k<kd.methods.length;k++){
-    khtml+='<span style="display:inline-flex;align-items:center;padding:5px 11px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.5);white-space:nowrap;backdrop-filter:blur(4px);">⚙️ '+kd.methods[k]+'</span>';
-  }
-  khtml+='</div></div>';
-  khtml+='</div></div>';
-  document.getElementById("keyBanner").outerHTML=khtml;
-  var html="";
-  for(var i=0;i<mn.t.length;i++){
-    var t=mn.t[i], op=openState[cur+"-"+i]||false, items="";
-    for(var j=0;j<t.i.length;j++) items+='<div class="item"><div class="dot" style="background:'+t.c+'"></div><p>'+t.i[j]+'</p></div>';
-    html+='<div class="card"><button class="cardHead" style="background:'+bg+'" onclick="toggleCard('+i+')"><span class="tag" style="background:'+t.c+'">'+t.tg+'</span><span class="cTitle">'+t.h+'</span><span class="arr" id="ar'+i+'">'+(op?"&#9650;":"&#9660;")+'</span></button><div class="cBody" id="bd'+i+'" style="display:'+(op?"block":"none")+'">'+items+'</div></div>';
-  }
-  document.getElementById("cards").innerHTML=html;
-
-  // Nav
-  var pb=document.getElementById("pBtn"), nb=document.getElementById("nBtn");
-  pb.disabled=cur===0; nb.disabled=cur===ms.length-1;
-  pb.style.background=cur===0?"#1a2a1a":GRADS[cur>0?cur-1:0];
-  nb.style.background=cur===ms.length-1?"#1a2a1a":GRADS[cur<ms.length-1?cur+1:cur];
-  document.getElementById("pLbl").textContent=cur>0?ms[cur-1].e+" "+ms[cur-1].m:d.prev;
-  document.getElementById("nLbl").textContent=cur<ms.length-1?ms[cur+1].e+" "+ms[cur+1].m:d.next;
-  document.getElementById("pg").innerHTML='<span style="font-size:16px;">'+mn.e+'</span> '+(cur+1)+" / "+ms.length;
-}
-
-function renderModules(){
-  var mods=DATA[lang].modules;
-  var html="";
-  for(var i=0;i<mods.length;i++){
-    var m=mods[i], op=modOpen[i]||false, items="";
-    for(var j=0;j<m.subs.length;j++) items+='<li><span class="dot" style="background:'+m.color+';width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:8px;flex-shrink:0;margin-top:5px;"></span>'+m.subs[j]+'</li>';
-    var dl=DL[m.num];
-    var rb=dl?'<a class="resBtn" href="'+dl+'" target="_blank">📁 '+(lang==="hi"?"प्रशिक्षण सामग्री खोलें →":"Open Training Resources →")+'</a>':'<span style="font-size:11px;color:#aaa;font-style:italic;">📁 '+(lang==="hi"?"संसाधन शीघ्र आ रहे हैं":"Resources coming soon")+'</span>';
-    html+='<div class="modCard"><button class="modHead" style="background:linear-gradient(135deg,'+m.color+'18,'+m.color+'08)" onclick="toggleMod('+i+')"><div class="modNum" style="background:'+m.color+'">'+m.num+'</div><span class="modTitle">'+m.title+'</span><span class="arr" id="mar'+i+'">'+(op?"&#9650;":"&#9660;")+'</span></button><div class="modBody" id="mbd'+i+'" style="display:'+(op?"block":"none")+'"><ul class="subList">'+items+'</ul><div style="margin-top:12px;">'+rb+'</div></div></div>';
-  }
-  document.getElementById("modView").innerHTML=html;
-}
-
-renderAll();
-</script>
-</body>
-</html>
+// ── SVG SCENES ────────────────────────────────────────────────────
+function drawSVG(idx,s){
+  var W=400,H=200;
+  var scenes=[
+    function(s){s.innerHTML='';grad(s,'b0','#8B4513','#D2691E');rect(s,0,0,W,H,'url(#b0)');for(var i=0;i<6;i++)line(s,0,80+i*20,W,80+i*20,'rgba(0,0,0,.15)',1.5);ellipse(s,300,130,50,25,'#5D4037');ellipse(s,300,120,45,20,'#795548');txt(s,300,118,'♻️',14,'middle');farmer(s,80,155,'#4a2c00');farmer(s,150,155,'#3a2000');farmer(s,220,155,'#4a2c00');sun(s,350,35,28);badge(s,10,10,'🌾 LAND PREP & COMPOST','#E65100');},
+    function(s){s.innerHTML='';grad(s,'b1','#1a3a2a','
