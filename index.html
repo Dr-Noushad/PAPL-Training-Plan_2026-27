@@ -64,7 +64,15 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 .monthTitle{font-size:22px;font-weight:900;color:#fff;line-height:1.1;text-shadow:1px 2px 8px rgba(0,0,0,.7);}
 .monthSub{font-size:12px;color:rgba(255,255,255,.82);margin-top:3px;display:block;}
 
-/* KEY ACTIVITY BANNER */
+/* QUICK ACCESS TABS */
+#quickBar{background:#040f04;padding:8px 10px;border-bottom:2px solid #1a3a1a;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}
+#quickBar::-webkit-scrollbar{display:none;}
+.qTab{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;margin:0 3px;border-radius:8px;border:1.5px solid;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:none;color:#fff;transition:all .2s;white-space:nowrap;vertical-align:middle;}
+.qTab:hover{opacity:.85;transform:translateY(-1px);}
+.qTabMulti{display:inline-flex;align-items:center;gap:0;margin:0 3px;border-radius:8px;overflow:hidden;vertical-align:middle;}
+.qTabMulti a{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;font-size:12px;font-weight:bold;text-decoration:none;color:#fff;transition:all .2s;white-space:nowrap;}
+.qTabMulti a:hover{opacity:.82;}
+.qTabMulti .qdiv{width:1px;background:rgba(255,255,255,.3);}
 #keyBanner{border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.3);}
 .keyTop{padding:10px 14px 8px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;}
 .keyBlock{flex:1;min-width:140px;}
@@ -134,6 +142,9 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
     <button class="vTab" id="tMod" onclick="setView('mod')">📚 Modules</button>
   </div>
 </div>
+
+<!-- QUICK ACCESS TABS -->
+<div id="quickBar"></div>
 
 <!-- CROP JOURNEY TIMELINE -->
 <div id="timeline">
