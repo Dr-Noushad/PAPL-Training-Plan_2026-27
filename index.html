@@ -841,11 +841,32 @@ hi:{
 };
 
 // ── FUNCTIONS ────────────────────────────────────────────────────
-function setLang(l,btn){
+function renderQuickBar(){
+  var qLabel=lang==="hi"?"📌 त्वरित संसाधन:":"📌 Quick Resources:";
+  var html='<span style="font-size:10px;color:#95d5b2;font-weight:bold;letter-spacing:1px;vertical-align:middle;margin-right:6px;">'+qLabel+'</span>';
+  for(var i=0;i<QTABS.length;i++){
+    var q=QTABS[i];
+    if(q.urls){
+      // Multi-language tab
+      html+='<span class="qTabMulti">';
+      html+='<span style="background:'+q.color+';padding:7px 10px;font-size:12px;font-weight:bold;color:#fff;">'+q.icon+' '+q.label+':</span>';
+      html+='<span class="qdiv"></span>';
+      for(var j=0;j<q.urls.length;j++){
+        html+='<a href="'+q.urls[j].url+'" target="_blank" style="background:'+q.color+'cc;">'+q.urls[j].lang+'</a>';
+        if(j<q.urls.length-1) html+='<span class="qdiv"></span>';
+      }
+      html+='</span>';
+    } else {
+      html+='<a class="qTab" href="'+q.url+'" target="_blank" style="background:'+q.color+';border-color:'+q.color+';">'+q.icon+' '+q.label+'</a>';
+    }
+  }
+  document.getElementById("quickBar").innerHTML=html;
+}
   lang=l; cur=0; openState={};
   document.querySelectorAll(".lBtn").forEach(function(b){b.classList.remove("on");});
   btn.classList.add("on");
-  renderAll();
+  renderQuickBar();
+renderAll();
 }
 
 function setView(v){
