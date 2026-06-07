@@ -64,7 +64,15 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
 .monthTitle{font-size:22px;font-weight:900;color:#fff;line-height:1.1;text-shadow:1px 2px 8px rgba(0,0,0,.7);}
 .monthSub{font-size:12px;color:rgba(255,255,255,.82);margin-top:3px;display:block;}
 
-/* KEY ACTIVITY BANNER */
+/* QUICK ACCESS TABS */
+#quickBar{background:#040f04;padding:8px 10px;border-bottom:2px solid #1a3a1a;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}
+#quickBar::-webkit-scrollbar{display:none;}
+.qTab{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;margin:0 3px;border-radius:8px;border:1.5px solid;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:none;color:#fff;transition:all .2s;white-space:nowrap;vertical-align:middle;}
+.qTab:hover{opacity:.85;transform:translateY(-1px);}
+.qTabMulti{display:inline-flex;align-items:center;gap:0;margin:0 3px;border-radius:8px;overflow:hidden;vertical-align:middle;}
+.qTabMulti a{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;font-size:12px;font-weight:bold;text-decoration:none;color:#fff;transition:all .2s;white-space:nowrap;}
+.qTabMulti a:hover{opacity:.82;}
+.qTabMulti .qdiv{width:1px;background:rgba(255,255,255,.3);}
 #keyBanner{border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.3);}
 .keyTop{padding:10px 14px 8px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;}
 .keyBlock{flex:1;min-width:140px;}
@@ -134,6 +142,9 @@ body{font-family:Arial,sans-serif;background:#071a07;color:#222;overflow-x:hidde
     <button class="vTab" id="tMod" onclick="setView('mod')">📚 Modules</button>
   </div>
 </div>
+
+<!-- QUICK ACCESS TABS -->
+<div id="quickBar"></div>
 
 <!-- CROP JOURNEY TIMELINE -->
 <div id="timeline">
@@ -556,56 +567,32 @@ function badge(s,x,y,label,bg){
 
 // ── KEY ACTIVITIES & METHODOLOGIES ──────────────────────────────
 var KEY_EN=[
-  // 0-May
   {activities:["👨‍🌾 Farmers Engagement","📋 ICS Registration","🌱 Season Planning"],methods:["FFS","Input Demo","Village Meeting"]},
-  // 1-June
-  {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["FFS","Village Meeting","Input Demo"]},
-  // 2-July
+  {activities:["🌿 Organic & RCI","📓 FFB"],methods:["Village Meeting","Input Preparation Demo"]},
   {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["Group Discussion","Demo Plot","Input Demo"]},
-  // 3-August
   {activities:["🌿 INM","🌱 Weeding","🐛 Insect Pest Control","📓 FFB"],methods:["Group Discussion","Demo Plot","Input Demo"]},
-  // 4-September
-  {activities:["📚 FFS","🌿 INM","🌱 Weeding","🐛 Insect Pest Control","🔍 Internal Inspection"],methods:["Campaigning","Village Meeting"]},
-  // 5-October
+  {activities:["📚 FFS","🌿 INM","🌱 Weeding","🐛 Pest Control","🔍 Internal Inspection"],methods:["Campaigning","Village Meeting"]},
   {activities:["🏭 CFC","📦 Procurement Plan"],methods:["Campaigning","Village Meeting"]},
-  // 6-November
   {activities:["🏭 CFC","📦 Procurement"],methods:["Campaigning","Village Meeting"]},
-  // 7-December
   {activities:["🏭 CFC","📦 Procurement"],methods:["Campaigning","Village Meeting"]},
-  // 8-January
   {activities:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],methods:["Mobilization","Survey"]},
-  // 9-February
   {activities:["🏭 CFC","📦 Procurement","⚖️ Decent Work"],methods:["Mobilization","Survey"]},
-  // 10-March
   {activities:["🌾 Rabi Crop Support","⚖️ Decent Work"],methods:["FFS","Household Meeting"]},
-  // 11-April
   {activities:["🧪 Soil Testing","📅 Season Plan"],methods:["Exposure Visit","Farmer Survey","Data Collection"]},
 ];
 
 var KEY_HI=[
-  // 0-May
   {activities:["👨‍🌾 किसान जुड़ाव","📋 ICS पंजीकरण","🌱 सीजन योजना"],methods:["FFS","इनपुट डेमो","ग्राम बैठक"]},
-  // 1-June
-  {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["FFS","ग्राम बैठक","इनपुट डेमो"]},
-  // 2-July
+  {activities:["🌿 जैविक और RCI","📓 FFB"],methods:["ग्राम बैठक","इनपुट तैयारी डेमो"]},
   {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["समूह चर्चा","डेमो प्लॉट","इनपुट डेमो"]},
-  // 3-August
   {activities:["🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","📓 FFB"],methods:["समूह चर्चा","डेमो प्लॉट","इनपुट डेमो"]},
-  // 4-September
   {activities:["📚 FFS","🌿 INM","🌱 निराई","🐛 कीट नियंत्रण","🔍 आंतरिक निरीक्षण"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  // 5-October
   {activities:["🏭 CFC","📦 खरीद योजना"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  // 6-November
   {activities:["🏭 CFC","📦 खरीद"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  // 7-December
   {activities:["🏭 CFC","📦 खरीद"],methods:["जागरूकता अभियान","ग्राम बैठक"]},
-  // 8-January
   {activities:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],methods:["मोबिलाइजेशन","सर्वेक्षण"]},
-  // 9-February
   {activities:["🏭 CFC","📦 खरीद","⚖️ सभ्य कार्य"],methods:["मोबिलाइजेशन","सर्वेक्षण"]},
-  // 10-March
   {activities:["🌾 रबी फसल सहायता","⚖️ सभ्य कार्य"],methods:["FFS","घरेलू बैठक"]},
-  // 11-April
   {activities:["🧪 मिट्टी परीक्षण","📅 सीजन योजना"],methods:["एक्सपोजर विजिट","किसान सर्वेक्षण","डेटा संग्रह"]},
 ];
 
@@ -854,11 +841,32 @@ hi:{
 };
 
 // ── FUNCTIONS ────────────────────────────────────────────────────
-function setLang(l,btn){
+function renderQuickBar(){
+  var qLabel=lang==="hi"?"📌 त्वरित संसाधन:":"📌 Quick Resources:";
+  var html='<span style="font-size:10px;color:#95d5b2;font-weight:bold;letter-spacing:1px;vertical-align:middle;margin-right:6px;">'+qLabel+'</span>';
+  for(var i=0;i<QTABS.length;i++){
+    var q=QTABS[i];
+    if(q.urls){
+      // Multi-language tab
+      html+='<span class="qTabMulti">';
+      html+='<span style="background:'+q.color+';padding:7px 10px;font-size:12px;font-weight:bold;color:#fff;">'+q.icon+' '+q.label+':</span>';
+      html+='<span class="qdiv"></span>';
+      for(var j=0;j<q.urls.length;j++){
+        html+='<a href="'+q.urls[j].url+'" target="_blank" style="background:'+q.color+'cc;">'+q.urls[j].lang+'</a>';
+        if(j<q.urls.length-1) html+='<span class="qdiv"></span>';
+      }
+      html+='</span>';
+    } else {
+      html+='<a class="qTab" href="'+q.url+'" target="_blank" style="background:'+q.color+';border-color:'+q.color+';">'+q.icon+' '+q.label+'</a>';
+    }
+  }
+  document.getElementById("quickBar").innerHTML=html;
+}
   lang=l; cur=0; openState={};
   document.querySelectorAll(".lBtn").forEach(function(b){b.classList.remove("on");});
   btn.classList.add("on");
-  renderAll();
+  renderQuickBar();
+renderAll();
 }
 
 function setView(v){
