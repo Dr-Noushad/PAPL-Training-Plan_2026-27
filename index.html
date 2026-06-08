@@ -529,8 +529,8 @@ function setView(v){
   view=v;
   document.getElementById('tCal').classList.toggle('on',v==='cal');
   document.getElementById('tMod').classList.toggle('on',v==='mod');
-  document.getElementById('calView').style.display=v==='cal'?'':'none';
-  document.getElementById('modView').style.display=v==='mod'?'':'none';
+  document.getElementById('calView').style.display=v==='cal'?'block':'none';
+  document.getElementById('modView').style.display=v==='mod'?'block':'none';
   if(v==='cal')renderCal();else renderMod();
 }
 renderCal();
