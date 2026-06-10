@@ -1,0 +1,946 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;600;700;900&display=swap');
+  :root {
+    --soil-dark: #3d2208;
+    --soil-mid: #6b3d1e;
+    --soil-light: #a0693a;
+    --soil-pale: #c9935a;
+    --green-dark: #1a3a08;
+    --green-mid: #2d6a10;
+    --green-light: #4a9a1a;
+    --amber: #f5a623;
+    --amber-lt: #fdd87a;
+    --blue: #1a6b9e;
+    --cream: #faf5e8;
+  }
+  .soc-wrap {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    padding: 0;
+    max-width: 100%;
+  }
+  .sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0; }
+
+  /* Hero header */
+  .soc-hero {
+    background: var(--soil-dark);
+    border-radius: var(--border-radius-lg);
+    padding: 24px 24px 20px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .soc-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(255,255,255,0.02) 18px, rgba(255,255,255,0.02) 19px);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(245,166,35,0.2);
+    border: 1px solid rgba(245,166,35,0.4);
+    color: var(--amber-lt);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .hero-title {
+    font-size: 26px; font-weight: 900; color: #fff;
+    line-height: 1.2; margin-bottom: 6px;
+  }
+  .hero-title em { color: var(--amber); font-style: normal; }
+  .hero-sub { font-size: 13px; color: #a8d878; line-height: 1.7; margin-bottom: 16px; }
+  .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .hero-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #d4f0b0; font-size: 11px; font-weight: 600;
+    padding: 5px 12px; border-radius: 16px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .hero-pill:hover { background: var(--amber); color: var(--soil-dark); border-color: var(--amber); }
+  .hero-pill.active { background: var(--amber); color: var(--soil-dark); border-color: var(--amber); }
+
+  /* Section cards */
+  .sec-card {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .sec-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    border-bottom: 0.5px solid var(--color-border-tertiary);
+    background: var(--color-background-secondary);
+    user-select: none;
+  }
+  .sec-head:hover { background: var(--color-background-tertiary); }
+  .sec-icon {
+    width: 36px; height: 36px; border-radius: var(--border-radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .sec-icon.soil { background: #c9935a33; }
+  .sec-icon.carbon { background: #2d6a1022; }
+  .sec-icon.factor { background: #f5a62322; }
+  .sec-icon.farm { background: #1a6b9e22; }
+  .sec-icon.measure { background: #8b2d6a22; }
+  .sec-title { flex: 1; }
+  .sec-title h3 { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 2px; }
+  .sec-title p { font-size: 12px; color: var(--color-text-secondary); margin: 0; }
+  .sec-chevron { font-size: 14px; color: var(--color-text-tertiary); transition: transform 0.3s; }
+  .sec-chevron.open { transform: rotate(180deg); }
+  .sec-body { padding: 18px; display: none; }
+  .sec-body.open { display: block; }
+
+  /* Info boxes */
+  .info-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .info-box {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 14px;
+    border-left: 3px solid var(--green-mid);
+  }
+  .info-box.amber { border-left-color: var(--amber); }
+  .info-box.blue { border-left-color: var(--blue); }
+  .info-box.soil-c { border-left-color: var(--soil-mid); }
+  .info-box h4 { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 5px; }
+  .info-box p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.65; margin: 0; }
+  .info-box .big-num { font-size: 22px; font-weight: 700; color: var(--green-mid); line-height: 1; margin-bottom: 4px; }
+  .info-box.amber .big-num { color: #BA7517; }
+  .info-box.soil-c .big-num { color: var(--soil-mid); }
+
+  /* Body text */
+  .body-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.75; margin-bottom: 12px; }
+  .body-text strong { color: var(--color-text-primary); font-weight: 500; }
+
+  /* Highlight box */
+  .hi-box {
+    background: #EAF3DE;
+    border-radius: var(--border-radius-md);
+    padding: 12px 14px; margin-bottom: 12px;
+  }
+  .hi-box p { font-size: 12px; color: #27500A; line-height: 1.7; margin: 0; }
+  .hi-box strong { font-weight: 600; }
+
+  /* Factor cards */
+  .factor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .factor-card {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 12px;
+    border-top: 2px solid var(--green-mid);
+  }
+  .factor-card:nth-child(even) { border-top-color: var(--amber); }
+  .factor-card:nth-child(3n) { border-top-color: var(--blue); }
+  .factor-card h4 { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 4px; }
+  .factor-card p { font-size: 11px; color: var(--color-text-secondary); line-height: 1.55; margin: 0; }
+  .factor-ico { font-size: 20px; margin-bottom: 6px; }
+
+  /* Comparison bar */
+  .comp-bar { margin-bottom: 14px; }
+  .comp-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .comp-track { height: 10px; background: var(--color-background-tertiary); border-radius: 5px; overflow: hidden; }
+  .comp-fill { height: 100%; border-radius: 5px; transition: width 1s ease; }
+
+  /* Soil layer diagram */
+  .soil-layers { border-radius: var(--border-radius-md); overflow: hidden; margin-bottom: 12px; }
+  .layer { padding: 10px 14px; display: flex; align-items: center; gap: 12px; }
+  .layer-ico { font-size: 18px; flex-shrink: 0; }
+  .layer-body { flex: 1; }
+  .layer-title { font-size: 12px; font-weight: 500; color: #fff; margin: 0 0 1px; }
+  .layer-desc { font-size: 11px; color: rgba(255,255,255,0.7); margin: 0; line-height: 1.4; }
+  .layer-val { font-size: 13px; font-weight: 700; color: var(--amber-lt); flex-shrink: 0; }
+
+  /* Interactive SOC calculator */
+  .calc-box {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 16px; margin-bottom: 12px;
+  }
+  .calc-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 12px; }
+  .slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .slider-label { font-size: 12px; color: var(--color-text-secondary); min-width: 100px; }
+  .slider-val { font-size: 13px; font-weight: 500; color: var(--color-text-primary); min-width: 40px; text-align: right; }
+  .result-box {
+    background: var(--color-background-primary);
+    border: 0.5px solid var(--color-border-tertiary);
+    border-radius: var(--border-radius-md);
+    padding: 12px; margin-top: 12px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .result-item { text-align: center; }
+  .result-num { font-size: 20px; font-weight: 700; color: var(--green-mid); line-height: 1; margin-bottom: 3px; }
+  .result-num.amber { color: #BA7517; }
+  .result-lbl { font-size: 10px; color: var(--color-text-tertiary); }
+
+  /* Practices list */
+  .practice-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .practice-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 11px 13px;
+    border-left: 2.5px solid var(--green-mid);
+  }
+  .practice-item:nth-child(even) { border-left-color: var(--amber); }
+  .practice-ico { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .practice-body h4 { font-size: 12px; font-weight: 500; color: var(--color-text-primary); margin: 0 0 2px; }
+  .practice-body p { font-size: 11px; color: var(--color-text-secondary); line-height: 1.55; margin: 0; }
+
+  /* SOC cycle diagram */
+  .cycle-wrap { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 4px; margin-bottom: 12px; }
+
+  /* ── Interactive Carbon Cycle ── */
+  .icc-wrap {
+    background: var(--color-background-secondary);
+    border-radius: var(--border-radius-md);
+    padding: 16px; margin-bottom: 14px;
+  }
+  .icc-label {
+    font-size: 11px; font-weight: 700; color: var(--color-text-secondary);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    text-align: center; margin-bottom: 14px;
+  }
+  .icc-ring {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px; margin-bottom: 14px;
+  }
+  .icc-step {
+    background: var(--color-background-primary);
+    border: 2px solid var(--color-border-tertiary);
+    border-radius: 12px; padding: 12px 8px;
+    text-align: center; cursor: pointer;
+    transition: all 0.2s; position: relative;
+  }
+  .icc-step:hover { border-color: var(--green-mid); transform: translateY(-2px); }
+  .icc-step.icc-active {
+    border-color: var(--amber);
+    background: #fef9ee;
+    box-shadow: 0 4px 16px rgba(245,166,35,0.2);
+    transform: translateY(-3px);
+  }
+  .icc-step .sn {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--soil-dark); color: var(--amber-lt);
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icc-step.icc-active .sn { background: var(--amber); color: var(--soil-dark); }
+  .icc-step .si { font-size: 24px; display: block; margin-bottom: 4px; }
+  .icc-step .sl { font-size: 11px; font-weight: 600; color: var(--color-text-primary); line-height: 1.3; }
+  .icc-detail {
+    background: var(--color-background-primary);
+    border: 1.5px solid var(--amber);
+    border-radius: 10px; padding: 14px 16px;
+    min-height: 110px; transition: all 0.25s;
+  }
+  .icc-detail .dh { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .icc-detail .di { font-size: 28px; flex-shrink: 0; }
+  .icc-detail .dt { font-size: 14px; font-weight: 700; color: var(--color-text-primary); line-height: 1.2; }
+  .icc-detail .ds { font-size: 11px; color: var(--color-text-tertiary); }
+  .icc-detail .db { font-size: 12px; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 8px; }
+  .icc-detail .df {
+    background: #EAF3DE; border-radius: 8px;
+    padding: 8px 12px; font-size: 12px; color: #27500A; line-height: 1.6;
+  }
+  .icc-detail .df strong { font-weight: 600; }
+  .icc-nav { display: flex; justify-content: center; gap: 6px; margin-top: 12px; }
+  .icc-dot {
+    width: 8px; height: 8px; border-radius: 4px;
+    background: var(--color-border-tertiary); cursor: pointer; transition: all 0.2s;
+  }
+  .icc-dot.icc-active { background: var(--amber); width: 22px; }
+
+  /* ── Trainer Tip Box ── */
+  .trainer-tip {
+    background: #f0f7ff;
+    border: 1.5px dashed #1a6b9e;
+    border-radius: var(--border-radius-md);
+    padding: 12px 14px; margin-top: 12px; margin-bottom: 4px;
+  }
+  .trainer-tip .tt-head {
+    font-size: 11px; font-weight: 700; color: #1a6b9e;
+    text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px;
+  }
+  .trainer-tip p { font-size: 12px; color: #1a3d5c; line-height: 1.65; margin: 0; }
+
+  /* Quick ref table */
+  .ref-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 12px; }
+  .ref-table th { background: var(--soil-dark); color: var(--amber-lt); padding: 8px 10px; text-align: left; font-weight: 500; }
+  .ref-table td { padding: 8px 10px; border-bottom: 0.5px solid var(--color-border-tertiary); color: var(--color-text-secondary); }
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table tr:hover td { background: var(--color-background-secondary); }
+  .status-good { color: #3B6D11; font-weight: 500; }
+  .status-avg { color: #854F0B; font-weight: 500; }
+  .status-poor { color: #A32D2D; font-weight: 500; }
+
+  /* CTA */
+  .cta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .cta-btn {
+    flex: 1; min-width: 120px;
+    padding: 10px 14px; border-radius: var(--border-radius-md);
+    font-size: 12px; font-weight: 500; cursor: pointer;
+    border: 0.5px solid var(--color-border-secondary);
+    background: var(--color-background-secondary);
+    color: var(--color-text-primary);
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    transition: all 0.15s; text-align: center;
+  }
+  .cta-btn:hover { background: var(--color-background-tertiary); }
+  .cta-btn.primary { background: var(--green-dark); color: #d4f0b0; border-color: var(--green-dark); }
+  .cta-btn.primary:hover { background: var(--green-mid); }
+
+  @keyframes barGrow { from { width: 0; } }
+</style>
+
+<div class="soc-wrap">
+  <h2 class="sr-only">मृदा कार्बनिक कार्बन (SOC) और मृदा कार्बनिक पदार्थ (SOM) का हिंदी में व्यापक विवरण</h2>
+
+  <!-- HERO -->
+  <div class="soc-hero">
+    <div class="hero-badge">🌱 PAPL · जैविक खेती प्रशिक्षण</div>
+    <div class="hero-title">मृदा कार्बनिक <em>कार्बन</em> एवं<br>मृदा कार्बनिक <em>पदार्थ</em></div>
+    <div class="hero-sub">
+      SOC और SOM — जैविक खेती की नींव। स्वस्थ मिट्टी का रहस्य यहाँ है।
+    </div>
+    <div class="hero-pills">
+      <span class="hero-pill active" onclick="scrollTo('def')">परिभाषा</span>
+      <span class="hero-pill" onclick="scrollTo('cycle')">चक्र</span>
+      <span class="hero-pill" onclick="scrollTo('factors')">कारक</span>
+      <span class="hero-pill" onclick="scrollTo('organic')">जैविक खेती</span>
+      <span class="hero-pill" onclick="scrollTo('measure')">मापन</span>
+      <span class="hero-pill" onclick="scrollTo('practices')">क्या करें</span>
+    </div>
+  </div>
+
+  <!-- SECTION 1: DEFINITION -->
+  <div class="sec-card" id="def">
+    <div class="sec-head" onclick="toggle('s1')">
+      <div class="sec-icon soil">🌍</div>
+      <div class="sec-title">
+        <h3>SOC और SOM क्या हैं?</h3>
+        <p>मूल परिभाषाएं और अंतर</p>
+      </div>
+      <span class="sec-chevron open" id="ch-s1">▼</span>
+    </div>
+    <div class="sec-body open" id="s1">
+      <div class="body-text">
+        <strong>मृदा कार्बनिक पदार्थ (SOM)</strong> — मिट्टी में मौजूद सभी जैविक सामग्री जैसे मृत पौधे, जीव-जंतु, कीड़े, सूक्ष्मजीव और उनके अवशेष। यह मिट्टी की "जीवंतता" की पहचान है।
+      </div>
+      <div class="body-text">
+        <strong>मृदा कार्बनिक कार्बन (SOC)</strong> — SOM का वह हिस्सा जो कार्बन तत्व के रूप में मापा जाता है। SOM में लगभग <strong>58% कार्बन</strong> होता है।
+      </div>
+
+      <div class="info-row">
+        <div class="info-box">
+          <div class="big-num">SOM</div>
+          <h4>मृदा कार्बनिक पदार्थ</h4>
+          <p>मिट्टी में सभी जैविक सामग्री — पौधे, जीव, सूक्ष्मजीव और उनके अवशेष</p>
+        </div>
+        <div class="info-box amber">
+          <div class="big-num" style="color:#BA7517">SOC</div>
+          <h4>मृदा कार्बनिक कार्बन</h4>
+          <p>SOM का कार्बन-रूप — SOM का 58% भाग। मापने में आसान और सटीक</p>
+        </div>
+      </div>
+
+      <div class="hi-box">
+        <p>🔗 <strong>सरल सूत्र:</strong> SOM = SOC × 1.724<br>
+        यानी अगर मिट्टी में 1% SOC है, तो SOM लगभग 1.72% होगा।</p>
+      </div>
+
+      <!-- Soil layers visual -->
+      <div class="soil-layers">
+        <div class="layer" style="background:#4a2810">
+          <span class="layer-ico">🌿</span>
+          <div class="layer-body">
+            <div class="layer-title">सतह परत (O Horizon) — 0–5 सेमी</div>
+            <div class="layer-desc">ताज़े पत्ते, अवशेष, सूक्ष्मजीव — SOM सबसे अधिक</div>
+          </div>
+          <span class="layer-val">↑ अधिक</span>
+        </div>
+        <div class="layer" style="background:#6b3d1e">
+          <span class="layer-ico">🪱</span>
+          <div class="layer-body">
+            <div class="layer-title">ऊपरी मृदा (A Horizon) — 5–30 सेमी</div>
+            <div class="layer-desc">ह्यूमस, केंचुए, जड़ें — SOC का मुख्य भंडार</div>
+          </div>
+          <span class="layer-val">SOC: 0.5–3%</span>
+        </div>
+        <div class="layer" style="background:#8b5e3c">
+          <span class="layer-ico">🪨</span>
+          <div class="layer-body">
+            <div class="layer-title">मध्य मृदा (B Horizon) — 30–60 सेमी</div>
+            <div class="layer-desc">खनिज पदार्थ अधिक, जैविक पदार्थ कम</div>
+          </div>
+          <span class="layer-val">SOC: 0.1–0.5%</span>
+        </div>
+        <div class="layer" style="background:#a0693a">
+          <span class="layer-ico">🏔️</span>
+          <div class="layer-body">
+            <div class="layer-title">आधार (C Horizon) — 60+ सेमी</div>
+            <div class="layer-desc">चट्टान और खनिज — जैविक कार्बन नगण्य</div>
+          </div>
+          <span class="layer-val">↓ कम</span>
+        </div>
+      </div>
+
+      <p class="body-text">भारत की अधिकांश कृषि मिट्टी में SOC <strong>0.3–0.8%</strong> के बीच है, जबकि स्वस्थ मिट्टी के लिए <strong>1.5–2.5%</strong> आवश्यक है।</p>
+
+      <div class="trainer-tip">
+        <div class="tt-head">🏫 प्रशिक्षक संकेत (Trainer Tip)</div>
+        <p>मुट्ठी भर मिट्टी उठाएं और किसानों से पूछें: <em>"इसमें क्या-क्या है?"</em> — जड़ें, कीड़े, रंग, गंध — सब देखें। फिर बताएं: <strong>यह सब मिलकर SOM है। इसका कार्बन हिस्सा SOC है।</strong> यह ठोस अनुभव परिभाषा से ज़्यादा याद रहता है।</p>
+      </div>
+      <div class="cta-row">
+        <button class="cta-btn" onclick="sendPrompt('भारत में मिट्टी की SOC स्थिति और सुधार के तरीके बताएं')">भारत की मिट्टी की स्थिति ↗</button>
+        <button class="cta-btn primary" onclick="sendPrompt('ह्यूमस क्या है और यह SOC से कैसे अलग है?')">ह्यूमस क्या है? ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: SOC CYCLE -->
+  <div class="sec-card" id="cycle">
+    <div class="sec-head" onclick="toggle('s2')">
+      <div class="sec-icon carbon">♻️</div>
+      <div class="sec-title">
+        <h3>कार्बन चक्र — मिट्टी में कार्बन कैसे आता-जाता है?</h3>
+        <p>इनपुट, भंडारण और हानि</p>
+      </div>
+      <span class="sec-chevron" id="ch-s2">▼</span>
+    </div>
+    <div class="sec-body" id="s2">
+      <!-- INTERACTIVE CARBON CYCLE -->
+      <div class="icc-wrap">
+        <div class="icc-label">👇 किसी भी चरण पर टैप करें — विस्तार से समझें</div>
+        <div class="icc-ring">
+          <div class="icc-step icc-active" onclick="showCS(0)" id="cs0"><span class="sn">1</span><span class="si">☀️</span><span class="sl">सूरज से शुरुआत</span></div>
+          <div class="icc-step" onclick="showCS(1)" id="cs1"><span class="sn">2</span><span class="si">🌱</span><span class="sl">पौधा कार्बन लेता है</span></div>
+          <div class="icc-step" onclick="showCS(2)" id="cs2"><span class="sn">3</span><span class="si">🍂</span><span class="sl">अवशेष जमीन में</span></div>
+          <div class="icc-step" onclick="showCS(3)" id="cs3"><span class="sn">4</span><span class="si">🦠</span><span class="sl">सूक्ष्मजीव तोड़ते हैं</span></div>
+          <div class="icc-step" onclick="showCS(4)" id="cs4"><span class="sn">5</span><span class="si">🌍</span><span class="sl">ह्यूमस बनता है</span></div>
+          <div class="icc-step" onclick="showCS(5)" id="cs5"><span class="sn">6</span><span class="si">⚠️</span><span class="sl">हानि कैसे होती है?</span></div>
+        </div>
+        <div class="icc-detail" id="icc-detail"></div>
+        <div class="icc-nav">
+          <div class="icc-dot icc-active" onclick="showCS(0)" id="dot0"></div>
+          <div class="icc-dot" onclick="showCS(1)" id="dot1"></div>
+          <div class="icc-dot" onclick="showCS(2)" id="dot2"></div>
+          <div class="icc-dot" onclick="showCS(3)" id="dot3"></div>
+          <div class="icc-dot" onclick="showCS(4)" id="dot4"></div>
+          <div class="icc-dot" onclick="showCS(5)" id="dot5"></div>
+        </div>
+      </div>
+
+      <div class="info-row">
+        <div class="info-box">
+          <h4>SOC बढ़ाने वाले स्रोत (Input)</h4>
+          <p>🌿 पौधों के अवशेष<br>🐄 पशु खाद / गोबर<br>🍂 हरी खाद<br>🌱 जड़ों का स्राव<br>🦠 सूक्ष्मजीव बायोमास</p>
+        </div>
+        <div class="info-box amber">
+          <h4>SOC घटाने वाले कारण (Loss)</h4>
+          <p>⚠️ गहरी जुताई<br>🌊 वर्षा से क्षरण<br>🔥 फसल अवशेष जलाना<br>☀️ अत्यधिक गर्मी<br>🧪 रासायनिक खाद का अधिक प्रयोग</p>
+        </div>
+      </div>
+
+      <div class="trainer-tip">
+        <div class="tt-head">🏫 प्रशिक्षक संकेत (Trainer Tip)</div>
+        <p>किसानों से पूछें: <em>"फसल काटने के बाद अवशेष का क्या करते हैं?"</em> जो जलाते हैं — उन्हें चरण 3 और 6 दिखाएं। जो मल्च करते हैं — चरण 4 और 5 से जोड़ें। हर जवाब को चक्र से जोड़ने पर किसान खुद समझ जाते हैं कि नुकसान क्यों हो रहा है।</p>
+      </div>
+      <div class="cta-row">
+        <button class="cta-btn" onclick="sendPrompt('ह्यूमस बनने की प्रक्रिया विस्तार से समझाएं')">ह्यूमस निर्माण ↗</button>
+        <button class="cta-btn primary" onclick="sendPrompt('मिट्टी में कार्बन सीक्वेस्ट्रेशन क्या है?')">Carbon Sequestration ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: FACTORS -->
+  <div class="sec-card" id="factors">
+    <div class="sec-head" onclick="toggle('s3')">
+      <div class="sec-icon factor">⚙️</div>
+      <div class="sec-title">
+        <h3>SOC/SOM को प्रभावित करने वाले कारक</h3>
+        <p>जलवायु, मिट्टी, खेती और मानव गतिविधियाँ</p>
+      </div>
+      <span class="sec-chevron" id="ch-s3">▼</span>
+    </div>
+    <div class="sec-body" id="s3">
+      <div class="factor-grid">
+        <div class="factor-card">
+          <div class="factor-ico">🌡️</div>
+          <h4>तापमान</h4>
+          <p>उच्च तापमान सूक्ष्मजीव क्रिया बढ़ाता है → SOC तेज़ी से घटता है। ठंडी जलवायु में SOC अधिक जमा होता है।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🌧️</div>
+          <h4>वर्षा / नमी</h4>
+          <p>मध्यम नमी = अधिक जैव विविधता और जैविक पदार्थ। अत्यधिक वर्षा = क्षरण और लीचिंग से SOC हानि।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🧱</div>
+          <h4>मिट्टी की बनावट</h4>
+          <p>चिकनी मिट्टी (clay) SOC को अधिक धारण करती है। रेतीली मिट्टी में SOC कम टिकता है।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🌱</div>
+          <h4>फसल प्रणाली</h4>
+          <p>विविध फसलें, हरी खाद और मिश्रित खेती SOC बढ़ाती हैं। मोनोकल्चर SOC घटाता है।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🚜</div>
+          <h4>जुताई</h4>
+          <p>गहरी जुताई मिट्टी की संरचना तोड़ती है → SOC तेज़ी से नष्ट होता है। जीरो-टिलेज से SOC बचता है।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🐄</div>
+          <h4>जैविक खाद</h4>
+          <p>गोबर खाद, कम्पोस्ट और वर्मीकम्पोस्ट SOC का सबसे प्रभावी स्रोत हैं।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🦠</div>
+          <h4>सूक्ष्मजीव क्रिया</h4>
+          <p>बैक्टीरिया, फंगस और केंचुए SOM को तोड़कर पोषण देते हैं। इनकी संख्या SOC का दर्पण है।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🔥</div>
+          <h4>अवशेष जलाना</h4>
+          <p>फसल अवशेष जलाने से SOC, नाइट्रोजन और सूक्ष्मजीव सभी नष्ट होते हैं। यह सबसे हानिकारक प्रथा है।</p>
+        </div>
+      </div>
+
+      <!-- Comparative bars -->
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">विभिन्न कृषि प्रणालियों में औसत SOC (%)</p>
+
+      <div class="comp-bar">
+        <div class="comp-label"><span>जैविक खेती (Organic)</span><span style="font-weight:500;color:#27500A">1.8–2.5%</span></div>
+        <div class="comp-track"><div class="comp-fill" style="width:88%;background:#639922" id="b1"></div></div>
+      </div>
+      <div class="comp-bar">
+        <div class="comp-label"><span>मिश्रित / अर्ध-जैविक</span><span style="font-weight:500;color:#854F0B">1.0–1.5%</span></div>
+        <div class="comp-track"><div class="comp-fill" style="width:55%;background:#EF9F27" id="b2"></div></div>
+      </div>
+      <div class="comp-bar">
+        <div class="comp-label"><span>पारंपरिक रासायनिक खेती</span><span style="font-weight:500;color:#A32D2D">0.3–0.7%</span></div>
+        <div class="comp-track"><div class="comp-fill" style="width:25%;background:#E24B4A" id="b3"></div></div>
+      </div>
+      <div class="comp-bar">
+        <div class="comp-label"><span>भारत की औसत कृषि मिट्टी</span><span style="font-weight:500;color:#633806">0.4–0.8%</span></div>
+        <div class="comp-track"><div class="comp-fill" style="width:28%;background:#BA7517" id="b4"></div></div>
+      </div>
+
+      <div class="trainer-tip">
+        <div class="tt-head">🏫 प्रशिक्षक संकेत (Trainer Tip)</div>
+        <p>बार चार्ट दिखाकर पूछें: <em>"आपका खेत इन चारों में से कहाँ है?"</em> — किसान खुद जवाब देंगे। इससे वे अपनी स्थिति पहचानते हैं और सुधार की ज़रूरत महसूस करते हैं। फिर पूछें: <strong>"जैविक खेती से कितने साल में ऊपर जा सकते हैं?"</strong> — अगले सेक्शन का कैलकुलेटर दिखाएं।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: ORGANIC FARMING -->
+  <div class="sec-card" id="organic">
+    <div class="sec-head" onclick="toggle('s4')">
+      <div class="sec-icon farm">🌾</div>
+      <div class="sec-title">
+        <h3>जैविक खेती में SOC/SOM का महत्व</h3>
+        <p>स्वस्थ मिट्टी = अधिक उपज = टिकाऊ आजीविका</p>
+      </div>
+      <span class="sec-chevron" id="ch-s4">▼</span>
+    </div>
+    <div class="sec-body" id="s4">
+      <div class="info-row">
+        <div class="info-box">
+          <div class="big-num">5</div>
+          <h4>SOC के 5 मुख्य कार्य</h4>
+          <p>पोषण · जल · संरचना · जैव विविधता · रोग रोधक</p>
+        </div>
+        <div class="info-box blue" style="border-left-color:#1a6b9e">
+          <div class="big-num" style="color:#0C447C">58%</div>
+          <h4>SOM में कार्बन का अनुपात</h4>
+          <p>इसीलिए SOC मापना SOM मापने से सरल और सटीक होता है</p>
+        </div>
+      </div>
+
+      <div class="practice-list">
+        <div class="practice-item">
+          <span class="practice-ico">💧</span>
+          <div class="practice-body">
+            <h4>जल धारण क्षमता बढ़ाता है</h4>
+            <p>1% SOC बढ़ने से मिट्टी की जल धारण क्षमता लगभग 20 लीटर प्रति वर्ग मीटर बढ़ती है। सूखे में भी फसल सुरक्षित रहती है।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🌿</span>
+          <div class="practice-body">
+            <h4>पोषण तत्वों का स्रोत</h4>
+            <p>SOM विघटन से N, P, K, S और सूक्ष्म तत्व धीरे-धीरे मिलते हैं — रासायनिक खाद की ज़रूरत कम होती है।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🦠</span>
+          <div class="practice-body">
+            <h4>लाभकारी सूक्ष्मजीवों का घर</h4>
+            <p>उच्च SOC वाली मिट्टी में माइकोराइजा, राइज़ोबियम और अन्य लाभकारी जीव पनपते हैं जो पोषण और रोग-रोधी क्षमता देते हैं।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🏗️</span>
+          <div class="practice-body">
+            <h4>मिट्टी की संरचना और वायु संचार</h4>
+            <p>SOM मिट्टी के कणों को एकत्रित करता है → अच्छा aggregation → जड़ों को ऑक्सीजन और विस्तार का स्थान मिलता है।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🌡️</span>
+          <div class="practice-body">
+            <h4>जलवायु परिवर्तन में भूमिका</h4>
+            <p>मिट्टी में कार्बन भंडारण (Carbon Sequestration) ग्रीनहाउस गैस कम करता है। जैविक खेती जलवायु संरक्षण में सहभागी है।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🛡️</span>
+          <div class="practice-body">
+            <h4>रोग और कीट प्रतिरोध</h4>
+            <p>स्वस्थ SOM → विविध सूक्ष्मजीव → प्राकृतिक रोग दबाव (Suppressive Soil) → कम रासायनिक छिड़काव की आवश्यकता।</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive calculator -->
+      <div class="calc-box">
+        <div class="calc-title">📊 SOC सुधार कैलकुलेटर — अपने खेत के लिए अनुमान लगाएं</div>
+        <div class="slider-row">
+          <span class="slider-label">खेत (एकड़)</span>
+          <input type="range" min="1" max="20" value="5" step="1" id="farm-acres" oninput="calcSOC()">
+          <span class="slider-val" id="acres-val">5</span>
+        </div>
+        <div class="slider-row">
+          <span class="slider-label">वर्तमान SOC (%)</span>
+          <input type="range" min="1" max="10" value="4" step="1" id="curr-soc" oninput="calcSOC()">
+          <span class="slider-val" id="soc-val">0.4</span>
+        </div>
+        <div class="slider-row">
+          <span class="slider-label">लक्ष्य SOC (%)</span>
+          <input type="range" min="5" max="20" value="10" step="1" id="target-soc" oninput="calcSOC()">
+          <span class="slider-val" id="target-val">1.0</span>
+        </div>
+        <div class="result-box">
+          <div class="result-item">
+            <div class="result-num" id="compost-need">12.5</div>
+            <div class="result-lbl">टन कम्पोस्ट चाहिए (प्रति वर्ष)</div>
+          </div>
+          <div class="result-item">
+            <div class="result-num amber" id="years-need">3–5</div>
+            <div class="result-lbl">अनुमानित वर्ष</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trainer-tip">
+        <div class="tt-head">🏫 प्रशिक्षक संकेत (Trainer Tip)</div>
+        <p>कैलकुलेटर में किसान के खेत का डेटा डालें — एकड़, वर्तमान SOC, लक्ष्य। जब परिणाम आए, तो पूछें: <em>"क्या आप इतना कम्पोस्ट बना सकते हैं?"</em> यह व्यक्तिगत लगता है और किसान को अपना लक्ष्य याद रहता है।</p>
+      </div>
+      <div class="cta-row">
+        <button class="cta-btn" onclick="sendPrompt('वर्मीकम्पोस्ट से SOC कितना और कितनी जल्दी बढ़ता है?')">वर्मीकम्पोस्ट और SOC ↗</button>
+        <button class="cta-btn primary" onclick="sendPrompt('कपास की फसल में SOC बढ़ाने के सर्वोत्तम तरीके बताएं')">कपास में SOC ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: MEASUREMENT -->
+  <div class="sec-card" id="measure">
+    <div class="sec-head" onclick="toggle('s5')">
+      <div class="sec-icon measure">🔬</div>
+      <div class="sec-title">
+        <h3>SOC मापन — कैसे जाँचें?</h3>
+        <p>प्रयोगशाला विधियाँ, संदर्भ मान और भारतीय मानक</p>
+      </div>
+      <span class="sec-chevron" id="ch-s5">▼</span>
+    </div>
+    <div class="sec-body" id="s5">
+      <div class="body-text">मिट्टी जाँच (Soil Testing) से SOC और SOM का पता चलता है। भारत में कृषि विभाग और कई निजी प्रयोगशालाएं यह जाँच करती हैं।</div>
+
+      <div class="factor-grid">
+        <div class="factor-card">
+          <div class="factor-ico">🧪</div>
+          <h4>Walkley-Black विधि</h4>
+          <p>सबसे प्रचलित प्रयोगशाला विधि। ऑक्सीकरण द्वारा SOC मापता है। भारत में मानक।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">🔥</div>
+          <h4>Loss on Ignition (LOI)</h4>
+          <p>मिट्टी गर्म करके वजन में कमी से SOM मापते हैं। सरल लेकिन कम सटीक।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">💡</div>
+          <h4>Soil Health Card</h4>
+          <p>भारत सरकार की योजना — नि:शुल्क मिट्टी जाँच और SOC की जानकारी मिलती है।</p>
+        </div>
+        <div class="factor-card">
+          <div class="factor-ico">📱</div>
+          <h4>डिजिटल सेंसर</h4>
+          <p>नई तकनीक — NIR (Near-Infrared) स्कैनर से खेत में ही त्वरित SOC अनुमान।</p>
+        </div>
+      </div>
+
+      <p style="font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:8px;">SOC स्तर की व्याख्या (भारतीय कृषि मिट्टी)</p>
+      <table class="ref-table">
+        <tr>
+          <th>SOC (%)</th>
+          <th>स्थिति</th>
+          <th>मिट्टी स्वास्थ्य</th>
+          <th>आवश्यक कार्रवाई</th>
+        </tr>
+        <tr>
+          <td>&lt; 0.5%</td>
+          <td class="status-poor">अत्यंत कम</td>
+          <td>बहुत खराब</td>
+          <td>तत्काल जैविक खाद, हरी खाद आवश्यक</td>
+        </tr>
+        <tr>
+          <td>0.5 – 0.75%</td>
+          <td class="status-poor">कम</td>
+          <td>खराब</td>
+          <td>कम्पोस्ट + फसल अवशेष प्रबंधन</td>
+        </tr>
+        <tr>
+          <td>0.75 – 1.5%</td>
+          <td class="status-avg">मध्यम</td>
+          <td>ठीक</td>
+          <td>जैविक खेती प्रथाएं जारी रखें</td>
+        </tr>
+        <tr>
+          <td>1.5 – 2.5%</td>
+          <td class="status-good">अच्छा</td>
+          <td>स्वस्थ</td>
+          <td>बनाए रखें — उत्कृष्ट जैविक मिट्टी</td>
+        </tr>
+        <tr>
+          <td>&gt; 2.5%</td>
+          <td class="status-good">उत्कृष्ट</td>
+          <td>बहुत स्वस्थ</td>
+          <td>जैविक प्रमाणन के लिए उपयुक्त</td>
+        </tr>
+      </table>
+
+      <div class="hi-box">
+        <p>🏛️ <strong>Soil Health Card (मिट्टी स्वास्थ्य कार्ड):</strong> soilhealth.dac.gov.in पर अपने गाँव की मिट्टी जाँच रिपोर्ट देखें। हर 2 वर्ष में निःशुल्क जाँच करवाएं।</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: PRACTICES -->
+  <div class="sec-card" id="practices">
+    <div class="sec-head" onclick="toggle('s6')">
+      <div class="sec-icon carbon">✅</div>
+      <div class="sec-title">
+        <h3>SOC बढ़ाने के व्यावहारिक तरीके</h3>
+        <p>जैविक खेती में लागू करने योग्य 8 प्रमुख कदम</p>
+      </div>
+      <span class="sec-chevron" id="ch-s6">▼</span>
+    </div>
+    <div class="sec-body" id="s6">
+      <div class="practice-list">
+        <div class="practice-item">
+          <span class="practice-ico">♻️</span>
+          <div class="practice-body">
+            <h4>1. कम्पोस्ट और वर्मीकम्पोस्ट</h4>
+            <p>प्रति एकड़ 2–4 टन कम्पोस्ट प्रतिवर्ष। यह सबसे तेज़ और प्रभावी SOC निर्माण विधि है।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🌿</span>
+          <div class="practice-body">
+            <h4>2. हरी खाद (Green Manure)</h4>
+            <p>ढैंचा, सनई या मूँग को खेत में पलटें। 1 टन हरी खाद = 0.05–0.1% SOC वृद्धि।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🌾</span>
+          <div class="practice-body">
+            <h4>3. फसल अवशेष प्रबंधन</h4>
+            <p>कभी न जलाएं — अवशेष को मिट्टी में मिलाएं या मल्च के रूप में छोड़ें।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🔄</span>
+          <div class="practice-body">
+            <h4>4. फसल चक्र (Crop Rotation)</h4>
+            <p>दलहनी फसलें (सोयाबीन, चना, मूँग) नाइट्रोजन स्थिरीकरण + SOC दोनों बढ़ाती हैं।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🪱</span>
+          <div class="practice-body">
+            <h4>5. न्यूनतम जुताई (Zero/Minimum Tillage)</h4>
+            <p>कम जुताई से मिट्टी की संरचना बनी रहती है और SOC का वायुमंडलीय ऑक्सीकरण कम होता है।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🌲</span>
+          <div class="practice-body">
+            <h4>6. कृषि वानिकी (Agroforestry)</h4>
+            <p>खेत में पेड़ लगाने से गहरी जड़ें + पत्ती-झड़ — दीर्घकालिक SOC बढ़ाते हैं।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">🐄</span>
+          <div class="practice-body">
+            <h4>7. एकीकृत पशुपालन</h4>
+            <p>गोबर खाद, गोमूत्र जीवामृत और पशु चराई — सभी मिलकर SOC और सूक्ष्मजीव दोनों बढ़ाते हैं।</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <span class="practice-ico">💧</span>
+          <div class="practice-body">
+            <h4>8. उचित सिंचाई प्रबंधन</h4>
+            <p>अत्यधिक सिंचाई से अवायवीय स्थिति बनती है जो SOC नष्ट करती है। ड्रिप इरिगेशन SOC के लिए आदर्श है।</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hi-box">
+        <p>🎯 <strong>PAPL लक्ष्य:</strong> जैविक प्रमाणन के लिए मिट्टी में <strong>SOC ≥ 0.75%</strong> और वार्षिक वृद्धि <strong>+0.1–0.2%</strong> का लक्ष्य रखें। 3–5 वर्षों में 1.5% तक पहुँचना संभव है।</p>
+      </div>
+
+      <div class="trainer-tip">
+        <div class="tt-head">🏫 प्रशिक्षक संकेत (Trainer Tip)</div>
+        <p>इन 8 तरीकों में से किसान से पूछें: <em>"आप पहले से कौन-कौन से कर रहे हैं?"</em> जो पहले से करते हैं उनकी तारीफ करें। फिर एक नई प्रथा चुनने को कहें जो वे <strong>अगले सीज़न से</strong> शुरू कर सकते हैं — पूरी 8 एक साथ नहीं, सिर्फ एक। यह छोटा कदम टिकाऊ बदलाव लाता है।</p>
+      </div>
+      <div class="cta-row">
+        <button class="cta-btn" onclick="sendPrompt('SOC के लिए जीवामृत और बीजामृत की विधि बताएं')">जीवामृत विधि ↗</button>
+        <button class="cta-btn" onclick="sendPrompt('Soil Health Card कैसे बनाएं और SOC रिपोर्ट कैसे पढ़ें?')">Soil Health Card ↗</button>
+        <button class="cta-btn primary" onclick="sendPrompt('SOC और SOM पर PAPL किसानों के लिए एक प्रशिक्षण सत्र योजना बनाएं')">Training Plan ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggle(id) {
+  const body = document.getElementById(id);
+  const ch = document.getElementById('ch-' + id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  body.style.display = isOpen ? 'none' : 'block';
+  ch.classList.toggle('open', !isOpen);
+}
+
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.hero-pill').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  const secMap = { def: 's1', cycle: 's2', factors: 's3', organic: 's4', measure: 's5', practices: 's6' };
+  const secId = secMap[id];
+  if (secId) {
+    const body = document.getElementById(secId);
+    const ch = document.getElementById('ch-' + secId);
+    body.classList.add('open');
+    body.style.display = 'block';
+    if (ch) ch.classList.add('open');
+  }
+}
+
+function calcSOC() {
+  const acres = parseInt(document.getElementById('farm-acres').value);
+  const curr = parseInt(document.getElementById('curr-soc').value) / 10;
+  const target = parseInt(document.getElementById('target-soc').value) / 10;
+  document.getElementById('acres-val').textContent = acres;
+  document.getElementById('soc-val').textContent = curr.toFixed(1);
+  document.getElementById('target-val').textContent = target.toFixed(1);
+  const diff = Math.max(0, target - curr);
+  const compost = Math.round(acres * diff * 25 * 10) / 10;
+  const years = diff <= 0.3 ? '1–2' : diff <= 0.8 ? '3–5' : '5–8';
+  document.getElementById('compost-need').textContent = compost;
+  document.getElementById('years-need').textContent = years;
+}
+
+
+// ── Interactive Carbon Cycle Data ──
+const cycleSteps = [
+  {
+    ico: '☀️',
+    title: 'चरण 1: सूरज से शुरुआत',
+    sub: 'ऊर्जा का स्रोत — वायुमंडल से CO₂',
+    body: 'सूरज की रोशनी पृथ्वी पर पड़ती है। वायुमंडल में मौजूद CO₂ (कार्बन डाइऑक्साइड) पौधों के लिए कच्चा माल है। यहीं से कार्बन चक्र की शुरुआत होती है।',
+    farmer: '💡 <strong>किसान के लिए:</strong> जैसे हम खाना खाते हैं, पौधा हवा से CO₂ "खाता" है। सूरज उसका "चूल्हा" है।'
+  },
+  {
+    ico: '🌱',
+    title: 'चरण 2: पौधा कार्बन लेता है',
+    sub: 'प्रकाश संश्लेषण — CO₂ → जैविक कार्बन',
+    body: 'पत्तियाँ CO₂ सोखती हैं और सूरज की रोशनी से शर्करा (sugar) बनाती हैं। यह शर्करा पौधे के तने, जड़, फल और बीज में जमा होती है। यही कार्बनिक कार्बन है।',
+    farmer: '💡 <strong>किसान के लिए:</strong> हरे पत्ते जितने अधिक और लंबे समय तक, उतना अधिक कार्बन खेत में आता है। इसीलिए हरी खाद और आच्छादन फसलें (cover crops) ज़रूरी हैं।'
+  },
+  {
+    ico: '🍂',
+    title: 'चरण 3: अवशेष जमीन में मिलते हैं',
+    sub: 'फसल अवशेष, जड़ें, पत्तियाँ — SOC का इनपुट',
+    body: 'पौधा मरने पर या फसल कटने के बाद — जड़ें, पत्तियाँ, तना मिट्टी में मिलते हैं। यही SOM का मुख्य स्रोत है। जितना अधिक अवशेष मिट्टी में, उतना अधिक SOC।',
+    farmer: '💡 <strong>किसान के लिए:</strong> पराली/ठूँठ जलाना = खेत में आग लगाना। यह कार्बन सीधे हवा में जाता है। अवशेष मिट्टी में मिलाएं या मल्च करें — यही SOC बढ़ाने का सबसे सस्ता तरीका है।'
+  },
+  {
+    ico: '🦠',
+    title: 'चरण 4: सूक्ष्मजीव काम करते हैं',
+    sub: 'विघटन (Decomposition) — जैविक → खनिज',
+    body: 'बैक्टीरिया, फंगस और केंचुए अवशेषों को तोड़ते हैं। यह प्रक्रिया गर्मी, नमी और ऑक्सीजन पर निर्भर है। इस दौरान कुछ CO₂ वापस हवा में जाती है, कुछ ह्यूमस बनता है।',
+    farmer: '💡 <strong>किसान के लिए:</strong> मिट्टी में जितने अधिक केंचुए और जीवाणु, उतना बेहतर विघटन। जीवामृत और वर्मीकम्पोस्ट इन्हीं को बढ़ाते हैं।'
+  },
+  {
+    ico: '🌍',
+    title: 'चरण 5: ह्यूमस बनता है — SOC जमा होता है',
+    sub: 'स्थायी कार्बन भंडार — मिट्टी का खजाना',
+    body: 'विघटन के बाद बचा हुआ स्थायी कार्बनिक पदार्थ ह्यूमस कहलाता है। यह मिट्टी में सालों-सालों तक रहता है। यही SOC का मुख्य रूप है जो मिट्टी को काला, उपजाऊ और नमीदार बनाता है।',
+    farmer: '💡 <strong>किसान के लिए:</strong> काली मिट्टी = अधिक ह्यूमस = अधिक SOC। अगर मिट्टी गहरी काली है और गंध अच्छी है, तो SOC अच्छा है। यह "जमीन का सोना" है।'
+  },
+  {
+    ico: '⚠️',
+    title: 'चरण 6: हानि — SOC कैसे घटता है?',
+    sub: 'जुताई · जलाना · क्षरण · रासायनिक खाद',
+    body: 'गहरी जुताई मिट्टी को उलट-पलट करती है → ऑक्सीजन बढ़ती है → सूक्ष्मजीव SOC तेज़ी से जला देते हैं। वर्षा से मिट्टी बहती है और SOC साथ जाता है। रासायनिक खाद सूक्ष्मजीवों को कम करती है।',
+    farmer: '💡 <strong>किसान के लिए:</strong> खेत में तीन काम बंद करें → <strong>1) पराली जलाना</strong>, <strong>2) बहुत गहरी जुताई</strong>, <strong>3) बिना ज़रूरत के रासायनिक DAP/यूरिया।</strong> इन तीन से SOC सबसे तेज़ घटता है।'
+  }
+];
+
+let cycleTimer = null;
+
+function showCS(i) {
+  // Update step buttons
+  for (let j = 0; j < 6; j++) {
+    const el = document.getElementById('cs' + j);
+    const dot = document.getElementById('dot' + j);
+    if (el) el.classList.toggle('icc-active', j === i);
+    if (dot) dot.classList.toggle('icc-active', j === i);
+  }
+  // Render detail panel
+  const d = cycleSteps[i];
+  const det = document.getElementById('icc-detail');
+  if (det) {
+    det.innerHTML = '<div class="dh"><span class="di">' + d.ico + '</span><div><div class="dt">' + d.title + '</div><div class="ds">' + d.sub + '</div></div></div>' +
+      '<div class="db">' + d.body + '</div>' +
+      '<div class="df">' + d.farmer + '</div>';
+  }
+}
+
+// Auto-advance cycle every 5 seconds when section is open
+function startCycleAuto() {
+  let cur = 0;
+  showCS(0);
+  cycleTimer = setInterval(function() {
+    cur = (cur + 1) % 6;
+    showCS(cur);
+  }, 5000);
+}
+
+window.addEventListener('load', () => {
+  showCS(0);
+  calcSOC();
+  ['b1','b2','b3','b4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const w = el.style.width; el.style.width = '0'; setTimeout(() => el.style.width = w, 100); }
+  });
+});
+</script>
